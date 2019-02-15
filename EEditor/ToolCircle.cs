@@ -211,10 +211,10 @@ namespace EEditor
         {
             if (show)
             {
-                Bitmap bmp = new Bitmap(16, 16);
+                Bitmap bmp = new Bitmap(MainForm.Zoom, MainForm.Zoom);
                 Graphics g = Graphics.FromImage(editArea.Back1);
                 Graphics gr = Graphics.FromImage(bmp);
-                gr.FillRectangle(new SolidBrush(Color.Transparent), 0, 0, 16, 16);
+                gr.FillRectangle(new SolidBrush(Color.Transparent), 0, 0, MainForm.Zoom, MainForm.Zoom);
                 if (end.X == start.X && end.Y > start.Y)
                 {
                     xStart = start.X;
@@ -390,11 +390,11 @@ namespace EEditor
                     }
                     else
                     {
-                        img1 = MainForm.foregroundBMD.Clone(new Rectangle(MainForm.foregroundBMI[PenID] * 16, 0, 16, 16), MainForm.foregroundBMD.PixelFormat);
+                        img1 = MainForm.foregroundBMD.Clone(new Rectangle(MainForm.foregroundBMI[PenID] * 16, 0, MainForm.Zoom, MainForm.Zoom), MainForm.foregroundBMD.PixelFormat);
                     }
                 }
                 Image img2 = bdata.SetImageOpacity(img1, 0.5f);
-                g.DrawImage(img2, x * 16, y * 16);
+                g.DrawImage(img2, x * MainForm.Zoom, y * MainForm.Zoom);
             }
         }
     }

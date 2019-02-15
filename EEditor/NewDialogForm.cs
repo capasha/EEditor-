@@ -263,19 +263,20 @@ namespace EEditor
 
             try
             {
-                if (MainForm.accs[MainForm.selectedAcc].loginMethod == 0 && MainForm.accs.ContainsKey(MainForm.selectedAcc))
+                var value = MainForm.accs[MainForm.selectedAcc].loginMethod;
+                if (value == 0 && MainForm.accs.ContainsKey(MainForm.selectedAcc))
                 {
                     client = PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.selectedAcc].login, MainForm.accs[MainForm.selectedAcc].password, null);
                 }
-                else if (MainForm.accs[MainForm.selectedAcc].loginMethod == 1 && MainForm.accs.ContainsKey(MainForm.selectedAcc))
+                else if (value == 1 && MainForm.accs.ContainsKey(MainForm.selectedAcc))
                 {
                     client = PlayerIO.QuickConnect.FacebookOAuthConnect(bdata.gameID, MainForm.accs[MainForm.selectedAcc].login, null, null);
                 }
-                else if (MainForm.accs[MainForm.selectedAcc].loginMethod == 2 && MainForm.accs.ContainsKey(MainForm.selectedAcc))
+                else if (value == 2 && MainForm.accs.ContainsKey(MainForm.selectedAcc))
                 {
                     client = PlayerIO.QuickConnect.KongregateConnect(bdata.gameID, MainForm.accs[MainForm.selectedAcc].login, MainForm.accs[MainForm.selectedAcc].password, null);
                 }
-                else if (MainForm.accs[MainForm.selectedAcc].loginMethod == 3 && MainForm.accs.ContainsKey(MainForm.selectedAcc))
+                else if (value == 3 && MainForm.accs.ContainsKey(MainForm.selectedAcc))
                 {
                     client = PlayerIO.Authenticate(bdata.gameID, "secure", new Dictionary<string, string> { { "userId", MainForm.accs[MainForm.selectedAcc].login }, { "authToken", MainForm.accs[MainForm.selectedAcc].password } }, null);
                 }
@@ -303,7 +304,7 @@ namespace EEditor
                         (RoomInfo[] rinfo) => {
                             foreach (var val in rinfo) {
                                 if (val.Id.StartsWith("OW")) {
-                                    if (val.Id.StartsWith(MainForm.userdata.level.Substring(0, 4))) {
+                                    if (val.Id == MainForm.userdata.level) {
                                         MainForm.userdata.level = val.Id;
                                         Connection = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, "Everybodyedits" + client.BigDB.Load("config", "config")["version"], true, null, null);
                                         Connection.OnMessage += OnMessage;
@@ -340,8 +341,6 @@ namespace EEditor
                     DatabaseObject dbo = client.BigDB.Load("Worlds", MainForm.userdata.level);
                     if (dbo != null)
                     {
-                        if (dbo.Contains("worldDescription") && dbo["worldDescription"].ToString().Contains("AllowEEditor"))
-                        {
                             var name = dbo.Contains("name") ? dbo["name"].ToString() : "Untitled World";
                             owner = dbo.Contains("owner") ? dbo["owner"].ToString() : null;
                             if (dbo.Contains("width") && dbo.Contains("height") && dbo.Contains("worlddata"))
@@ -426,8 +425,8 @@ namespace EEditor
                                 }
                                 else
                                 {
-                                    MessageBox.Show("NO U");
-                                }
+                                    MessageBox.Show("Couldn't read mapdata", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                             }
                             else
                             {
@@ -435,11 +434,6 @@ namespace EEditor
                                 DialogResult = System.Windows.Forms.DialogResult.Cancel;
                             }
                             Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("NO U");
-                        }
                     }
                 }
                 else if (datas == 2)
@@ -556,7 +550,7 @@ namespace EEditor
                     }
 
                     var owner = e.GetString(0)?.Length == 0 ? "Unknown" : e.GetString(0);
-                    MainForm.Text = e[1] + " by " + owner + " (" + e[18] + "x" + e[19] + ") - EEditor " + this.ProductVersion;
+                    MainForm.Text = $"{e[1]} by {owner} ({e[18]}x{e[19]}) - EEditor {this.ProductVersion}";
                     SizeWidth = MapFrame.Width;
                     SizeHeight = MapFrame.Height;
                     Connection.Disconnect();
@@ -567,7 +561,7 @@ namespace EEditor
                 }
                 else
                 {
-                    MessageBox.Show("World's width and height aren't integers. Please report this to our bug tracker.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Couldn't read mapdata", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     s.Release();
                     DialogResult = System.Windows.Forms.DialogResult.Cancel;
                     Close();
@@ -575,28 +569,23 @@ namespace EEditor
             }
             else if (e.Type == "upgrade")
             {
-                MessageBox.Show("Game got updated. Please report this to our bug tracker.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Game got updated.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 s.Release();
                 DialogResult = System.Windows.Forms.DialogResult.Cancel;
                 Close();
             }
             else
             {
-                messages += 1;
-                if (messages == 1)
+                //Console.WriteLine(e.ToString());
+                if (e.Type == "info")
                 {
-                    if (e.Count != 0)
-                    {
-                        MessageBox.Show(e.GetString(0), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        MessageBox.Show(e.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show(e.GetString(1), e.GetString(0), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     s.Release();
                     DialogResult = System.Windows.Forms.DialogResult.Cancel;
                     Close();
                 }
+
+                
 
                 //if (e.Type != "b" && e.Type != "m" && e.Type != "hide" && e.Type != "show")Console.WriteLine(e.ToString());
             }

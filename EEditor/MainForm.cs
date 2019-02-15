@@ -13,6 +13,7 @@ namespace EEditor
     public partial class MainForm : Form
     {
         public static bool debug = false;
+        public static int Zoom = 16;
         public static string selectedAcc = "guest";
         public static bool OpenWorld = false;
         public static bool OpenWorldCode = false;
@@ -4435,11 +4436,14 @@ namespace EEditor
             {
                 userdata.useColor = true;
                 userdata.thisColor = Color.LightGray;
+                LightToolStripButton.Image = Properties.Resources.lightOn;
+
             }
             else
             {
                 userdata.useColor = false;
                 userdata.thisColor = Color.Transparent;
+                LightToolStripButton.Image = Properties.Resources.lightOff;
             }
             Graphics g = Graphics.FromImage(MainForm.editArea.Back);
             for (int y = 0; y < MainForm.editArea.Frames[0].Height; y++)

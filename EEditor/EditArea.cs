@@ -76,6 +76,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
             this.Visible = true;
 
 
+
         }
 
         private void EditArea_DragEnter(object sender, DragEventArgs e)
@@ -179,7 +180,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                     y0 += sy;
                 }
             }
-            Rectangle r = new Rectangle(0, 0, 16, 16);
+            Rectangle r = new Rectangle(0, 0, MainForm.Zoom, MainForm.Zoom);
             Graphics g = Graphics.FromImage(Back);
             for (int i = 0; i < xs.Count; ++i)
             {
@@ -283,7 +284,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                     {
                         if (MainForm.ownedb[i].blocks[o] == bid && MainForm.ownedb[i].mode == mode)
                         {
-                            
+
                             exists = true;
                             break;
                         }
@@ -313,16 +314,22 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
         {
             BlockHeight = frame.Height;
             BlockWidth = frame.Width;
-            for (int i = 0; i < BlockHeight; ++i)
-                for (int j = 0; j < BlockWidth; ++j)
-                {
-
-                }
             Frames.Clear();
             Frames.Add(frame);
             curFrame = 0;
-            Size size = new Size(BlockWidth * 16, BlockHeight * 16);
-            Back = new Bitmap(BlockWidth * 16, BlockHeight * 16);
+            Size size = new Size(BlockWidth * MainForm.Zoom, BlockHeight * MainForm.Zoom);
+            Back = new Bitmap(BlockWidth * MainForm.Zoom, BlockHeight * MainForm.Zoom);
+            Minimap.Init(BlockWidth, BlockHeight);
+            PaintCurFrame();
+            this.AutoScrollMinSize = size;
+            this.Invalidate();
+            started = true;
+        }
+        public void zoomRefresh()
+        {
+            curFrame = 0;
+            Size size = new Size(BlockWidth * MainForm.Zoom, BlockHeight * MainForm.Zoom);
+            Back = new Bitmap(BlockWidth * MainForm.Zoom, BlockHeight * MainForm.Zoom);
             Minimap.Init(BlockWidth, BlockHeight);
             PaintCurFrame();
             this.AutoScrollMinSize = size;
@@ -395,9 +402,11 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
             }
             else if (bid >= 500 && bid <= 999 || bid == 0)
             {
+                Bitmap bmp0 = new Bitmap(Bricks[bid], MainForm.Zoom, MainForm.Zoom);
                 if (!MainForm.userdata.useColor)
                 {
-                    g.DrawImage(Bricks[bid], x * 16, y * 16);
+
+                    g.DrawImage(bmp0, x * MainForm.Zoom, y * MainForm.Zoom);
                 }
                 else
                 {
@@ -427,7 +436,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                             }
                             else
                             {
-                                g.DrawImage(Bricks[bid], x * 16, y * 16);
+                                g.DrawImage(bmp0, x * MainForm.Zoom, y * MainForm.Zoom);
                             }
                         }
                     }
@@ -439,7 +448,12 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
             }*/
             if (fid > 0 && Bricks[fid] != null && fid != -1 && !bdata.ignore.Contains(fid) && !bdata.morphable.Contains(fid))
             {
-                if (!MainForm.userdata.useColor) { g.DrawImage(Bricks[fid], x * 16, y * 16); }
+                Bitmap bmp1 = new Bitmap(Bricks[fid], MainForm.Zoom, MainForm.Zoom);
+                if (!MainForm.userdata.useColor)
+                {
+
+                    g.DrawImage(bmp1, x * MainForm.Zoom, y * MainForm.Zoom);
+                }
                 else
                 {
                     if (fid != 0)
@@ -681,7 +695,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
             if (started)
             {
                 Point p = Tool.GetLocation(e);
-                if (e.X / 16 <= CurFrame.Width) MainForm.pos.Text = "X: " + p.X + " Y: " + p.Y;
+                if (e.X / MainForm.Zoom <= CurFrame.Width) MainForm.pos.Text = "X: " + p.X + " Y: " + p.Y;
                 MainForm.fg.Text = CurFrame.Foreground[p.Y, p.X].ToString();
                 MainForm.bg.Text = CurFrame.Background[p.Y, p.X].ToString();
                 if (CurFrame.Foreground[p.Y, p.X] == 374)
@@ -827,7 +841,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                         MainForm.debug = false;
                         MainForm.Text = "EEditor " + MainForm.ProductVersion;
                         MainForm.rebuildGUI(false);
-                        
+
                     }
                     else
                     {
@@ -836,7 +850,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                         MainForm.rebuildGUI(false);
 
 
-                    } 
+                    }
                 }
                 if (e.KeyCode == Keys.F5) MainForm.SetTool(7); // Reload level
                 if (e.KeyCode == Keys.F6) MainForm.SetTool(6); // LevelTextbox
@@ -895,7 +909,27 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                 if (e.Control && e.KeyCode == Keys.U) MainForm.SetTool(9); // Upload level
 
                 if (e.Control && e.KeyCode == Keys.Tab) MainForm.SetView(); // Next block tab
-
+                /*if (e.Control && e.KeyCode == Keys.Add || e.KeyCode == Keys.Oemplus)
+                {
+                    if (MainForm.Zoom < 32)
+                    {
+                        MainForm.Zoom += 4;
+                    }
+                    zoomRefresh();
+                }
+                if (e.Control && e.KeyCode == Keys.Subtract || e.KeyCode == Keys.OemMinus)
+                {
+                    if (MainForm.Zoom > 4)
+                    {
+                        MainForm.Zoom -= 4;
+                        zoomRefresh();
+                    }
+                }
+                if (e.Control && e.KeyCode == Keys.D0)
+                {
+                    MainForm.Zoom = 16;
+                    zoomRefresh();
+                }*/
                 if (e.Control && e.KeyCode == Keys.F5)
                 {
                     MainForm.rebuildGUI(false); // Rebuild GUI

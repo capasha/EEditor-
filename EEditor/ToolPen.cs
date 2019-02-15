@@ -579,11 +579,11 @@ namespace EEditor
                 }
                 if (!editArea.ShowLines)
                 {
-                    Point p = new Point(x * 16 - Math.Abs(editArea.AutoScrollPosition.X), y * 16 - Math.Abs(editArea.AutoScrollPosition.Y));
+                    Point p = new Point(x * MainForm.Zoom - Math.Abs(editArea.AutoScrollPosition.X), y * MainForm.Zoom - Math.Abs(editArea.AutoScrollPosition.Y));
                     Graphics g = Graphics.FromImage(editArea.Back);
                     editArea.Draw(x, y, g, MainForm.userdata.thisColor);
                     g.Save();
-                    editArea.Invalidate(new Rectangle(p, new Size(16, 16)));
+                    editArea.Invalidate(new Rectangle(p, new Size(MainForm.Zoom, MainForm.Zoom)));
                 }
                 //}
             }

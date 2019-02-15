@@ -42,7 +42,7 @@ namespace EEditor
         }
         public static bool isNPC(int id)
         {
-            if (id >= 1550 && id <= 1559 || id >= 1569 && id <= 1575)return true;
+            if (id >= 1550 && id <= 1559 || id >= 1569 && id <= 1575) return true;
             else return false;
         }
         public static bool ParamNumbers(PlayerIOClient.Message m, int message, string type)

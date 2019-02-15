@@ -343,10 +343,10 @@ namespace EEditor
         #region read from database
         public static Frame FromMessage1(DatabaseObject worlds, int width, int height)
         {
-            Frame frame = new Frame(1, 1);
-
-
-
+            if (worlds == null) return null;
+            else
+            {
+                Frame frame = new Frame(1, 1);
                 DatabaseArray worlddata = worlds.GetArray("worlddata");
                 if (worlds.Contains("worlddata"))
                 {
@@ -482,9 +482,11 @@ namespace EEditor
                         }
                     }
                 }
+                return frame;
+            }
             //frame.Foreground[10, 10] = 9;
             //MainForm.editArea.Init(frame);
-            return frame;
+            
         }
         #endregion
 
@@ -1288,4 +1290,31 @@ namespace EEditor
                 { 75, 233 }, { 76, 234 }, { 77, 235 }, { 78, 236 }, { 79, 237 }, { 80, 238 }, { 81, 239 }, { 82, 240 },
         };
     }
+    /*public class blockData : IEquatable<blockData>
+    {
+        public int X;
+        public int Y;
+        public int Bid;
+        public int Layer;
+        public object[] Param;
+        public blockData(int X, int Y, int Bid, int Layer, object[] Param = null)
+        {
+            this.X = X;
+            this.Y = Y;
+            this.Bid = Bid;
+            this.Param = Param;
+        }
+        public bool Equals(blockData other)
+        {
+            if (other != null)
+            {
+                return this.X == other.X &&
+                       this.Y == other.Y &&
+                       this.Bid == other.Bid &&
+                       this.Layer == other.Layer;
+            }
+            else { return false; }
+        }
+
+    }*/
 }

@@ -32,12 +32,11 @@
             // 
             // EditArea
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EditArea";
-            this.Size = new System.Drawing.Size(505, 276);
+            this.Size = new System.Drawing.Size(379, 224);
             this.Load += new System.EventHandler(this.EditArea_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.EditArea_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.EditArea_MouseMove);

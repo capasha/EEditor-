@@ -129,7 +129,9 @@
             this.lastUsedBlockButton2 = new System.Windows.Forms.ToolStripButton();
             this.lastUsedBlockButton3 = new System.Windows.Forms.ToolStripButton();
             this.lastUsedBlockButton4 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.LightToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.morphToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
             this.settingsToolStrip.SuspendLayout();
@@ -1117,10 +1119,12 @@
             this.lastUsedBlockButton2,
             this.lastUsedBlockButton3,
             this.lastUsedBlockButton4,
-            this.toolStripButton1});
+            this.toolStripSeparator9,
+            this.LightToolStripButton,
+            this.toolStripSeparator10});
             this.lastUsedToolStrip.Location = new System.Drawing.Point(530, 0);
             this.lastUsedToolStrip.Name = "lastUsedToolStrip";
-            this.lastUsedToolStrip.Size = new System.Drawing.Size(156, 25);
+            this.lastUsedToolStrip.Size = new System.Drawing.Size(154, 27);
             this.lastUsedToolStrip.TabIndex = 3;
             this.lastUsedToolStrip.Text = "toolStrip1";
             // 
@@ -1131,7 +1135,7 @@
             this.lastUsedBlockButton0.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.lastUsedBlockButton0.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lastUsedBlockButton0.Name = "lastUsedBlockButton0";
-            this.lastUsedBlockButton0.Size = new System.Drawing.Size(23, 22);
+            this.lastUsedBlockButton0.Size = new System.Drawing.Size(23, 24);
             this.lastUsedBlockButton0.Click += new System.EventHandler(this.lastUsedBlockButton);
             // 
             // lastUsedBlockButton1
@@ -1141,7 +1145,7 @@
             this.lastUsedBlockButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.lastUsedBlockButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lastUsedBlockButton1.Name = "lastUsedBlockButton1";
-            this.lastUsedBlockButton1.Size = new System.Drawing.Size(23, 22);
+            this.lastUsedBlockButton1.Size = new System.Drawing.Size(23, 24);
             this.lastUsedBlockButton1.Click += new System.EventHandler(this.lastUsedBlockButton);
             // 
             // lastUsedBlockButton2
@@ -1151,7 +1155,7 @@
             this.lastUsedBlockButton2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.lastUsedBlockButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lastUsedBlockButton2.Name = "lastUsedBlockButton2";
-            this.lastUsedBlockButton2.Size = new System.Drawing.Size(23, 22);
+            this.lastUsedBlockButton2.Size = new System.Drawing.Size(23, 24);
             this.lastUsedBlockButton2.Click += new System.EventHandler(this.lastUsedBlockButton);
             // 
             // lastUsedBlockButton3
@@ -1161,7 +1165,7 @@
             this.lastUsedBlockButton3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.lastUsedBlockButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lastUsedBlockButton3.Name = "lastUsedBlockButton3";
-            this.lastUsedBlockButton3.Size = new System.Drawing.Size(23, 22);
+            this.lastUsedBlockButton3.Size = new System.Drawing.Size(23, 24);
             this.lastUsedBlockButton3.Click += new System.EventHandler(this.lastUsedBlockButton);
             // 
             // lastUsedBlockButton4
@@ -1171,18 +1175,28 @@
             this.lastUsedBlockButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.lastUsedBlockButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lastUsedBlockButton4.Name = "lastUsedBlockButton4";
-            this.lastUsedBlockButton4.Size = new System.Drawing.Size(23, 22);
+            this.lastUsedBlockButton4.Size = new System.Drawing.Size(23, 24);
             this.lastUsedBlockButton4.Click += new System.EventHandler(this.lastUsedBlockButton);
             // 
-            // toolStripButton1
+            // LightToolStripButton
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(38, 22);
-            this.toolStripButton1.Text = "Light";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click_1);
+            this.LightToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.LightToolStripButton.Image = global::EEditor.Properties.Resources.lightOff;
+            this.LightToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.LightToolStripButton.Name = "LightToolStripButton";
+            this.LightToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.LightToolStripButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LightToolStripButton.Click += new System.EventHandler(this.toolStripButton1_Click_1);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 27);
             // 
             // MainForm
             // 
@@ -1338,7 +1352,9 @@
         private System.Windows.Forms.ToolStripMenuItem eEditor37ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem myOwnWorldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eEditor38ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton LightToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
     }
 }
 

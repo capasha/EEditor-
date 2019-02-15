@@ -31,8 +31,8 @@ namespace EEditor
 
         public Point GetLocation(Point p)
         {
-            int x = (p.X + Math.Abs(editArea.AutoScrollPosition.X)) / 16;
-            int y = (p.Y + Math.Abs(editArea.AutoScrollPosition.Y)) / 16;
+            int x = (p.X + Math.Abs(editArea.AutoScrollPosition.X)) / MainForm.Zoom;
+            int y = (p.Y + Math.Abs(editArea.AutoScrollPosition.Y)) / MainForm.Zoom;
             x = Math.Max(0, x);
             y = Math.Max(0, y);
             x = Math.Min(x, editArea.BlockWidth - 1);
