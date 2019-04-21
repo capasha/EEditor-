@@ -76,7 +76,7 @@
             // removeAccount
             // 
             this.removeAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.removeAccount.Image = EEditor.Properties.Resources.remove;
+            this.removeAccount.Image = global::EEditor.Properties.Resources.remove;
             this.removeAccount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.removeAccount.Location = new System.Drawing.Point(95, 255);
             this.removeAccount.Name = "removeAccount";
@@ -89,7 +89,7 @@
             // addAccount
             // 
             this.addAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addAccount.Image = EEditor.Properties.Resources.createnew;
+            this.addAccount.Image = global::EEditor.Properties.Resources.createnew;
             this.addAccount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.addAccount.Location = new System.Drawing.Point(6, 255);
             this.addAccount.Name = "addAccount";
@@ -206,6 +206,7 @@
             // 
             this.accArmorGames.Appearance = System.Windows.Forms.Appearance.Button;
             this.accArmorGames.AutoSize = true;
+            this.accArmorGames.Enabled = false;
             this.accArmorGames.Image = global::EEditor.Properties.Resources.ag_icon;
             this.accArmorGames.Location = new System.Drawing.Point(97, 19);
             this.accArmorGames.Name = "accArmorGames";

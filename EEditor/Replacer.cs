@@ -125,7 +125,7 @@ namespace EEditor
                     Bitmap temp = new Bitmap(16, 16);
                     Graphics gr = Graphics.FromImage(temp);
                     gr.Clear(Color.Black);
-                    gr.DrawImage(Properties.Resources.bullets.Clone(new Rectangle(5 * 16, 0, 16, 16), Properties.Resources.bullets.PixelFormat), 0, 0);
+                    gr.DrawImage(Properties.Resources.unknown.Clone(new Rectangle(1 * 16, 0, 16, 16), Properties.Resources.unknown.PixelFormat), 0, 0);
                     FindPictureBox.Image = temp;
                 }
             }
@@ -144,7 +144,7 @@ namespace EEditor
                     Bitmap temp = new Bitmap(16, 16);
                     Graphics gr = Graphics.FromImage(temp);
                     gr.Clear(Color.Black);
-                    gr.DrawImage(Properties.Resources.bullets.Clone(new Rectangle(5 * 16, 0, 16, 16), Properties.Resources.bullets.PixelFormat), 0, 0);
+                    gr.DrawImage(Properties.Resources.unknown.Clone(new Rectangle(2 * 16, 0, 16, 16), Properties.Resources.unknown.PixelFormat), 0, 0);
                     FindPictureBox.Image = temp;
 
                 }
@@ -163,7 +163,7 @@ namespace EEditor
             {
                 if (MainForm.decosBMI[(int)numericUpDown2.Value] != 0)
                 {
-                    if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 2))
+                    if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 2) || MainForm.userdata.replaceit)
                     {
                         Bitmap img1 = MainForm.decosBMD.Clone(new Rectangle(MainForm.decosBMI[Convert.ToInt32(numericUpDown2.Value)] * 16, 0, 16, 16), MainForm.decosBMD.PixelFormat);
                         ReplacePictureBox.Image = img1;
@@ -186,7 +186,7 @@ namespace EEditor
 
                 else if (MainForm.miscBMI[(int)numericUpDown2.Value] != 0 || (int)numericUpDown2.Value == 119)
                 {
-                    if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 1))
+                    if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 1) || MainForm.userdata.replaceit)
                     {
                         Bitmap img1 = MainForm.miscBMD.Clone(new Rectangle(MainForm.miscBMI[Convert.ToInt32(numericUpDown2.Value)] * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
                         ReplacePictureBox.Image = img1;
@@ -208,7 +208,7 @@ namespace EEditor
                 }
                 else
                 {
-                    if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 0))
+                    if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 0) || MainForm.userdata.replaceit)
                     {
                         Bitmap img1 = MainForm.foregroundBMD.Clone(new Rectangle(MainForm.foregroundBMI[Convert.ToInt32(numericUpDown2.Value)] * 16, 0, 16, 16), MainForm.foregroundBMD.PixelFormat);
                         ReplacePictureBox.Image = img1;
@@ -232,7 +232,7 @@ namespace EEditor
 
             else if (numericUpDown2.Value >= 500 && numericUpDown2.Value <= 999)
             {
-                if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 3))
+                if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 3) || MainForm.userdata.replaceit)
                 {
                     Bitmap img6 = MainForm.backgroundBMD.Clone(new Rectangle(MainForm.backgroundBMI[Convert.ToInt32(numericUpDown2.Value)] * 16, 0, 16, 16), MainForm.backgroundBMD.PixelFormat);
                     ReplacePictureBox.Image = img6;
@@ -263,7 +263,7 @@ namespace EEditor
             {
                 if (MainForm.decosBMI[(int)numericUpDown2.Value] != 0)
                 {
-                    if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 2))
+                    if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 2) || MainForm.userdata.replaceit)
                     {
                         Bitmap img1 = MainForm.decosBMD.Clone(new Rectangle(MainForm.decosBMI[Convert.ToInt32(numericUpDown2.Value)] * 16, 0, 16, 16), MainForm.decosBMD.PixelFormat);
                         ReplacePictureBox.Image = img1;
@@ -283,7 +283,7 @@ namespace EEditor
                 }
                 else if (MainForm.miscBMI[(int)numericUpDown2.Value] != 0 || numericUpDown2.Value == 119)
                 {
-                    if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 1))
+                    if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 1) || MainForm.userdata.replaceit)
                     {
                         Bitmap img1 = MainForm.miscBMD.Clone(new Rectangle(MainForm.miscBMI[Convert.ToInt32(numericUpDown2.Value)] * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
                         ReplacePictureBox.Image = img1;
@@ -303,7 +303,7 @@ namespace EEditor
                 }
                 else
                 {
-                    if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 0))
+                    if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 0) || MainForm.userdata.replaceit)
                     {
                         Bitmap img1 = MainForm.foregroundBMD.Clone(new Rectangle(MainForm.foregroundBMI[Convert.ToInt32(numericUpDown2.Value)] * 16, 0, 16, 16), MainForm.foregroundBMD.PixelFormat);
                         ReplacePictureBox.Image = img1;
@@ -324,7 +324,7 @@ namespace EEditor
             }
             else if (numericUpDown2.Value >= 500 && numericUpDown2.Value <= 999)
             {
-                if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 3))
+                if (MainForm.editArea.ownedBid((int)numericUpDown2.Value, 3) || MainForm.userdata.replaceit)
                 {
                     Bitmap img2 = MainForm.backgroundBMD.Clone(new Rectangle(MainForm.backgroundBMI[Convert.ToInt32(numericUpDown2.Value)] * 16, 0, 16, 16), MainForm.backgroundBMD.PixelFormat);
                     ReplacePictureBox.Image = img2;
@@ -375,7 +375,7 @@ namespace EEditor
                     Bitmap temp = new Bitmap(16, 16);
                     Graphics gr = Graphics.FromImage(temp);
                     gr.Clear(Color.Black);
-                    gr.DrawImage(Properties.Resources.bullets.Clone(new Rectangle(5 * 16, 0, 16, 16), Properties.Resources.bullets.PixelFormat), 0, 0);
+                    gr.DrawImage(Properties.Resources.unknown.Clone(new Rectangle(1 * 16, 0, 16, 16), Properties.Resources.unknown.PixelFormat), 0, 0);
                     FindPictureBox.Image = temp;
                 }
                 int total = 0;
@@ -415,7 +415,7 @@ namespace EEditor
                     Bitmap temp = new Bitmap(16, 16);
                     Graphics gr = Graphics.FromImage(temp);
                     gr.Clear(Color.Black);
-                    gr.DrawImage(Properties.Resources.bullets.Clone(new Rectangle(5 * 16, 0, 16, 16), Properties.Resources.bullets.PixelFormat), 0, 0);
+                    gr.DrawImage(Properties.Resources.unknown.Clone(new Rectangle(2 * 16, 0, 16, 16), Properties.Resources.unknown.PixelFormat), 0, 0);
                     FindPictureBox.Image = temp;
                     int total = 0;
                     for (int x = 0; x < MainForm.editArea.CurFrame.Width; x++)

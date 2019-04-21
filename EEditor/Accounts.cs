@@ -92,9 +92,9 @@ namespace EEditor
 3. Copy shown values to EEditor";
 
         //Armor Games rtf line
-        private string armorgamesRTF = @"{\rtf1\pc 1. Go to http://pastebin.com/raw/Ars6y8GN and drag the text to bookmarks bar\par
+        /*private string armorgamesRTF = @"{\rtf1\pc 1. Go to http://pastebin.com/raw/Ars6y8GN and drag the text to bookmarks bar\par
 2. Go to Everybody Edits in ArmorGames and click the bookmark\par
-3. Copy shown values to EEditor";
+3. Copy shown values to EEditor";*/
 
         private void instructionsField_LinkClicked(object sender, LinkClickedEventArgs e)
         {
@@ -158,7 +158,7 @@ namespace EEditor
 
                 instructionsField.Rtf = kongregateRTF;
             }
-            else if (value.Name == "accArmorGames")
+            /*else if (value.Name == "accArmorGames")
             {
                 loginLabel1.Text = "UserID:";
                 loginField1.Width = 138;
@@ -170,7 +170,7 @@ namespace EEditor
                 loginField2.Location = new Point(69, 219);
 
                 instructionsField.Rtf = armorgamesRTF;
-            }
+            }*/
         }
         public static void CheckAccounts(MainForm mf)
         {
@@ -213,7 +213,7 @@ namespace EEditor
                                                 {
                                                     con.OnMessage += (object sender1, PlayerIOClient.Message m) =>
                                                     {
-                                                        if (m.Type == "auth") PlayerIO.Authenticate("everybody-edits-su9rn58o40itdbnw69plyw", "linked", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null, (Client client) => successLogin2(client, property.Value["login"].ToString().ToString(), property.Value["password"].ToString(), Convert.ToInt32(property.Value["loginMethod"])), failLogin1);
+                                                        if (m.Type == "auth") PlayerIO.Authenticate(bdata.gameID, "connected", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null, (Client client) => successLogin2(client, property.Value["login"].ToString().ToString(), property.Value["password"].ToString(), Convert.ToInt32(property.Value["loginMethod"])), failLogin1);
                                                     };
                                                 },
                                                 (PlayerIOError error) => MessageBox.Show(error.Message, "Error"));
@@ -257,7 +257,7 @@ namespace EEditor
                 {
                     if (accEverybodyEdits.Checked)
                     {
-                        PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, loginField1.Text, loginField2.Text, null, successLogin, failLogin);
+                        PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, loginField1.Text, loginField2.Text, null, (Client client) => successLogin(client,0), failLogin);
                         accountOption = 0;
                     }
 
@@ -269,7 +269,7 @@ namespace EEditor
                             {
                                 con.OnMessage += (object sender1, PlayerIOClient.Message m) =>
                                 {
-                                    if (m.Type == "auth") PlayerIO.Authenticate("everybody-edits-su9rn58o40itdbnw69plyw", "linked", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null, successLogin, failLogin);
+                                    if (m.Type == "auth") PlayerIO.Authenticate("everybody-edits-su9rn58o40itdbnw69plyw", "connected", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null,(Client client) => successLogin(client, 4), failLogin);
                                 };
                             },
                             (PlayerIOError error) => MessageBox.Show(error.Message, "Error"));
@@ -287,14 +287,14 @@ namespace EEditor
                     */
                     else if (accKongregate.Checked)
                     {
-                        PlayerIO.QuickConnect.KongregateConnect(bdata.gameID, loginField1.Text, loginField2.Text, null, successLogin, failLogin);
+                        PlayerIO.QuickConnect.KongregateConnect(bdata.gameID, loginField1.Text, loginField2.Text, null, (Client client) => successLogin(client, 2), failLogin);
                         accountOption = 2;
                     }
-                    else if (accArmorGames.Checked)
+                    /*else if (accArmorGames.Checked)
                     {
                         PlayerIO.Authenticate(bdata.gameID, "secure", new Dictionary<string, string> { { "userId", loginField1.Text }, { "authToken", loginField2.Text } }, null, successLogin, failLogin);
                         accountOption = 3;
-                    }
+                    }*/
                 }
                 else { MessageBox.Show("Your login details aren't added", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             }
@@ -310,6 +310,7 @@ namespace EEditor
                     if (accEverybodyEdits.Checked)
                     {
                         PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, loginField1.Text, loginField2.Text, null, successLogin1, failLogin);
+                        accountOption = 0;
                     }
                     if (accEverybodyEditsTransfer.Checked)
                     {
@@ -319,7 +320,7 @@ namespace EEditor
                             {
                                 con.OnMessage += (object sender1, PlayerIOClient.Message m) =>
                                 {
-                                    if (m.Type == "auth") PlayerIO.Authenticate("everybody-edits-su9rn58o40itdbnw69plyw", "linked", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null, successLogin, failLogin);
+                                    if (m.Type == "auth") PlayerIO.Authenticate("everybody-edits-su9rn58o40itdbnw69plyw", "connected", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null, successLogin1, failLogin);
                                 };
                             },
                             (PlayerIOError error) => MessageBox.Show(error.Message, "Error"));
@@ -336,11 +337,12 @@ namespace EEditor
                     else if (accKongregate.Checked)
                     {
                         PlayerIO.QuickConnect.KongregateConnect(bdata.gameID, loginField1.Text, loginField2.Text, null, successLogin1, failLogin);
+                        accountOption = 2;
                     }
-                    else if (accArmorGames.Checked)
+                    /*else if (accArmorGames.Checked)
                     {
                         PlayerIO.Authenticate(bdata.gameID, "secure", new Dictionary<string, string> { { "userId", loginField1.Text }, { "authToken", loginField2.Text } }, null, successLogin1, failLogin);
-                    }
+                    }*/
                 }
                 else { MessageBox.Show("Your login details aren't added", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             }
@@ -419,7 +421,7 @@ namespace EEditor
             }, failLogin1);
            
         }
-        private void successLogin(Client client) //login for save
+        private void successLogin(Client client,int way) //login for save
         {
             Dictionary<string, int> pv = new Dictionary<string, int>();
 
@@ -469,13 +471,14 @@ namespace EEditor
                             MainForm.userdata.username = dbo["name"].ToString();
                             if (!MainForm.accs.ContainsKey(dbo["name"].ToString()))
                             {
-                                MainForm.accs.Add(dbo["name"].ToString(), new accounts() { login = loginField1.Text.ToLower(), password = loginField2.Text, loginMethod = accountOption, payvault = pv });
+                                Console.WriteLine(accountOption);
+                                MainForm.accs.Add(dbo["name"].ToString(), new accounts() { login = loginField1.Text.ToLower(), password = loginField2.Text, loginMethod = way, payvault = pv });
                                 accountListBox.Items.Remove("(new account)");
                                 accountListBox.Items.Add(dbo["name"].ToString());
                             }
                             else if (MainForm.accs.ContainsKey(dbo["name"].ToString()))
                             {
-                                MainForm.accs[dbo["name"].ToString()] = new accounts() { login = loginField1.Text.ToLower(), password = loginField2.Text, loginMethod = accountOption, payvault = pv };
+                                MainForm.accs[dbo["name"].ToString()] = new accounts() { login = loginField1.Text.ToLower(), password = loginField2.Text, loginMethod = way, payvault = pv };
                             }
                             File.WriteAllText(Directory.GetCurrentDirectory() + accss, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
                             accountListBox.SelectedItem = dbo["name"].ToString();
@@ -485,14 +488,17 @@ namespace EEditor
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
-                            MainForm.userdata.username = dbo["name"].ToString();
-                            MainForm.accs.Add(dbo["name"].ToString(), new accounts() { login = loginField1.Text.ToLower(), password = loginField2.Text, loginMethod = accountOption, payvault = pv });
-                            accountListBox.Items.Remove("(new account)");
-                            accountListBox.Items.Add(dbo["name"].ToString());
+                            if (!MainForm.accs.ContainsKey(dbo["name"].ToString()))
+                            {
+                                MainForm.userdata.username = dbo["name"].ToString();
+                                MainForm.accs.Add(dbo["name"].ToString(), new accounts() { login = loginField1.Text.ToLower(), password = loginField2.Text, loginMethod = way, payvault = pv });
+                                accountListBox.Items.Remove("(new account)");
+                                accountListBox.Items.Add(dbo["name"].ToString());
 
-                            File.WriteAllText(Directory.GetCurrentDirectory() + accss, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
-                            accountListBox.SelectedItem = dbo["name"].ToString();
-                            toolStripProgressBar1.Value = 100;
+                                File.WriteAllText(Directory.GetCurrentDirectory() + accss, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
+                                accountListBox.SelectedItem = dbo["name"].ToString();
+                                toolStripProgressBar1.Value = 100;
+                            }
                         });
                     }
                 },
@@ -616,9 +622,9 @@ namespace EEditor
                         case 2:
                             accKongregate.Checked = true;
                             break;
-                        case 3:
+                        /*case 3: Armorgames removed
                             accArmorGames.Checked = true;
-                            break;
+                            break;*/
                         case 4:
                             accEverybodyEditsTransfer.Checked = true;
                             break;

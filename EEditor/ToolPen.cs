@@ -716,8 +716,7 @@ namespace EEditor
                 int x = pos.X;
                 int y = pos.Y;
                 Frame f = editArea.CurFrame;
-                if (f.Foreground[y, x] == 43 || f.Foreground[y, x] == 165 || f.Foreground[y, x] == 214 || f.Foreground[y, x] == 213 || f.Foreground[y, x] == 467 || f.Foreground[y, x] == 1079 || f.Foreground[y, x] == 1080 || f.Foreground[y, x] == 113 || f.Foreground[y, x] == 185 || f.Foreground[y, x] == 184)
-                {
+                if (bdata.canusePlus(f.Foreground[y,x])) {
                     Point p = new Point(x * 16 - Math.Abs(editArea.AutoScrollPosition.X), y * 16 - Math.Abs(editArea.AutoScrollPosition.Y));
                     f.BlockData[y, x] = Math.Max(1, Math.Min(f.BlockData[y, x] + delta, 999));
                     Graphics g = Graphics.FromImage(editArea.Back);

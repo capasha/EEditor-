@@ -9,7 +9,7 @@ namespace EEditor
     class bdata
     {
         public static string gameID = "everybody-edits-su9rn58o40itdbnw69plyw";
-        public static int[] goal = { 77, 83, 43, 165, 213, 214, 417, 418, 419, 420, 421, 422, 423, 1027, 1028, 113, 185, 184, 1011, 1012, 453, 461, 467, 1079, 1080, 1520,1582 };
+        public static int[] goal = { 77, 83, 43, 165, 213, 214, 417, 418, 419, 420, 421, 422, 423, 1027, 1028, 113, 185, 184, 1011, 1012, 453, 461, 467, 1079, 1080, 1520,1582,1619,1620 };
         //public static int[] effects = { 417, 418, 419, 420, 421, 422, 453 };
         public static int[] rotate = { 1001, 1002, 1003, 1004, 1027, 1028, 361, 385, 374, 1052, 1053, 1054, 1055, 1056, 1092};
         public static int[] ignore = { 1001, 1002, 1003, 1004, 361, 417, 418, 419, 420, 1052, 1053, 1054, 1055, 1056, 1092 };
@@ -42,7 +42,7 @@ namespace EEditor
         }
         public static bool isNPC(int id)
         {
-            if (id >= 1550 && id <= 1559 || id >= 1569 && id <= 1575) return true;
+            if (id >= 1550 && id <= 1559 || id >= 1569 && id <= 1578) return true;
             else return false;
         }
         public static bool ParamNumbers(PlayerIOClient.Message m, int message, string type)
@@ -872,6 +872,16 @@ namespace EEditor
                 int p = (int)Environment.OSVersion.Platform;
                 return (p == 4) || (p == 6) || (p == 128);
             }
+        }
+        public static bool canusePlus(int bid)
+        {
+            int[] canuse = new int[] {
+                43,165,214,213,467,1079,1080,113,185,184,
+                1619, 1620
+
+            };
+            return canuse.Contains(bid) ? true : false;
+
         }
     }
 }

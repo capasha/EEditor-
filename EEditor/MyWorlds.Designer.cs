@@ -34,6 +34,9 @@
             this.RoomIDColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.ResetButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.LoadWorldButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // listView1
@@ -83,11 +86,31 @@
             this.ResetButton.UseVisualStyleBackColor = true;
             this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(377, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(420, 334);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
+            // LoadWorldButton
+            // 
+            this.LoadWorldButton.Location = new System.Drawing.Point(93, 384);
+            this.LoadWorldButton.Name = "LoadWorldButton";
+            this.LoadWorldButton.Size = new System.Drawing.Size(75, 23);
+            this.LoadWorldButton.TabIndex = 4;
+            this.LoadWorldButton.Text = "Load World";
+            this.LoadWorldButton.UseVisualStyleBackColor = true;
+            this.LoadWorldButton.Click += new System.EventHandler(this.LoadWorldButton_Click);
+            // 
             // MyWorlds
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(385, 419);
+            this.ClientSize = new System.Drawing.Size(376, 419);
+            this.Controls.Add(this.LoadWorldButton);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.listView1);
@@ -96,6 +119,7 @@
             this.Text = "My Own Worlds";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MyWorlds_FormClosing);
             this.Load += new System.EventHandler(this.MyWorlds_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -108,5 +132,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.ColumnHeader RoomIDColumnHeader;
         private System.Windows.Forms.Button ResetButton;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button LoadWorldButton;
     }
 }

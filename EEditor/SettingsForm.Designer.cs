@@ -31,13 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.usePenToolCheckBox = new System.Windows.Forms.CheckBox();
             this.selectAllBorderCheckBox = new System.Windows.Forms.CheckBox();
-            this.updateCheckCheckBox = new System.Windows.Forms.CheckBox();
             this.tempLabel = new System.Windows.Forms.Label();
             this.clearComboBox = new System.Windows.Forms.ComboBox();
             this.clearButton = new System.Windows.Forms.Button();
             this.confirmCloseCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.FasterShapeStyleCheckBox = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
@@ -56,6 +56,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.StatusTextToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusColorToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -68,6 +73,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // usePenToolCheckBox
@@ -93,18 +99,6 @@
             this.selectAllBorderCheckBox.Text = "Include borders with select all";
             this.selectAllBorderCheckBox.UseVisualStyleBackColor = true;
             this.selectAllBorderCheckBox.CheckedChanged += new System.EventHandler(this.selectAllBorderCheckBox_CheckedChanged);
-            // 
-            // updateCheckCheckBox
-            // 
-            this.updateCheckCheckBox.AutoSize = true;
-            this.updateCheckCheckBox.Location = new System.Drawing.Point(17, 78);
-            this.updateCheckCheckBox.Margin = new System.Windows.Forms.Padding(2);
-            this.updateCheckCheckBox.Name = "updateCheckCheckBox";
-            this.updateCheckCheckBox.Size = new System.Drawing.Size(132, 17);
-            this.updateCheckCheckBox.TabIndex = 17;
-            this.updateCheckCheckBox.Text = "Update check on start";
-            this.updateCheckCheckBox.UseVisualStyleBackColor = true;
-            this.updateCheckCheckBox.CheckedChanged += new System.EventHandler(this.updateCheckCheckBox_CheckedChanged);
             // 
             // tempLabel
             // 
@@ -167,13 +161,14 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox2);
+            this.tabPage1.Controls.Add(this.FasterShapeStyleCheckBox);
             this.tabPage1.Controls.Add(this.usePenToolCheckBox);
             this.tabPage1.Controls.Add(this.confirmCloseCheckBox);
             this.tabPage1.Controls.Add(this.clearButton);
             this.tabPage1.Controls.Add(this.tempLabel);
             this.tabPage1.Controls.Add(this.clearComboBox);
             this.tabPage1.Controls.Add(this.selectAllBorderCheckBox);
-            this.tabPage1.Controls.Add(this.updateCheckCheckBox);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -181,6 +176,19 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // FasterShapeStyleCheckBox
+            // 
+            this.FasterShapeStyleCheckBox.AutoSize = true;
+            this.FasterShapeStyleCheckBox.Enabled = false;
+            this.FasterShapeStyleCheckBox.Location = new System.Drawing.Point(17, 79);
+            this.FasterShapeStyleCheckBox.Name = "FasterShapeStyleCheckBox";
+            this.FasterShapeStyleCheckBox.Size = new System.Drawing.Size(111, 17);
+            this.FasterShapeStyleCheckBox.TabIndex = 30;
+            this.FasterShapeStyleCheckBox.Text = "Faster shape style";
+            this.FasterShapeStyleCheckBox.UseVisualStyleBackColor = true;
+            this.FasterShapeStyleCheckBox.Visible = false;
+            this.FasterShapeStyleCheckBox.CheckedChanged += new System.EventHandler(this.FasterShapeStyleCheckBox_CheckedChanged);
             // 
             // tabPage2
             // 
@@ -364,11 +372,57 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusTextToolStripStatusLabel,
+            this.StatusToolStripStatusLabel,
+            this.StatusColorToolStripStatusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 264);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(333, 22);
+            this.statusStrip1.TabIndex = 31;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // StatusTextToolStripStatusLabel
+            // 
+            this.StatusTextToolStripStatusLabel.Name = "StatusTextToolStripStatusLabel";
+            this.StatusTextToolStripStatusLabel.Size = new System.Drawing.Size(42, 17);
+            this.StatusTextToolStripStatusLabel.Text = "Status:";
+            this.StatusTextToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // StatusToolStripStatusLabel
+            // 
+            this.StatusToolStripStatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.StatusToolStripStatusLabel.Name = "StatusToolStripStatusLabel";
+            this.StatusToolStripStatusLabel.Size = new System.Drawing.Size(102, 17);
+            this.StatusToolStripStatusLabel.Text = "Waiting on you :D";
+            // 
+            // StatusColorToolStripStatusLabel
+            // 
+            this.StatusColorToolStripStatusLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.StatusColorToolStripStatusLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.StatusColorToolStripStatusLabel.Name = "StatusColorToolStripStatusLabel";
+            this.StatusColorToolStripStatusLabel.Size = new System.Drawing.Size(21, 17);
+            this.StatusColorToolStripStatusLabel.Text = "##";
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(17, 102);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(144, 17);
+            this.checkBox2.TabIndex = 31;
+            this.checkBox2.Text = "Replace Uknown Blocks";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 264);
+            this.ClientSize = new System.Drawing.Size(333, 286);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -392,13 +446,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.CheckBox usePenToolCheckBox;
-        private System.Windows.Forms.CheckBox updateCheckCheckBox;
         private System.Windows.Forms.CheckBox selectAllBorderCheckBox;
         private System.Windows.Forms.Label tempLabel;
         private System.Windows.Forms.ComboBox clearComboBox;
@@ -424,5 +480,11 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel StatusTextToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel StatusToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel StatusColorToolStripStatusLabel;
+        private System.Windows.Forms.CheckBox FasterShapeStyleCheckBox;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }

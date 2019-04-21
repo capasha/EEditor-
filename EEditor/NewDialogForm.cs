@@ -286,7 +286,7 @@ namespace EEditor
                         cli.Multiplayer.CreateJoinRoom("$service-room", "AuthRoom", true, null, new Dictionary<string, string>() { { "type", "Link" } }, (Connection con1) => {
                             con1.OnMessage += (object sender1, PlayerIOClient.Message m) => {
                                 if (m.Type == "auth") {
-                                    client = PlayerIO.Authenticate("everybody-edits-su9rn58o40itdbnw69plyw", "linked", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null);
+                                    client = PlayerIO.Authenticate("everybody-edits-su9rn58o40itdbnw69plyw", "connected", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null);
                                     s1.Release();
                                 }
                             };

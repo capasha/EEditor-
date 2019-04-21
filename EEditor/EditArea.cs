@@ -493,7 +493,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                 {
                     if (fid < 500 || fid >= 1001 && fid < 2500)
                     {
-                        Bitmap bmp2 = unknowBricks.Clone(new Rectangle(7 * 16, 0, 16, 16), unknowBricks.PixelFormat);
+                        Bitmap bmp2 = unknowBricks.Clone(new Rectangle(2 * 16, 0, 16, 16), unknowBricks.PixelFormat);
                         g.DrawImage(bmp2, x * 16, y * 16);
                         if (MainForm.unknown.Count > 0)
                         {
@@ -519,7 +519,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                     }
                     else if (fid >= 2500)
                     {
-                        Bitmap bmp2 = unknowBricks.Clone(new Rectangle(8 * 16, 0, 16, 16), unknowBricks.PixelFormat);
+                        Bitmap bmp2 = unknowBricks.Clone(new Rectangle(2 * 16, 0, 16, 16), unknowBricks.PixelFormat);
                         g.DrawImage(bmp2, x * 16, y * 16);
                         if (MainForm.unknown.Count > 0)
                         {
@@ -551,7 +551,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
             if (bdata.goal.Contains(fid) && fid != 423 && fid != 417 && fid != 418 && fid != 419 && fid != 420 && fid != 421 && fid != 422 && fid != 453 && fid != 1027 && fid != 1028)
             {
                 int offSet = coins >= 10 ? 4 : 9;
-                if (fid == 467 || fid == 1079 || fid == 1080 || fid == 1012 || fid == 214 || fid == 165 || fid == 113 || fid == 184 || fid == 185 || fid == 213 || fid == 461)
+                if (fid == 467 || fid == 1079 || fid == 1080 || fid == 1012 || fid == 214 || fid == 165 || fid == 113 || fid == 184 || fid == 185 || fid == 213 || fid == 461 || fid == 1619 || fid == 1620)
                 {
                     if (fid == 461 && coins == 0 || coins > 1 && coins <= 999)
                     {

@@ -129,8 +129,8 @@
             this.lastUsedBlockButton2 = new System.Windows.Forms.ToolStripButton();
             this.lastUsedBlockButton3 = new System.Windows.Forms.ToolStripButton();
             this.lastUsedBlockButton4 = new System.Windows.Forms.ToolStripButton();
-            this.LightToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.LightToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.morphToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
@@ -1124,7 +1124,7 @@
             this.toolStripSeparator10});
             this.lastUsedToolStrip.Location = new System.Drawing.Point(530, 0);
             this.lastUsedToolStrip.Name = "lastUsedToolStrip";
-            this.lastUsedToolStrip.Size = new System.Drawing.Size(154, 27);
+            this.lastUsedToolStrip.Size = new System.Drawing.Size(185, 27);
             this.lastUsedToolStrip.TabIndex = 3;
             this.lastUsedToolStrip.Text = "toolStrip1";
             // 
@@ -1178,20 +1178,21 @@
             this.lastUsedBlockButton4.Size = new System.Drawing.Size(23, 24);
             this.lastUsedBlockButton4.Click += new System.EventHandler(this.lastUsedBlockButton);
             // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 27);
+            // 
             // LightToolStripButton
             // 
             this.LightToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.LightToolStripButton.Enabled = false;
             this.LightToolStripButton.Image = global::EEditor.Properties.Resources.lightOff;
             this.LightToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.LightToolStripButton.Name = "LightToolStripButton";
             this.LightToolStripButton.Size = new System.Drawing.Size(24, 24);
             this.LightToolStripButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LightToolStripButton.Click += new System.EventHandler(this.toolStripButton1_Click_1);
-            // 
-            // toolStripSeparator9
-            // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripSeparator10
             // 

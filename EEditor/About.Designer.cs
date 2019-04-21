@@ -272,7 +272,7 @@
             // lPlayerIOLinkLabel
             // 
             this.lPlayerIOLinkLabel.AutoSize = true;
-            this.lPlayerIOLinkLabel.Location = new System.Drawing.Point(123, 255);
+            this.lPlayerIOLinkLabel.Location = new System.Drawing.Point(119, 255);
             this.lPlayerIOLinkLabel.Name = "lPlayerIOLinkLabel";
             this.lPlayerIOLinkLabel.Size = new System.Drawing.Size(72, 13);
             this.lPlayerIOLinkLabel.TabIndex = 19;

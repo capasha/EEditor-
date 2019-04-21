@@ -26,52 +26,35 @@ namespace EEditor
         #region Main links
         private void Button_Click(object sender, EventArgs e)
         {
-            string link = null;
+            string link1 = null;
             switch (((Button)sender).Name.ToString())
             {
                 case "ForumButton":
-                        link = "http://forums.everybodyedits.com/viewtopic.php?id=32502";
+                    Console.WriteLine("should work");
+                        link1 = "http://forums.everybodyedits.com/viewtopic.php?id=32502";
                     break;
                 case "BugsOrFeatureButton":
-                        link = "https://github.com/capasha/eeditor/issues";
+                        link1 = "https://github.com/capasha/EEditor-/issues";
                     break;
                 case "CreditButton":
-                        link = "https://github.com/capasha/eeditor/wiki/Credits";
+                        link1 = "https://github.com/capasha/EEditor-/wiki/Credits";
                     break;
                 case "WikiButton":
-                        link = "https://github.com/capasha/eeditor/wiki";
+                        link1 = "https://github.com/capasha/EEditor-/wiki";
                     break;
                 case "HomepageButton":
-                        link = "https://github.com/capasha/eeditor/";
+                        link1 = "https://github.com/capasha/EEditor-";
                     break;
             }
             DialogResult dgresult = MessageBox.Show("Do you want to open this link in your webbrowser?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            if (dgresult == DialogResult.OK)
+            if (dgresult == DialogResult.Yes)
             {
-                Process.Start(link);
+                Process.Start(link1);
             }
         }
         #endregion
 
         #region Check version
-        //Check for newer version
-        private void Updater_Click(object sender, EventArgs e)
-        {
-
-        }
-        public void checkVersion(bool button)
-        {
-            if (button)
-            {
-                if (File.Exists(Directory.GetCurrentDirectory() + @"\EEditorDownloader.exe"))
-                {
-                    ProcessStartInfo prc = new ProcessStartInfo();
-                    prc.FileName = Directory.GetCurrentDirectory() + @"\EEditorDownloader.exe";
-                    prc.Arguments = @"/silent";
-                    Process.Start(prc);
-                }
-            }
-        }
 
 
         #endregion

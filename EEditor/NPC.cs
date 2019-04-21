@@ -49,11 +49,14 @@ namespace EEditor
             if (payvault.ContainsKey("npcfrog") || MainForm.debug) { addNPC("frog", 1559, list); }
             if (payvault.ContainsKey("npcbruce") || MainForm.debug) { addNPC("bruce", 1570, list); }
             if (payvault.ContainsKey("npcstarfish") || MainForm.debug) { addNPC("starfish", 1569, list); }
-            if (payvault.ContainsKey("npcdt") || MainForm.debug) { addNPC("dt", 1571, list); }
+            if (payvault.ContainsKey("npcdt") || MainForm.debug) { addNPC("computer", 1571, list); }
             if (payvault.ContainsKey("npcskeleton") || MainForm.debug) { addNPC("skeleton", 1572, list); }
             if (payvault.ContainsKey("npczombie") || MainForm.debug) { addNPC("zombie", 1573, list); }
             if (payvault.ContainsKey("npcghost") || MainForm.debug) { addNPC("ghost", 1574, list); }
             if (payvault.ContainsKey("npcastronaut") || MainForm.debug) { addNPC("astronaut", 1575, list); }
+            if (payvault.ContainsKey("npcsanta") || MainForm.debug) { addNPC("santa", 1576, list); }
+            if (payvault.ContainsKey("npcsnowman") || MainForm.debug) { addNPC("snowman", 1577, list); }
+            if (payvault.ContainsKey("npcwalrus") || MainForm.debug) { addNPC("walrus", 1578, list); }
 
             NicknameTextBox.Text = MainForm.userdata.username;
         }
@@ -73,7 +76,7 @@ namespace EEditor
             list.Images.Add(name, image);
             listView1.SmallImageList = list;
             ListViewItem lvi = new ListViewItem(name);
-            lvi.SubItems.Add(MainForm.accs[MainForm.userdata.username].payvault[$"npc{name}"].ToString());
+            lvi.SubItems.Add(MainForm.accs[MainForm.userdata.username].payvault[name == "computer" ? "npcdt" :$"npc{name}"].ToString());
             lvi.ImageKey = name;
             lvi.Name = id.ToString();
             listView1.Items.Add(lvi);
