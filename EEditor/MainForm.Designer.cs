@@ -132,6 +132,7 @@
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.LightToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.eELVLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.morphToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
             this.settingsToolStrip.SuspendLayout();
@@ -325,7 +326,7 @@
             this.accountsComboBox,
             this.settingsButton,
             this.aboutButton});
-            this.settingsToolStrip.Location = new System.Drawing.Point(588, 0);
+            this.settingsToolStrip.Location = new System.Drawing.Point(619, 0);
             this.settingsToolStrip.Name = "settingsToolStrip";
             this.settingsToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.settingsToolStrip.Size = new System.Drawing.Size(156, 27);
@@ -374,7 +375,7 @@
             this.fileToolStrip.Location = new System.Drawing.Point(0, 0);
             this.fileToolStrip.Name = "fileToolStrip";
             this.fileToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.fileToolStrip.Size = new System.Drawing.Size(96, 27);
+            this.fileToolStrip.Size = new System.Drawing.Size(127, 27);
             this.fileToolStrip.TabIndex = 7;
             // 
             // newWorldButton
@@ -403,6 +404,7 @@
             this.savToolStripMenuItem,
             this.eEBuilderToolStripMenuItem,
             this.myOwnWorldsToolStripMenuItem,
+            this.eELVLToolStripMenuItem,
             this.roomDatabaseToolStripMenuItem});
             this.openWorldDropButton.Image = global::EEditor.Properties.Resources.open;
             this.openWorldDropButton.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -497,14 +499,14 @@
             // localToolStripMenuItem
             // 
             this.localToolStripMenuItem.Name = "localToolStripMenuItem";
-            this.localToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.localToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.localToolStripMenuItem.Text = "Local";
             this.localToolStripMenuItem.Click += new System.EventHandler(this.localToolStripMenuItem_Click);
             // 
             // remoteToolStripMenuItem
             // 
             this.remoteToolStripMenuItem.Name = "remoteToolStripMenuItem";
-            this.remoteToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.remoteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.remoteToolStripMenuItem.Text = "Remote";
             this.remoteToolStripMenuItem.Click += new System.EventHandler(this.remoteToolStripMenuItem_Click);
             // 
@@ -563,7 +565,7 @@
             this.insertDropButton,
             this.toolStripSeparator8,
             this.replaceButton});
-            this.toolToolStrip.Location = new System.Drawing.Point(96, 0);
+            this.toolToolStrip.Location = new System.Drawing.Point(127, 0);
             this.toolToolStrip.Name = "toolToolStrip";
             this.toolToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolToolStrip.Size = new System.Drawing.Size(204, 27);
@@ -811,7 +813,7 @@
             this.refreshButton,
             this.codeTextbox,
             this.uploadButton});
-            this.uploadToolStrip.Location = new System.Drawing.Point(378, 0);
+            this.uploadToolStrip.Location = new System.Drawing.Point(409, 0);
             this.uploadToolStrip.Name = "uploadToolStrip";
             this.uploadToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.uploadToolStrip.Size = new System.Drawing.Size(210, 27);
@@ -882,7 +884,7 @@
             this.undoButton,
             this.redoButton,
             this.historyButton});
-            this.historyToolStrip.Location = new System.Drawing.Point(300, 0);
+            this.historyToolStrip.Location = new System.Drawing.Point(331, 0);
             this.historyToolStrip.Name = "historyToolStrip";
             this.historyToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.historyToolStrip.Size = new System.Drawing.Size(78, 27);
@@ -1124,7 +1126,7 @@
             this.toolStripSeparator10});
             this.lastUsedToolStrip.Location = new System.Drawing.Point(530, 0);
             this.lastUsedToolStrip.Name = "lastUsedToolStrip";
-            this.lastUsedToolStrip.Size = new System.Drawing.Size(185, 27);
+            this.lastUsedToolStrip.Size = new System.Drawing.Size(154, 27);
             this.lastUsedToolStrip.TabIndex = 3;
             this.lastUsedToolStrip.Text = "toolStrip1";
             // 
@@ -1198,6 +1200,13 @@
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
             this.toolStripSeparator10.Size = new System.Drawing.Size(6, 27);
+            // 
+            // eELVLToolStripMenuItem
+            // 
+            this.eELVLToolStripMenuItem.Name = "eELVLToolStripMenuItem";
+            this.eELVLToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.eELVLToolStripMenuItem.Text = "EELVL";
+            this.eELVLToolStripMenuItem.Click += new System.EventHandler(this.eELVLToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1356,6 +1365,7 @@
         private System.Windows.Forms.ToolStripButton LightToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem eELVLToolStripMenuItem;
     }
 }
 

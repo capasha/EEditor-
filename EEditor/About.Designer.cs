@@ -54,6 +54,7 @@
             this.ZIPLinkLabel = new System.Windows.Forms.LinkLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.InitParserLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.lukemlinkLabel = new System.Windows.Forms.LinkLabel();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -304,6 +305,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lukemlinkLabel);
             this.groupBox1.Controls.Add(this.InitParserLinkLabel);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.ZIPLinkLabel);
@@ -325,7 +327,7 @@
             this.groupBox1.Controls.Add(this.MaterialDesignLinkLabel);
             this.groupBox1.Location = new System.Drawing.Point(12, 153);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(325, 324);
+            this.groupBox1.Size = new System.Drawing.Size(325, 330);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Credits / License";
@@ -341,11 +343,22 @@
             this.InitParserLinkLabel.Text = "Yonom/Processor\'s InitParser";
             this.InitParserLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
+            // lukemlinkLabel
+            // 
+            this.lukemlinkLabel.AutoSize = true;
+            this.lukemlinkLabel.Location = new System.Drawing.Point(155, 301);
+            this.lukemlinkLabel.Name = "lukemlinkLabel";
+            this.lukemlinkLabel.Size = new System.Drawing.Size(106, 13);
+            this.lukemlinkLabel.TabIndex = 23;
+            this.lukemlinkLabel.TabStop = true;
+            this.lukemlinkLabel.Text = "Lukem\'s .eelvl parser";
+            this.lukemlinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 486);
+            this.ClientSize = new System.Drawing.Size(350, 492);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox4);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -387,5 +400,6 @@
         private System.Windows.Forms.LinkLabel ZIPLinkLabel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.LinkLabel InitParserLinkLabel;
+        private System.Windows.Forms.LinkLabel lukemlinkLabel;
     }
 }

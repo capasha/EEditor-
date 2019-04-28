@@ -550,7 +550,7 @@ namespace EEditor
                     }
 
                     var owner = e.GetString(0)?.Length == 0 ? "Unknown" : e.GetString(0);
-                    MainForm.Text = $"{e[1]} by {owner} ({e[18]}x{e[19]}) - EEditor {this.ProductVersion}";
+                    MainForm.Text = $"({e[1]}) [{owner}] ({e[18]}x{e[19]}) - EEditor {this.ProductVersion}";
                     SizeWidth = MapFrame.Width;
                     SizeHeight = MapFrame.Height;
                     Connection.Disconnect();
@@ -601,7 +601,7 @@ namespace EEditor
                         c.BigDB.Load("PlayerObjects", uid,
                             (DatabaseObject dbo) => {
                                 worldOwner = dbo.Contains("name") ? dbo.GetString("name") : "Anonymous";
-                                MainForm.Text = title + " by " + worldOwner + " (" + width + "x" + height + ") - EEditor " + this.ProductVersion;
+                                MainForm.Text = $"({title}) [{worldOwner}] ({width}x{height}) - EEditor {this.ProductVersion}";
                             },
                             (PlayerIOError error) => {
                             });
@@ -611,7 +611,7 @@ namespace EEditor
             }
             else
             {
-                MainForm.Text = title + " by anonymous owner " + " (" + width + "x" + height + ") - EEditor " + this.ProductVersion;
+                MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EEditor {this.ProductVersion}";
             }
         }
 

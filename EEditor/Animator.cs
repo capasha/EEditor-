@@ -835,7 +835,10 @@ namespace EEditor
                         switch (e[0].ToString())
                         {
                             case "Limit reached":
-                                MessageBox.Show(e.GetString(1), e.GetString(0), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                OnStatusChanged("Limit Reached", DateTime.MinValue, true, Gtotal, Gcurrent);
+                                break;
+                            case "World not available":
+                                OnStatusChanged("World is not availabe", DateTime.MinValue, true, Gtotal, Gcurrent);
                                 break;
                             default:
                                 Console.WriteLine(e.ToString());

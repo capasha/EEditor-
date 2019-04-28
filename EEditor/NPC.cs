@@ -24,7 +24,6 @@ namespace EEditor
 
         private void NPC_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (string.IsNullOrEmpty(NicknameTextBox.Text)) NicknameTextBox.Text = MainForm.userdata.username;
             DialogResult = DialogResult.OK;
         }
 
@@ -58,14 +57,18 @@ namespace EEditor
             if (payvault.ContainsKey("npcsnowman") || MainForm.debug) { addNPC("snowman", 1577, list); }
             if (payvault.ContainsKey("npcwalrus") || MainForm.debug) { addNPC("walrus", 1578, list); }
 
-            NicknameTextBox.Text = MainForm.userdata.username;
+            //NicknameTextBox.Text = MainForm.userdata.username;
         }
 
         private void ListView1_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedIndices.Count != 0)
             {
-                blockID = Convert.ToInt32(listView1.Items[listView1.SelectedIndices[0]].Name);
+                if (MainForm.userdata.username != "guest" || MainForm.ihavethese.Any(x => x.Key.StartsWith("npc")))
+                {
+                    blockID = Convert.ToInt32(listView1.Items[listView1.SelectedIndices[0]].Name);
+                }
+                else { blockID = 0; }
             }
         }
 
@@ -76,7 +79,14 @@ namespace EEditor
             list.Images.Add(name, image);
             listView1.SmallImageList = list;
             ListViewItem lvi = new ListViewItem(name);
-            lvi.SubItems.Add(MainForm.accs[MainForm.userdata.username].payvault[name == "computer" ? "npcdt" :$"npc{name}"].ToString());
+            if (MainForm.userdata.username != "guest" || MainForm.ihavethese.Any(x => x.Key.StartsWith("npc")))
+            {
+                lvi.SubItems.Add(MainForm.accs[MainForm.userdata.username].payvault[name == "computer" ? "npcdt" : $"npc{name}"].ToString());
+            }
+            else
+            {
+                lvi.SubItems.Add("0");
+            }
             lvi.ImageKey = name;
             lvi.Name = id.ToString();
             listView1.Items.Add(lvi);

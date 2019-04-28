@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Drawing;
 using System.IO;
 using Newtonsoft.Json.Linq;
-
+using EELVL;
 namespace EEditor
 {
     public class Frame
@@ -23,11 +23,15 @@ namespace EEditor
         public string[,] BlockData4 { get; set; }
         public string[,] BlockData5 { get; set; }
         public string[,] BlockData6 { get; set; }
+        public string nickname { get; set; }
+        public string owner { get; set; }
+        public string levelname { get; set; }
         public static byte[] xx;
         public static byte[] yy;
         public static byte[] xx1;
         public static byte[] yy1;
         public static string[] split1;
+
 
         public Frame(int width, int height)
         {
@@ -42,6 +46,9 @@ namespace EEditor
             BlockData4 = new string[height, width];
             BlockData5 = new string[height, width];
             BlockData6 = new string[height, width];
+            nickname = null;
+            owner = null;
+            levelname = null;
         }
 
         public event EventHandler<StatusChangedArgs> StatusChanged;
@@ -166,22 +173,78 @@ namespace EEditor
             var chunks = InitParse.Parse(e);
 
 
-                if (MainForm.userdata.level.StartsWith("OW"))
+            if (MainForm.userdata.level.StartsWith("OW"))
+            {
+                if (e.GetBoolean(14)) { MainForm.OpenWorld = true; MainForm.OpenWorldCode = false; }
+                else if (!e.GetBoolean(14)) { MainForm.OpenWorld = true; MainForm.OpenWorldCode = true; }
+            }
+            //int num2 = 0;
+            foreach (var chunk in chunks)
+            {
+                /*for (int i = 0; i < chunk.Args.Length; i++)
                 {
-                    if (e.GetBoolean(14)) { MainForm.OpenWorld = true; MainForm.OpenWorldCode = false; }
-                    else if (!e.GetBoolean(14)) { MainForm.OpenWorld = true; MainForm.OpenWorldCode = true; }
+                    Console.WriteLine("Bid: " + chunk.Type + " Length: " + chunk.Args.Length + " Data: " + chunk.Args[i]);
                 }
-                //int num2 = 0;
-                foreach (var chunk in chunks)
+                 */
+                foreach (var pos in chunk.Locations)
                 {
-                    /*for (int i = 0; i < chunk.Args.Length; i++)
+                    if (chunk.Args.Length == 0)
                     {
-                        Console.WriteLine("Bid: " + chunk.Type + " Length: " + chunk.Args.Length + " Data: " + chunk.Args[i]);
+                        if ((int)chunk.Layer == 1)
+                        {
+                            int x = pos.X;
+                            int y = pos.Y;
+                            frame.Background[y, x] = Convert.ToInt32(chunk.Type);
+                        }
+                        else
+                        {
+                            int x = pos.X;
+                            int y = pos.Y;
+                            frame.Foreground[y, x] = Convert.ToInt32(chunk.Type);
+                        }
                     }
-                     */
-                    foreach (var pos in chunk.Locations)
+                    if (chunk.Args.Length == 1)
                     {
-                        if (chunk.Args.Length == 0)
+                        if (Convert.ToString(chunk.Args[0]) != "we")
+                        {
+                            if (bdata.goal.Contains((int)chunk.Type) || bdata.morphable.Contains((int)chunk.Type) || bdata.rotate.Contains((int)chunk.Type) && (int)chunk.Type != 385 && (int)chunk.Type != 374)
+                            {
+                                frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
+                                frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
+                            }
+                            else
+                            {
+                                if ((int)chunk.Type == 385)
+                                {
+                                    frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
+                                    frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
+                                    frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
+                                }
+                                else if ((int)chunk.Type == 374)
+                                {
+
+                                    frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
+                                    frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
+                                    frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
+                                }
+                                if ((int)chunk.Type != 374 && (int)chunk.Type != 385)
+                                {
+                                    if ((int)chunk.Layer == 1)
+                                    {
+                                        int x = pos.X;
+                                        int y = pos.Y;
+                                        frame.Background[y, x] = Convert.ToInt32(chunk.Type);
+                                    }
+                                    else
+                                    {
+                                        int x = pos.X;
+                                        int y = pos.Y;
+                                        frame.Foreground[y, x] = Convert.ToInt32(chunk.Type);
+                                    }
+                                }
+                            }
+                        }
+                        else if (Convert.ToString(chunk.Args[0]) == "we")
                         {
                             if ((int)chunk.Layer == 1)
                             {
@@ -196,137 +259,81 @@ namespace EEditor
                                 frame.Foreground[y, x] = Convert.ToInt32(chunk.Type);
                             }
                         }
-                        if (chunk.Args.Length == 1)
+                    }
+                    if (chunk.Args.Length == 2 && (int)chunk.Type != 1000)
+                    {
+                        if (Convert.ToString(chunk.Args[0]) != "we")
                         {
-                            if (Convert.ToString(chunk.Args[0]) != "we")
+                            frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
+                            if (chunk.Type == 385)
                             {
-                                if (bdata.goal.Contains((int)chunk.Type) || bdata.morphable.Contains((int)chunk.Type) || bdata.rotate.Contains((int)chunk.Type) && (int)chunk.Type != 385 && (int)chunk.Type != 374)
-                                {
-                                    frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
-                                    frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
-                                }
-                                else
-                                {
-                                    if ((int)chunk.Type == 385)
-                                    {
-                                        frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
-                                        frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
-                                        frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
-                                    }
-                                    else if ((int)chunk.Type == 374)
-                                    {
-
-                                        frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
-                                        frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
-                                        frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
-                                    }
-                                    if ((int)chunk.Type != 374 && (int)chunk.Type != 385)
-                                    {
-                                        if ((int)chunk.Layer == 1)
-                                        {
-                                            int x = pos.X;
-                                            int y = pos.Y;
-                                            frame.Background[y, x] = Convert.ToInt32(chunk.Type);
-                                        }
-                                        else
-                                        {
-                                            int x = pos.X;
-                                            int y = pos.Y;
-                                            frame.Foreground[y, x] = Convert.ToInt32(chunk.Type);
-                                        }
-                                    }
-                                }
+                                frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
+                                frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
                             }
-                            else if (Convert.ToString(chunk.Args[0]) == "we")
+                            else if (chunk.Type == 374)
                             {
-                                if ((int)chunk.Layer == 1)
-                                {
-                                    int x = pos.X;
-                                    int y = pos.Y;
-                                    frame.Background[y, x] = Convert.ToInt32(chunk.Type);
-                                }
-                                else
-                                {
-                                    int x = pos.X;
-                                    int y = pos.Y;
-                                    frame.Foreground[y, x] = Convert.ToInt32(chunk.Type);
-                                }
+                                frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
+                                frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
+                            }
+                            else if (bdata.goal.Contains((int)chunk.Type) || bdata.morphable.Contains((int)chunk.Type) || bdata.rotate.Contains((int)chunk.Type))
+                            {
+                                frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
                             }
                         }
-                        if (chunk.Args.Length == 2 && (int)chunk.Type != 1000)
+                    }
+                    //if (chunk.Args.Length == 2 && (int)chunk.Type == 1000) { Chunk.Args[0] Chunk.Args[1] (Colored Text) }
+                    if (chunk.Args.Length == 3)
+                    {
+                        if ((int)chunk.Type == 242 || (int)chunk.Type == 381)
                         {
-                            if (Convert.ToString(chunk.Args[0]) != "we")
+                            if (Convert.ToString(chunk.Args[0]) != "we" && Convert.ToString(chunk.Args[1]) != "we" && Convert.ToString(chunk.Args[2]) != "we")
                             {
                                 frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
-                                if (chunk.Type == 385)
-                                {
-                                    frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
-                                    frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
-                                }
-                                else if (chunk.Type == 374)
-                                {
-                                    frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
-                                    frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
-                                }
-                                else if (bdata.goal.Contains((int)chunk.Type) || bdata.morphable.Contains((int)chunk.Type) || bdata.rotate.Contains((int)chunk.Type))
-                                {
-                                    frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
-                                }
+                                frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
+                                frame.BlockData1[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
+                                frame.BlockData2[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[2]);
                             }
                         }
-                        //if (chunk.Args.Length == 2 && (int)chunk.Type == 1000) { Chunk.Args[0] Chunk.Args[1] (Colored Text) }
-                        if (chunk.Args.Length == 3)
+                        else if ((int)chunk.Type == 385 || (int)chunk.Type == 374)
                         {
-                            if ((int)chunk.Type == 242 || (int)chunk.Type == 381)
-                            {
-                                if (Convert.ToString(chunk.Args[0]) != "we" && Convert.ToString(chunk.Args[1]) != "we" && Convert.ToString(chunk.Args[2]) != "we")
-                                {
-                                    frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
-                                    frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
-                                    frame.BlockData1[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
-                                    frame.BlockData2[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[2]);
-                                }
-                            }
-                            else if ((int)chunk.Type == 385 || (int)chunk.Type == 374)
-                            {
-                                if (Convert.ToString(chunk.Args[0]) != "we" && Convert.ToString(chunk.Args[1]) != "we")
-                                {
-                                    frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
-                                    frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
-                                    frame.BlockData3[pos.Y, pos.X] = Convert.ToString(chunk.Args[0]);
-                                }
-                            }
-                        }
-                        if (chunk.Args.Length == 4)
-                        {
-                            if ((int)chunk.Type == 242 || (int)chunk.Type == 381)
-                            {
-                                if (Convert.ToString(chunk.Args[0]) != "we" && Convert.ToString(chunk.Args[1]) != "we" && Convert.ToString(chunk.Args[2]) != "we")
-                                {
-                                    frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
-                                    frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
-                                    frame.BlockData1[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
-                                    frame.BlockData2[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[2]);
-                                }
-                            }
-
-                        }
-                        if (bdata.isNPC((int)chunk.Type))
-                        {
-                            if (chunk.Args.Length == 4 || chunk.Args.Length == 5)
+                            if (Convert.ToString(chunk.Args[0]) != "we" && Convert.ToString(chunk.Args[1]) != "we")
                             {
                                 frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
+                                frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
                                 frame.BlockData3[pos.Y, pos.X] = Convert.ToString(chunk.Args[0]);
-                                frame.BlockData4[pos.Y, pos.X] = Convert.ToString(chunk.Args[1]);
-                                frame.BlockData5[pos.Y, pos.X] = Convert.ToString(chunk.Args[2]);
-                                frame.BlockData6[pos.Y, pos.X] = Convert.ToString(chunk.Args[3]);
+                            }
+                        }
+                    }
+                    if (chunk.Args.Length == 4)
+                    {
+                        if ((int)chunk.Type == 242 || (int)chunk.Type == 381)
+                        {
+                            if (Convert.ToString(chunk.Args[0]) != "we" && Convert.ToString(chunk.Args[1]) != "we" && Convert.ToString(chunk.Args[2]) != "we")
+                            {
+                                frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
+                                frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
+                                frame.BlockData1[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
+                                frame.BlockData2[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[2]);
                             }
                         }
 
                     }
-                
+                    if (bdata.isNPC((int)chunk.Type))
+                    {
+                        if (chunk.Args.Length == 4 || chunk.Args.Length == 5)
+                        {
+                            frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
+                            frame.BlockData3[pos.Y, pos.X] = Convert.ToString(chunk.Args[0]);
+                            frame.BlockData4[pos.Y, pos.X] = Convert.ToString(chunk.Args[1]);
+                            frame.BlockData5[pos.Y, pos.X] = Convert.ToString(chunk.Args[2]);
+                            frame.BlockData6[pos.Y, pos.X] = Convert.ToString(chunk.Args[3]);
+                        }
+                    }
+
+                }
+
             }
-            
+
             return frame;
         }
         #endregion
@@ -390,7 +397,7 @@ namespace EEditor
                                             }
                                             else
                                             {
-                                                frame.BlockData[tmpyy, tmpxx] = Convert.ToInt32(id);
+                                                frame.BlockData1[tmpyy, tmpxx] = Convert.ToInt32(id);
                                             }
                                         }
                                         if (worldinfo.TryGetValue("target", out target) && target.GetType().ToString() != "System.String") frame.BlockData2[tmpyy, tmpxx] = Convert.ToInt32(target);
@@ -448,7 +455,7 @@ namespace EEditor
                                             }
                                             else
                                             {
-                                                frame.BlockData[tmpyy0, tmpxx0] = Convert.ToInt32(id);
+                                                frame.BlockData1[tmpyy0, tmpxx0] = Convert.ToInt32(id);
                                             }
                                         }
                                         if (worldinfo.TryGetValue("target", out target) && target.GetType().ToString() != "System.String") frame.BlockData2[tmpyy0, tmpxx0] = Convert.ToInt32(target);
@@ -486,7 +493,7 @@ namespace EEditor
             }
             //frame.Foreground[10, 10] = 9;
             //MainForm.editArea.Init(frame);
-            
+
         }
         #endregion
 
@@ -499,7 +506,7 @@ namespace EEditor
                 {
                     if (Foreground[y, x] != f.Foreground[y, x])
                     {
-                        if (bdata.morphable.Contains(Foreground[y, x]) && !bdata.isNPC(Foreground[y,x]))
+                        if (bdata.morphable.Contains(Foreground[y, x]) && !bdata.isNPC(Foreground[y, x]))
                         {
                             res.Add(new string[] { x.ToString(), y.ToString(), Foreground[y, x].ToString(), "0", BlockData[y, x].ToString() });
                         }
@@ -982,7 +989,7 @@ namespace EEditor
                 }
                 if (!error)
                 {
-                    Clipboard.SetData("EEData", new string[][,] { area, back, coins, id, target, text1,text2,text3,text4 });
+                    Clipboard.SetData("EEData", new string[][,] { area, back, coins, id, target, text1, text2, text3, text4 });
                     MainForm.editArea.Focus();
                     SendKeys.Send("^{v}");
                 }
@@ -993,6 +1000,81 @@ namespace EEditor
             }
         }
 
+        public static Frame LoadFromEELVL(string file)
+        {
+            using (FileStream fs = new FileStream(file, FileMode.Open))
+            {
+                Level lvl = new Level(fs);
+                Frame f = new Frame(lvl.Width, lvl.Height);
+                f.levelname = lvl.WorldName;
+                f.nickname = lvl.OwnerName;
+                for (int x = 0; x < lvl.Width; ++x)
+                {
+                    for (int y = 0; y < lvl.Height; ++y)
+                    {
+                        if (lvl[0, x, y].Type == BlockType.Normal || lvl[0, x, y].Type == BlockType.MorphableButNotReally)
+                        {
+
+                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                        }
+                        if (lvl[0, x, y].Type == BlockType.NPC)
+                        {
+                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                            f.BlockData3[y, x] = ((NPCBlock)lvl[0, x, y]).Name;
+                            f.BlockData4[y, x] = ((NPCBlock)lvl[0, x, y]).Message1;
+                            f.BlockData5[y, x] = ((NPCBlock)lvl[0, x, y]).Message2;
+                            f.BlockData6[y, x] = ((NPCBlock)lvl[0, x, y]).Message3;
+                        }
+                        if (lvl[0, x, y].Type == BlockType.Sign)
+                        {
+                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                            f.BlockData3[y, x] = ((SignBlock)lvl[0, x, y]).Text;
+                            f.BlockData[y, x] = ((SignBlock)lvl[0, x, y]).Morph;
+                        }
+                        if (lvl[0, x, y].Type == BlockType.Portal)
+                        {
+                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                            f.BlockData[y, x] = ((PortalBlock)lvl[0, x, y]).Morph;
+                            f.BlockData1[y, x] = ((PortalBlock)lvl[0, x, y]).ID;
+                            f.BlockData2[y, x] = ((PortalBlock)lvl[0, x, y]).Target;
+                        }
+                        if (lvl[0,x,y].Type == BlockType.Morphable)
+                        {
+                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                            f.BlockData[y, x] = ((MorphableBlock)lvl[0, x, y]).Morph;
+                        }
+                        if (lvl[0, x, y].Type == BlockType.Number)
+                        {
+                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                            f.BlockData[y, x] = ((NumberBlock)lvl[0, x, y]).Number;
+                        }
+                        if (lvl[0, x, y].Type == BlockType.Enumerable)
+                        {
+                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                            f.BlockData[y, x] = ((EnumerableBlock)lvl[0, x, y]).Variant;
+                        }
+                        if (lvl[0, x, y].Type == BlockType.WorldPortal)
+                        {
+                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                            f.BlockData[y, x] = ((WorldPortalBlock)lvl[0, x, y]).Spawn;
+                            f.BlockData3[y, x] = ((WorldPortalBlock)lvl[0, x, y]).Target;
+                        }
+                        if (lvl[0, x, y].Type == BlockType.Music)
+                        {
+                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                            int temp = ((MusicBlock)lvl[0, x, y]).Note;
+                            f.BlockData[y, x] = (int)Convert.ToUInt32(temp);
+                        }
+                        if (lvl[1, x, y].Type == BlockType.Normal)
+                        {
+                            f.Background[y, x] = lvl[1, x, y].BlockID;
+                        }
+
+                    }
+                }
+                return f;
+            }
+        }
         public static Frame Load(System.IO.BinaryReader reader, int num)
         {
             /*

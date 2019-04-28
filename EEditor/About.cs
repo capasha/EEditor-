@@ -93,6 +93,9 @@ namespace EEditor
                 case "Yonom/Processor's InitParser":
                     link = "https://gist.github.com/Yonom/3c9ebfe69b1432452f9b";
                     break;
+                case "Lukem's .eelvl parser":
+                    link = "https://gitlab.com/LukeM212/EELVL/tree/legacy";
+                    break;
             }
             DialogResult dr = MessageBox.Show("Do you want to open this link in your webbrowser?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (dr == DialogResult.Yes)

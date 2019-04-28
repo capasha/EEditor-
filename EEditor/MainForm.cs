@@ -18,7 +18,7 @@ namespace EEditor
         public static bool OpenWorld = false;
         public static bool OpenWorldCode = false;
         public static userData userdata = new userData();
-        public static string pathSettings = Directory.GetCurrentDirectory() + @"\settings.json";
+        public static string pathSettings = $"{Directory.GetCurrentDirectory()}\\settings.json";
         private Dictionary<int, Bitmap> sblocks = new Dictionary<int, Bitmap>();
         private Dictionary<int, Bitmap> sblocks1 = new Dictionary<int, Bitmap>();
         private int lastblocks = 0;
@@ -1300,7 +1300,7 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickeffectreset") || debug) { AddToolStrip(miscBMD, 1, new int[] { 550 }, null, false, "Effects", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 550 }, null, false, "Effects", 1, 2, false); }
             if (ihavethese.ContainsKey("goldmember") || debug) { AddToolStrip(miscBMD, 1, new int[] { 12, 13 }, new uint[] { 0x281C00, 0xBA983B }, false, "Gold Membership", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 12, 13 }, new uint[] { 0x281C00, 0xBA983B }, false, "Gold Membership", 1, 2, false); }
             if (ihavethese.ContainsKey("brickice2") || debug) { AddToolStrip(miscBMD, 1, new int[] { 251 }, new uint[] { 0x409EB1 }, false, "Ice", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 251 }, new uint[] { 0x409EB1 }, false, "Ice", 1, 2, false); }
-            if (MainForm.userdata.username != "guest" && ihavethese.Any(x => x.Key.StartsWith("npc"))) AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC", 1, 2, true);
+            if (MainForm.userdata.username != "guest" && ihavethese.Any(x => x.Key.StartsWith("npc")) || debug) AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC", 1, 2, true);
             if (ihavethese.ContainsKey("npcsmile") || debug) { AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC Smile", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC Smile", 1, 2, false); }
             if (ihavethese.ContainsKey("npcsad") || debug) { AddToolStrip(miscBMD, 1, new int[] { 434 }, null, false, "NPC Sad", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 434 }, null, false, "NPC Sad", 1, 2, false); }
             if (ihavethese.ContainsKey("npcold") || debug) { AddToolStrip(miscBMD, 1, new int[] { 435 }, null, false, "NPC Old", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 435 }, null, false, "NPC Old", 1, 2, false); }
@@ -2805,7 +2805,7 @@ namespace EEditor
                     fs.Close();
                     if (frame != null)
                     {
-                        this.Text = Path.GetFileName(ofd.FileName) + " by " + "Unknown" + " (" + frame.Width + "x" + frame.Height + ") - EEditor " + this.ProductVersion;
+                        this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EEditor {this.ProductVersion}";
                         editArea.Init(frame, false);
                     }
                     else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -2841,7 +2841,7 @@ namespace EEditor
                 fs.Close();
                 if (frame != null)
                 {
-                    this.Text = Path.GetFileName(ofd.FileName) + " by " + "Unknown" + " (" + frame.Width + "x" + frame.Height + ") - EEditor " + this.ProductVersion;
+                    this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EEditor {this.ProductVersion}";
                     editArea.Init(frame, false);
                 }
                 else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -2875,7 +2875,7 @@ namespace EEditor
                 fs.Close();
                 if (frame != null)
                 {
-                    this.Text = Path.GetFileName(ofd.FileName) + " by " + "Unknown" + " (" + frame.Width + "x" + frame.Height + ") - EEditor " + this.ProductVersion;
+                    this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EEditor {this.ProductVersion}";
                     editArea.Init(frame, false);
                 }
                 else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -2909,7 +2909,7 @@ namespace EEditor
                 fs.Close();
                 if (frame != null)
                 {
-                    this.Text = Path.GetFileName(ofd.FileName) + " by " + "Unknown" + " (" + frame.Width + "x" + frame.Height + ") - EEditor " + this.ProductVersion;
+                    this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EEditor {this.ProductVersion}";
                     editArea.Init(frame, false);
                 }
                 else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -2945,7 +2945,7 @@ namespace EEditor
                 fs.Close();
                 if (frame != null)
                 {
-                    this.Text = Path.GetFileName(ofd.FileName) + " by " + "Unknown" + " (" + frame.Width + "x" + frame.Height + ") - EEditor " + this.ProductVersion;
+                    this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EEditor {this.ProductVersion}";
                     editArea.Init(frame, false);
                 }
                 else MessageBox.Show("The selected file was made by an unknown EEAnimator version.", "Unknown version", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -4304,7 +4304,7 @@ namespace EEditor
                         Frame frame = Frame.LoadJSONDatabaseWorld(path);
                         if (frame != null)
                         {
-                            this.Text = Path.GetFileName(ofd.FileName) + " by " + "Unknown" + " (" + frame.Width + "x" + frame.Height + ") - EEditor " + this.ProductVersion;
+                            this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EEditor {this.ProductVersion}";
                             editArea.Init(frame, false);
                         }
                         else MessageBox.Show("The selected JSON Database World is either corrupt or invalid.", "Invalid JSON Database World", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -4373,7 +4373,7 @@ namespace EEditor
                     fs.Close();
                     if (frame != null)
                     {
-                        this.Text = Path.GetFileName(ofd.FileName) + " by " + "Unknown" + " (" + frame.Width + "x" + frame.Height + ") - EEditor " + this.ProductVersion;
+                        this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EEditor {this.ProductVersion}";
                         editArea.Init(frame, false);
                     }
                     else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -4424,7 +4424,8 @@ namespace EEditor
                 fs.Close();
                 if (frame != null)
                 {
-                    this.Text = Path.GetFileName(ofd.FileName) + " by " + "Unknown" + " (" + frame.Width + "x" + frame.Height + ") - EEditor " + this.ProductVersion;
+                    
+                    this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EEditor {this.ProductVersion}";
                     editArea.Init(frame, false);
                 }
                 else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -4475,7 +4476,41 @@ namespace EEditor
             MainForm.editArea.Invalidate();
         }
 
-   
+        private void eELVLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetDummy();
+            try
+            {
+                MainForm.editArea.Back = null;
+                MainForm.editArea.Back1 = null;
+                OpenFileDialog ofd = new OpenFileDialog()
+                {
+                    Title = "Select a level to load from",
+                    DefaultExt = "eelvl",
+                    Filter = "EverybodyEdits level (*.eelvl)|*.eelvl",
+                    FilterIndex = 1,
+                    AddExtension = true,
+                    RestoreDirectory = true,
+                    CheckFileExists = true
+                };
+                
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    string filename = ofd.FileName;
+                    Frame frame = Frame.LoadFromEELVL(filename);
+                    if (frame != null)
+                    {
+                        this.Text = $".eelvl - ({frame.levelname}) [{frame.nickname}] ({frame.Width}x{frame.Height}) - EEditor {this.ProductVersion}";
+                        editArea.Init(frame, false);
+                    }
+                    else MessageBox.Show("The selected EELVL is either invalid or corrupt.", "Invalid EELVL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error has occured: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 
     public class ownedBlocks

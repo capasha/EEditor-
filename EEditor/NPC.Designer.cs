@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NPC));
             this.Message1TextBox = new System.Windows.Forms.TextBox();
             this.Message2TextBox = new System.Windows.Forms.TextBox();
             this.Message3TextBox = new System.Windows.Forms.TextBox();
@@ -152,6 +153,7 @@
             this.Controls.Add(this.Message3TextBox);
             this.Controls.Add(this.Message2TextBox);
             this.Controls.Add(this.Message1TextBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NPC";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NPC\'s";
