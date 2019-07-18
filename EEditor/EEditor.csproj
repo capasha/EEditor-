@@ -232,6 +232,12 @@
     <Compile Include="SprayCan.Designer.cs">
       <DependentUpon>SprayCan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Statistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statistics.Designer.cs">
+      <DependentUpon>Statistics.cs</DependentUpon>
+    </Compile>
     <Compile Include="TaskbarProgress.cs" />
     <Compile Include="TeamColorChanger.cs">
       <SubType>Form</SubType>
@@ -371,6 +377,9 @@
     <EmbeddedResource Include="SprayCan.resx">
       <DependentUpon>SprayCan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Statistics.resx">
+      <DependentUpon>Statistics.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TeamColorChanger.resx">
       <DependentUpon>TeamColorChanger.cs</DependentUpon>
     </EmbeddedResource>
@@ -449,6 +458,7 @@
     <None Include="Resources\remove.png" />
     <Content Include="Resources\search.png" />
     <Content Include="Resources\shapes.png" />
+    <None Include="Resources\statistic.png" />
     <Content Include="Resources\target.png" />
     <Content Include="Resources\thread.png" />
     <Content Include="Resources\undo.png" />

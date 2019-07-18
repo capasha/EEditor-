@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using PlayerIOClient;
+using System.Text;
 namespace EEditor
 {
     public partial class Accounts : Form
@@ -172,13 +173,14 @@ namespace EEditor
                 instructionsField.Rtf = armorgamesRTF;
             }*/
         }
+
         public static void CheckAccounts(MainForm mf)
         {
-            var acccs = @"\accounts.json";
-            if (File.Exists(Directory.GetCurrentDirectory() + acccs) && File.ReadAllLines(Directory.GetCurrentDirectory() + acccs).Length > 0)
+            var acccs = $"{Directory.GetCurrentDirectory()}\\accounts.json";
+            if (File.Exists(acccs) && File.ReadAllLines(acccs).Length > 0)
             {
 
-                var output = JObject.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + acccs));
+                var output = JObject.Parse(File.ReadAllText(acccs));
                 foreach (var property in output)
                 {
                     if (!accs.ContainsKey(property.Key))
@@ -234,7 +236,7 @@ namespace EEditor
                 {
                     MainForm.accs.Add("guest", new accounts() { login = "guest", password = "guest", loginMethod = 0, payvault = new Dictionary<string, int>() });
                     mf.cb.Items.Add("guest");
-                    File.WriteAllText(Directory.GetCurrentDirectory() + acccs, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
+                    File.WriteAllText(acccs, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
                 }
             }
             else
@@ -243,7 +245,7 @@ namespace EEditor
                 {
                     MainForm.accs.Add("guest", new accounts() { login = "guest", password = "guest", loginMethod = 0, payvault = new Dictionary<string, int>() });
                     mf.cb.Items.Add("guest");
-                    File.WriteAllText(Directory.GetCurrentDirectory() + acccs, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
+                    File.WriteAllText(acccs, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
                 }
             }
             mf.cb.Items.Add("---------");
@@ -630,7 +632,7 @@ namespace EEditor
                             break;
                     }
                     loginField1.Text = MainForm.accs[lastSelected].login;
-                    loginField2.Text = MainForm.accs[lastSelected].password;
+                    loginField2.Text = MainForm.accs[lastSelected].login == "guest" ? "guest":MainForm.accs[lastSelected].password;
                 }
                 else
                 {

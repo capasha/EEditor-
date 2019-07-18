@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("EEditor")]
 [assembly: AssemblyDescription("EEditor is a tool made to simplify Everybody Edits world editing and creation.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("EEditor Authors")]
 [assembly: AssemblyProduct("EEditor")]
 [assembly: AssemblyCopyright("Copyright © EEditor Authors")]
 [assembly: AssemblyTrademark("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.0.7")]
-[assembly: AssemblyFileVersion("4.0.7")]
+[assembly: AssemblyVersion("4.0.8")]
+[assembly: AssemblyFileVersion("4.0.8")]

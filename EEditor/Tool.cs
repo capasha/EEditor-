@@ -85,7 +85,7 @@ namespace EEditor
                 }
             }
         }
-
+        
         public virtual void MouseDown(MouseEventArgs e) { }
         public virtual void MouseMove(MouseEventArgs e) { }
         public virtual void MouseMoveHover(MouseEventArgs e) { }

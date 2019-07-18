@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Drawing.Text;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Drawing.Imaging;
 
 namespace EEditor
 {
@@ -60,8 +61,8 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                 ControlStyles.UserPaint |
                 ControlStyles.DoubleBuffer, true);
 
-            Bricks = new Bitmap[3000];
-            BricksFade = new Bitmap[3000];
+            Bricks = new Bitmap[4000];
+            BricksFade = new Bitmap[6000];
             Tool = new ToolPen(this) { PenID = 9 };
             Frames = new List<Frame>();
 
@@ -305,25 +306,50 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
         {
             BlockHeight = height;
             BlockWidth = width;
-            Frame frame = new Frame(BlockWidth, BlockHeight);
-            frame.Reset(false);
-            Init(frame, false);
+            int calc1 = BlockWidth * MainForm.Zoom;
+            int calc2 = BlockHeight * MainForm.Zoom;
+            int calc3 = calc1 + calc2;
+            if (calc3 > 23170)
+            {
+                MessageBox.Show("Can't load this world. It's too big.");
+            }
+            else
+            {
+                Size size = new Size(BlockWidth * MainForm.Zoom, BlockHeight * MainForm.Zoom);
+                Frame frame = new Frame(BlockWidth, BlockHeight);
+                frame.Reset(false);
+                Init(frame, false);
+            }
         }
 
         public void Init(Frame frame, bool frme)
         {
             BlockHeight = frame.Height;
             BlockWidth = frame.Width;
-            Frames.Clear();
-            Frames.Add(frame);
-            curFrame = 0;
-            Size size = new Size(BlockWidth * MainForm.Zoom, BlockHeight * MainForm.Zoom);
-            Back = new Bitmap(BlockWidth * MainForm.Zoom, BlockHeight * MainForm.Zoom);
-            Minimap.Init(BlockWidth, BlockHeight);
-            PaintCurFrame();
-            this.AutoScrollMinSize = size;
-            this.Invalidate();
-            started = true;
+            int calc1 = BlockWidth * MainForm.Zoom;
+            int calc2 = BlockHeight * MainForm.Zoom;
+            int calc3 = calc1 + calc2;
+            if (calc3 > 23170)
+            {
+                started = false;
+                MessageBox.Show("Can't load this world. It's too big.");
+                
+            }
+            else
+            {
+                Frames.Clear();
+                Frames.Add(frame);
+                curFrame = 0;
+                Size size = new Size(BlockWidth * MainForm.Zoom, BlockHeight * MainForm.Zoom);
+                //Bricks = new Bitmap[3000];
+                //BricksFade = new Bitmap[BlockWidth * MainForm.Zoom];
+                Back = new Bitmap(BlockWidth * MainForm.Zoom, BlockHeight * MainForm.Zoom);
+                Minimap.Init(BlockWidth, BlockHeight);
+                PaintCurFrame();
+                this.AutoScrollMinSize = size;
+                this.Invalidate();
+                started = true;
+            }
         }
         public void zoomRefresh()
         {

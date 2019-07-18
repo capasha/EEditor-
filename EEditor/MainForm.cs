@@ -70,6 +70,7 @@ namespace EEditor
         public static Bitmap miscBMD = new Bitmap(Properties.Resources.misc.Width, 16);
         public static Bitmap decosBMD = new Bitmap(Properties.Resources.BLOCKS_deco.Width, 16);
         public static Bitmap backgroundBMD = new Bitmap(Properties.Resources.BLOCKS_back.Width, 16);
+        public string frt = "MU9tR29kJE1hY0hpbmU0";
         public static System.Windows.Forms.NotifyIcon notification = new System.Windows.Forms.NotifyIcon();
         private ToolStripTextBox tsb = new ToolStripTextBox();
         public static bool soundsErrorShown = false;
@@ -1518,7 +1519,7 @@ namespace EEditor
 
                         editArea.Bricks[ids[j]] = brick;
 
-                        editArea.BricksFade[ids[j]] = Fade(brick);
+                        //editArea.BricksFade[ids[j]] = Fade(brick);
 
                         items[j] = new BrickButton(brick, this, SetBrick, ids[j], bid, true, mode, desc);
                         //else items[j] = new BrickButton(brick, this, SetBrick, ids[j], bid, false, mode, desc);
@@ -4505,6 +4506,39 @@ namespace EEditor
                     }
                     else MessageBox.Show("The selected EELVL is either invalid or corrupt.", "Invalid EELVL", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error has occured: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void StatisticButton_Click(object sender, EventArgs e)
+        {
+            Statistics stat = new Statistics();
+            stat.ShowDialog();
+        }
+
+        private void EelvlToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SetDummy();
+            try
+            {
+                SaveFileDialog ofd = new SaveFileDialog()
+                {
+                    Title = "Select a file to save to",
+                    DefaultExt = "eelvl",
+                    Filter = "EverybodyEdits Offline level (*.eelvl)|*.eelvl",
+                    AddExtension = true,
+                    RestoreDirectory = true
+                };
+
+                if (ofd.ShowDialog() != DialogResult.OK) return;
+                string path = ofd.FileName;
+
+                FileStream fs = new FileStream(path, FileMode.OpenOrCreate);
+                editArea.CurFrame.SaveLVL(fs);
+                fs.Close();
             }
             catch (Exception ex)
             {

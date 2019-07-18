@@ -35,6 +35,7 @@ namespace EEditor
 
         public Frame(int width, int height)
         {
+            Console.WriteLine(width + " " + height);
             Width = width;
             Height = height;
             Foreground = new int[Height, Width];
@@ -667,7 +668,65 @@ namespace EEditor
 
             return res;
         }
+        public void SaveLVL(FileStream file)
+        {
+            EELVL.Level savelvl = new Level(Width, Height, 0);
+            for (int y = 0; y < Height; ++y)
+            {
+                for (int x = 0; x < Width; ++x)
+                {
+                    int fid = Foreground[y, x];
+                    int bid = Background[y, x];
+                    if (Blocks.IsType(fid, Blocks.BlockType.Normal))
+                    {
+                        savelvl[0, x, y] = new Blocks.Block(fid);
+                    }
+                    if (Blocks.IsType(fid, Blocks.BlockType.Number))
+                    {
+                        savelvl[0, x, y] = new Blocks.NumberBlock(fid, BlockData[y, x]);
+                    }
+                    if (Blocks.IsType(fid, Blocks.BlockType.NPC))
+                    {
+                        savelvl[0, x, y] = new Blocks.NPCBlock(fid, BlockData3[y, x], BlockData4[y, x], BlockData5[y, x], BlockData6[y, x]);
+                    }
+                    if (Blocks.IsType(fid, Blocks.BlockType.Morphable))
+                    {
+                        savelvl[0, x, y] = new Blocks.MorphableBlock(fid, BlockData[y, x]);
+                    }
+                    if (Blocks.IsType(fid, Blocks.BlockType.Enumerable))
+                    {
+                        savelvl[0, x, y] = new Blocks.EnumerableBlock(fid, BlockData[y, x]);
+                    }
+                    if (Blocks.IsType(fid, Blocks.BlockType.Sign))
+                    {
+                        savelvl[0, x, y] = new Blocks.SignBlock(fid, BlockData3[y, x], BlockData[y, x]);
+                    }
+                    if (Blocks.IsType(fid, Blocks.BlockType.Rotatable) || Blocks.IsType(fid, Blocks.BlockType.RotatableButNotReally))
+                    {
+                        int bdata = BlockData[y, x];
+                        savelvl[0, x, y] = new Blocks.RotatableBlock(fid, bdata);
+                    }
+                    if (Blocks.IsType(fid, Blocks.BlockType.Portal))
+                    {
+                        savelvl[0, x, y] = new Blocks.PortalBlock(fid, BlockData[y, x], BlockData1[y, x], BlockData2[y, x]);
+                    }
+                    if (Blocks.IsType(fid, Blocks.BlockType.WorldPortal))
+                    {
+                        savelvl[0, x, y] = new Blocks.WorldPortalBlock(fid, BlockData3[y, x], BlockData[y, x]);
+                    }
+                    if (Blocks.IsType(fid, Blocks.BlockType.Music))
+                    {
+                        savelvl[0, x, y] = new Blocks.MusicBlock(fid, BlockData[y, x]);
+                    }
+                    if (Blocks.IsType(bid, Blocks.BlockType.Normal))
+                    {
+                        savelvl[1, x, y] = new Blocks.Block(bid);
+                    }
+                }
+            }
+            savelvl.Save(file);
 
+        }
         public void Save(System.IO.BinaryWriter writer)
         {
             writer.Write(Width);
@@ -1012,60 +1071,66 @@ namespace EEditor
                 {
                     for (int y = 0; y < lvl.Height; ++y)
                     {
-                        if (lvl[0, x, y].Type == BlockType.Normal || lvl[0, x, y].Type == BlockType.MorphableButNotReally)
+                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Normal))
+                        {
+                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                        }
+                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Rotatable) || Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.RotatableButNotReally))
+                        {
+                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                            f.BlockData[y, x] = ((Blocks.RotatableBlock)lvl[0, x, y]).Rotation;
+                        }
+                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.NPC))
                         {
 
                             f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                            f.BlockData3[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Name;
+                            f.BlockData4[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message1;
+                            f.BlockData5[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message2;
+                            f.BlockData6[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message3;
                         }
-                        if (lvl[0, x, y].Type == BlockType.NPC)
+                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Sign))
                         {
                             f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData3[y, x] = ((NPCBlock)lvl[0, x, y]).Name;
-                            f.BlockData4[y, x] = ((NPCBlock)lvl[0, x, y]).Message1;
-                            f.BlockData5[y, x] = ((NPCBlock)lvl[0, x, y]).Message2;
-                            f.BlockData6[y, x] = ((NPCBlock)lvl[0, x, y]).Message3;
+                            f.BlockData3[y, x] = ((Blocks.SignBlock)lvl[0, x, y]).Text;
+                            f.BlockData[y, x] = ((Blocks.SignBlock)lvl[0, x, y]).Morph;
                         }
-                        if (lvl[0, x, y].Type == BlockType.Sign)
+                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Portal))
                         {
                             f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData3[y, x] = ((SignBlock)lvl[0, x, y]).Text;
-                            f.BlockData[y, x] = ((SignBlock)lvl[0, x, y]).Morph;
+
+                            f.BlockData[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).Rotation;
+                            f.BlockData1[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).ID;
+                            f.BlockData1[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).Target;
                         }
-                        if (lvl[0, x, y].Type == BlockType.Portal)
+                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Morphable))
                         {
                             f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData[y, x] = ((PortalBlock)lvl[0, x, y]).Morph;
-                            f.BlockData1[y, x] = ((PortalBlock)lvl[0, x, y]).ID;
-                            f.BlockData2[y, x] = ((PortalBlock)lvl[0, x, y]).Target;
+                            f.BlockData[y, x] = ((Blocks.MorphableBlock)lvl[0, x, y]).Morph;
                         }
-                        if (lvl[0,x,y].Type == BlockType.Morphable)
+                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Number))
                         {
                             f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData[y, x] = ((MorphableBlock)lvl[0, x, y]).Morph;
+                            f.BlockData[y, x] = ((Blocks.NumberBlock)lvl[0, x, y]).Number;
                         }
-                        if (lvl[0, x, y].Type == BlockType.Number)
+                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Enumerable))
                         {
                             f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData[y, x] = ((NumberBlock)lvl[0, x, y]).Number;
+                            f.BlockData[y, x] = ((Blocks.EnumerableBlock)lvl[0, x, y]).Variant;
                         }
-                        if (lvl[0, x, y].Type == BlockType.Enumerable)
+                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.WorldPortal))
                         {
                             f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData[y, x] = ((EnumerableBlock)lvl[0, x, y]).Variant;
+                            f.BlockData[y, x] = ((Blocks.WorldPortalBlock)lvl[0, x, y]).Spawn;
+                            f.BlockData3[y, x] = ((Blocks.WorldPortalBlock)lvl[0, x, y]).Target;
                         }
-                        if (lvl[0, x, y].Type == BlockType.WorldPortal)
+                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Music))
                         {
                             f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData[y, x] = ((WorldPortalBlock)lvl[0, x, y]).Spawn;
-                            f.BlockData3[y, x] = ((WorldPortalBlock)lvl[0, x, y]).Target;
-                        }
-                        if (lvl[0, x, y].Type == BlockType.Music)
-                        {
-                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            int temp = ((MusicBlock)lvl[0, x, y]).Note;
+                            int temp = ((Blocks.MusicBlock)lvl[0, x, y]).Note;
                             f.BlockData[y, x] = (int)Convert.ToUInt32(temp);
                         }
-                        if (lvl[1, x, y].Type == BlockType.Normal)
+                        if (Blocks.IsType(lvl[1, x, y].BlockID, Blocks.BlockType.Normal))
                         {
                             f.Background[y, x] = lvl[1, x, y].BlockID;
                         }
