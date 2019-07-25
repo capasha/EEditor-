@@ -12,6 +12,7 @@ namespace EEditor
 {
     public partial class MainForm : Form
     {
+        public static bool darkMode = true;
         public static bool debug = false;
         public static int Zoom = 16;
         public static string selectedAcc = "guest";
@@ -80,10 +81,30 @@ namespace EEditor
         private Minimap minimap;
         private WorldArchiveMenu worldArchiveMenu;
         public static MainForm form1;
+
         public MainForm()
         {
             InitializeComponent();
             form1 = this;
+            if (darkMode)
+            {
+                this.topFlowLayoutPanel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.morphToolStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.viewToolStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.settingsToolStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.fileToolStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.toolToolStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.unknownToolStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.uploadToolStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.topFlowLayoutPanel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.historyToolStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.bottomFlowLayoutPanel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.statusToolStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.findToolStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.lastUsedToolStrip.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                this.replaceButton.Image = invertIcon(this.replaceButton.Image);
+            }
+
             starting2 = true;
             starting1 = true;
             string accss = @"\accounts.json";
@@ -508,6 +529,21 @@ namespace EEditor
             MainForm.editArea.Focus();
         }
 
+
+        public Image invertIcon(Image icon)
+        {
+            Bitmap editedIcon = new Bitmap(icon);
+            for (int y = 0; (y <= (editedIcon.Height - 1)); y++)
+            {
+                for (int x = 0; (x <= (editedIcon.Width - 1)); x++)
+                {
+                    Color inv = editedIcon.GetPixel(x, y);
+                    inv = Color.FromArgb(255, (255 - inv.R), (255 - inv.G), (255 - inv.B));
+                    editedIcon.SetPixel(x, y, inv);
+                }
+            }
+            return editedIcon;
+        }
 
         #region image colors
 

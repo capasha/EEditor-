@@ -61,8 +61,9 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.savToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eEBuilderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.myOwnWorldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eELVLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.myOwnWorldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.roomDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.localToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -135,7 +136,6 @@
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.LightToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.morphToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
             this.settingsToolStrip.SuspendLayout();
@@ -323,6 +323,7 @@
             // 
             // settingsToolStrip
             // 
+            this.settingsToolStrip.BackColor = System.Drawing.SystemColors.Control;
             this.settingsToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.settingsToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.settingsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -333,7 +334,7 @@
             this.settingsToolStrip.Location = new System.Drawing.Point(588, 0);
             this.settingsToolStrip.Name = "settingsToolStrip";
             this.settingsToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.settingsToolStrip.Size = new System.Drawing.Size(180, 27);
+            this.settingsToolStrip.Size = new System.Drawing.Size(211, 27);
             this.settingsToolStrip.TabIndex = 9;
             // 
             // accountsComboBox
@@ -493,19 +494,24 @@
             this.eEBuilderToolStripMenuItem.Text = "EEBuilder";
             this.eEBuilderToolStripMenuItem.Click += new System.EventHandler(this.eEBuilderToolStripMenuItem_Click);
             // 
-            // myOwnWorldsToolStripMenuItem
-            // 
-            this.myOwnWorldsToolStripMenuItem.Name = "myOwnWorldsToolStripMenuItem";
-            this.myOwnWorldsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.myOwnWorldsToolStripMenuItem.Text = "My Own Worlds";
-            this.myOwnWorldsToolStripMenuItem.Click += new System.EventHandler(this.myOwnWorldsToolStripMenuItem_Click);
-            // 
             // eELVLToolStripMenuItem
             // 
             this.eELVLToolStripMenuItem.Name = "eELVLToolStripMenuItem";
             this.eELVLToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.eELVLToolStripMenuItem.Text = "Offline Level";
             this.eELVLToolStripMenuItem.Click += new System.EventHandler(this.eELVLToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(185, 6);
+            // 
+            // myOwnWorldsToolStripMenuItem
+            // 
+            this.myOwnWorldsToolStripMenuItem.Name = "myOwnWorldsToolStripMenuItem";
+            this.myOwnWorldsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.myOwnWorldsToolStripMenuItem.Text = "My Own Worlds";
+            this.myOwnWorldsToolStripMenuItem.Click += new System.EventHandler(this.myOwnWorldsToolStripMenuItem_Click);
             // 
             // roomDatabaseToolStripMenuItem
             // 
@@ -521,14 +527,14 @@
             // localToolStripMenuItem
             // 
             this.localToolStripMenuItem.Name = "localToolStripMenuItem";
-            this.localToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.localToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.localToolStripMenuItem.Text = "Local";
             this.localToolStripMenuItem.Click += new System.EventHandler(this.localToolStripMenuItem_Click);
             // 
             // remoteToolStripMenuItem
             // 
             this.remoteToolStripMenuItem.Name = "remoteToolStripMenuItem";
-            this.remoteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.remoteToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.remoteToolStripMenuItem.Text = "Remote";
             this.remoteToolStripMenuItem.Click += new System.EventHandler(this.remoteToolStripMenuItem_Click);
             // 
@@ -558,7 +564,7 @@
             // eelvlToolStripMenuItem1
             // 
             this.eelvlToolStripMenuItem1.Name = "eelvlToolStripMenuItem1";
-            this.eelvlToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.eelvlToolStripMenuItem1.Size = new System.Drawing.Size(172, 22);
             this.eelvlToolStripMenuItem1.Text = "Offline Level";
             this.eelvlToolStripMenuItem1.Click += new System.EventHandler(this.EelvlToolStripMenuItem1_Click);
             // 
@@ -1230,11 +1236,6 @@
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
             this.toolStripSeparator10.Size = new System.Drawing.Size(6, 27);
-            // 
-            // toolStripSeparator11
-            // 
-            this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(185, 6);
             // 
             // MainForm
             // 
