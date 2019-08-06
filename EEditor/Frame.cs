@@ -872,6 +872,7 @@ namespace EEditor
 
                             for (int j = 0; j < x1.Length; j++)
                             {
+
                                 if (y1[j] < height && x1[j] < width)
                                 {
                                     try
@@ -907,11 +908,14 @@ namespace EEditor
                                     {
                                         Console.WriteLine(ex.ToString());
                                     }
+
                                 }
+
                             }
 
                             for (int k = 0; k < x.Length; k += 2)
                             {
+
                                 int yy = (y[k] << 8) | y[k + 1];
                                 int xx = (x[k] << 8) | x[k + 1];
 
@@ -951,9 +955,14 @@ namespace EEditor
                                         Console.WriteLine(ex.ToString());
                                     }
                                 }
+
+
+
+
                             }
                         }
                     }
+
                 }
                 return f;
             }

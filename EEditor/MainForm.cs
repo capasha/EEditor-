@@ -8,6 +8,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Win32;
+using System.Runtime.InteropServices;
+
 namespace EEditor
 {
     public partial class MainForm : Form
@@ -17,10 +20,16 @@ namespace EEditor
         public static string selectedAcc = "guest";
         public static bool OpenWorld = false;
         public static bool OpenWorldCode = false;
+        public static theme themecolors = new theme();
+        public static Color bgColor = Color.FromArgb(75, 75, 75);
+        public static Color imageColor = Color.White;
+        public static Color textColor = Color.White;
+        public static Color blockbgColor = Color.FromArgb(100, 100, 100);
         public static userData userdata = new userData();
         public static string pathSettings = $"{Directory.GetCurrentDirectory()}\\settings.json";
         private Dictionary<int, Bitmap> sblocks = new Dictionary<int, Bitmap>();
         private Dictionary<int, Bitmap> sblocks1 = new Dictionary<int, Bitmap>();
+        public static bool darktheme = false;
         private int lastblocks = 0;
         private int[] greyColor = new int[] { 255, 77, 83, 157, 311, 312, 313, 314, 315, 316, 317, 318 };
         public static Dictionary<string, accounts> accs = new Dictionary<string, accounts>();
@@ -93,14 +102,7 @@ namespace EEditor
                 userdata = JsonConvert.DeserializeObject<userData>(File.ReadAllText(pathSettings));
                 if (userdata != null)
                 {
-                    if (userdata.themeBlock.IsEmpty) userdata.themeBlock = SystemColors.Window;
-                    if (userdata.themeBlocks.IsEmpty) userdata.themeBlocks = SystemColors.Control;
-                    if (userdata.themeIcons.IsEmpty) userdata.themeIcons = Color.Black;
-                    if (userdata.themeIconsBg.IsEmpty) userdata.themeIconsBg = Color.Transparent;
-                    if (userdata.themeToolbarBg.IsEmpty) userdata.themeToolbarBg = SystemColors.Control;
-                    if (userdata.themeToolbarText.IsEmpty) userdata.themeToolbarText = SystemColors.ControlText;
-                    if (userdata.themeBlockBG.IsEmpty) userdata.themeBlockBG = Color.Transparent;
-                    if (userdata.themeBorder.ToString() == null) userdata.themeBorder = false;
+                   
                     if (userdata.drawMixed.ToString() == null) userdata.drawMixed = false;
                     if (userdata.imageBackgrounds.ToString() == null) userdata.imageBackgrounds = true;
                     if (userdata.imageBlocks.ToString() == null) userdata.imageBlocks = true;
@@ -140,15 +142,6 @@ namespace EEditor
                         sprayp = 10,
                         confirmClose = true,
                         uploadOption = 0,
-                        themeBlock = SystemColors.Window,
-                        themeBlocks = SystemColors.Control,
-                        themeBlockBG = Color.Transparent,
-                        themeIcons = Color.Black,
-                        themeIconsBg = Color.Transparent,
-                        themeToolbarBg = SystemColors.Control,
-                        themeToolbarText = SystemColors.ControlText,
-                        themeBorder = false,
-                        themeClean = false,
                         imageBackgrounds = true,
                         imageBlocks = true,
                         imageSpecialblocksMorph = false,
@@ -168,7 +161,7 @@ namespace EEditor
                         ignoreplacing = false,
                         fastshape = true,
                         replaceit = false
-                        
+
                     };
                     File.WriteAllText(pathSettings, JsonConvert.SerializeObject(userdata, Newtonsoft.Json.Formatting.Indented));
                 }
@@ -185,15 +178,6 @@ namespace EEditor
                     sprayp = 10,
                     confirmClose = true,
                     uploadOption = 0,
-                    themeBlock = SystemColors.Window,
-                    themeBlocks = SystemColors.Control,
-                    themeBlockBG = Color.Transparent,
-                    themeIcons = Color.Black,
-                    themeIconsBg = Color.Transparent,
-                    themeToolbarBg = SystemColors.Control,
-                    themeToolbarText = SystemColors.ControlText,
-                    themeBorder = false,
-                    themeClean = false,
                     imageBackgrounds = true,
                     imageBlocks = true,
                     imageSpecialblocksMorph = false,
@@ -480,22 +464,7 @@ namespace EEditor
             starting1 = false;
             hideBlocksButton.PerformClick();
             accountsComboBox.SelectedItem = userdata.username;
-
-            if (!userdata.themeBorder || userdata.themeBorder)
-            {
-                var datta = userdata.themeBorder ? BorderStyle.Fixed3D : BorderStyle.None;
-                flowLayoutPanel2.BorderStyle = datta;
-                flowLayoutPanel3.BorderStyle = datta;
-                flowLayoutPanel4.BorderStyle = datta;
-                flowLayoutPanel5.BorderStyle = datta;
-                flowLayoutPanel6.BorderStyle = datta;
-            }
-            flowLayoutPanel2.BackColor = userdata.themeBlock;
-            flowLayoutPanel3.BackColor = userdata.themeBlock;
-            flowLayoutPanel4.BackColor = userdata.themeBlock;
-            flowLayoutPanel5.BackColor = userdata.themeBlock;
-            flowLayoutPanel6.BackColor = userdata.themeBlock;
-            updateImageColor();
+            updateTheme();
             starting1 = false;
             starting2 = false;
             /*if (userdata.updateChecker)
@@ -505,9 +474,199 @@ namespace EEditor
                 thread.Start();
             }*/
             SetPenTool();
+            
             MainForm.editArea.Focus();
         }
 
+
+        public void updateTheme()
+        {
+            object obj = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", 1);
+            if (obj != null)
+            {
+                if (obj.ToString() == "0") darktheme = true;
+                else darktheme = false;
+            }
+            else
+            {
+                darktheme = false;
+            }
+            if (darktheme)
+            {
+                themecolors = new theme()
+                {
+                    background = Color.FromArgb(75, 75, 75),
+                    imageColors = Color.White,
+                    accent = Color.FromArgb(100, 100, 100),
+                    foreground = Color.White
+
+                };
+            }
+            else
+            {
+                themecolors = new theme()
+                {
+                    background = SystemColors.Window,
+                    imageColors = Color.Black,
+                    accent = SystemColors.Control,
+                    foreground = Color.Black
+
+                };
+            }
+            flowLayoutPanel2.BackColor = themecolors.background;
+            flowLayoutPanel3.BackColor = themecolors.background;
+            flowLayoutPanel4.BackColor = themecolors.background;
+            flowLayoutPanel5.BackColor = themecolors.background;
+            flowLayoutPanel6.BackColor = themecolors.background;
+            topFlowLayoutPanel.BackColor = themecolors.background;
+            bottomFlowLayoutPanel.BackColor = themecolors.background;
+            //Image colors
+            var incr2 = 0;
+            for (int i = 0; i < topFlowLayoutPanel.Controls.Count; i++)
+            {
+                var control = topFlowLayoutPanel.Controls[i];
+                var items = ((ToolStrip)control).Items;
+                control.BackColor = bgColor;
+                ((ToolStrip)control).Renderer = new removeBadRenderer();
+                if (((ToolStrip)control).Name != "lastUsedToolStrip")
+                {
+                    if (items.Count > 0)
+                    {
+                        for (int o = 0; o < items.Count; o++)
+                        {
+                            //items[o].BackColor = bgColor;
+                            if (items[o].Image != null)
+                            {
+                                if (items[o].Name.Contains("DropButton"))
+                                {
+                                    var dropdownitems = ((ToolStripDropDownButton)items[o]).DropDownItems;
+                                    for (int a = 0; a < dropdownitems.Count; a++)
+                                    {
+                                        if (dropdownitems[a].Name.Contains("MenuItem"))
+                                        {
+                                            ((ToolStripMenuItem)dropdownitems[a]).BackColor = Color.Red;
+                                        }
+
+                                    }
+                                }
+                                if (items[o].Text != null)
+                                {
+                                    items[o].ForeColor = themecolors.foreground;
+                                }
+                                Bitmap bmp = (Bitmap)items[o].Image;
+                                if (!sblocks.ContainsKey(incr2)) sblocks.Add(incr2, bmp);
+                                else if (sblocks.ContainsKey(incr2))
+                                {
+                                    bmp = sblocks[incr2];
+                                }
+                                Bitmap bmp1 = new Bitmap(items[o].Image.Width, items[o].Image.Height);
+                                for (int x = 0; x < items[o].Image.Width; x++)
+                                {
+                                    for (int y = 0; y < items[o].Image.Height; y++)
+                                    {
+                                        if (bmp.GetPixel(x, y).A > 80)
+                                        {
+                                            bmp1.SetPixel(x, y, themecolors.imageColors);
+                                        }
+                                        else
+                                        {
+                                            bmp1.SetPixel(x, y, themecolors.background);
+                                        }
+                                    }
+                                }
+                                items[o].Image = bmp1;
+                                incr2 += 1;
+                            }
+                            else
+                            {
+                                if (items[o].Name.Contains("Text"))
+                                {
+                                    ((ToolStripTextBox)items[o]).BorderStyle = BorderStyle.FixedSingle;
+                                    items[o].BackColor = themecolors.background;
+                                    items[o].ForeColor = themecolors.foreground;
+                                }
+                                else if (items[o].Name.Contains("Combo"))
+                                {
+                                    items[o].BackColor = themecolors.background;
+                                    items[o].ForeColor = themecolors.foreground;
+
+                                    //((ToolStripComboBox)items[o]) = new removeBadRenderer();
+                                }
+                                else if (items[o].Name.Contains("Label"))
+                                {
+                                    items[o].ForeColor = themecolors.foreground;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            var incr3 = 0;
+            for (int ii = 0; ii < bottomFlowLayoutPanel.Controls.Count; ii++)
+            {
+                var control = bottomFlowLayoutPanel.Controls[ii];
+                var items = ((ToolStrip)control).Items;
+                control.BackColor = bgColor;
+                ((ToolStrip)control).Renderer = new removeBadRenderer();
+                if (((ToolStrip)control).Name != "lastUsedToolStrip")
+                {
+                    if (items.Count > 0)
+                    {
+                        for (int oo = 0; oo < items.Count; oo++)
+                        {
+                            if (items[oo].Image != null)
+                            {
+                                if (items[oo].Text != null)
+                                {
+                                    items[oo].ForeColor = themecolors.foreground;
+                                }
+                                Bitmap bmp = (Bitmap)items[oo].Image;
+                                if (!sblocks1.ContainsKey(incr3)) sblocks1.Add(incr3, bmp);
+                                else if (sblocks1.ContainsKey(incr3))
+                                {
+                                    bmp = sblocks1[incr3];
+                                }
+                                Bitmap bmp1 = new Bitmap(items[oo].Image.Width, items[oo].Image.Height);
+                                for (int xx = 0; xx < bmp.Width; xx++)
+                                {
+                                    for (int yy = 0; yy < bmp.Height; yy++)
+                                    {
+                                        if (bmp.GetPixel(xx, yy).R + bmp.GetPixel(xx, yy).G + bmp.GetPixel(xx, yy).B == 0 && bmp.GetPixel(xx, yy).A > 15)
+                                        {
+                                            bmp1.SetPixel(xx, yy, themecolors.imageColors);
+                                        }
+                                        else
+                                        {
+                                            bmp1.SetPixel(xx, yy, themecolors.background);
+                                        }
+                                    }
+                                }
+                                items[oo].Image = bmp1;
+                                incr3 += 1;
+                            }
+                            else
+                            {
+                                if (items[oo].Name.Contains("Text"))
+                                {
+                                    ((ToolStripTextBox)items[oo]).BorderStyle = BorderStyle.FixedSingle;
+                                    items[oo].BackColor = themecolors.background;
+                                    items[oo].ForeColor = themecolors.foreground;
+                                }
+                                else if (items[oo].Name.Contains("Combo"))
+                                {
+                                    items[oo].BackColor = themecolors.background;
+                                    items[oo].ForeColor = themecolors.foreground;
+                                }
+                                else if (items[oo].Name.Contains("Label"))
+                                {
+                                    items[oo].ForeColor = themecolors.foreground;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         #region image colors
 
@@ -740,20 +899,11 @@ namespace EEditor
                 }
                 userdata.brickHotkeys = s;
             }
-            if (!userdata.themeBorder || userdata.themeBorder)
-            {
-                var datta = userdata.themeBorder ? BorderStyle.Fixed3D : BorderStyle.None;
-                flowLayoutPanel2.BorderStyle = datta;
-                flowLayoutPanel3.BorderStyle = datta;
-                flowLayoutPanel4.BorderStyle = datta;
-                flowLayoutPanel5.BorderStyle = datta;
-                flowLayoutPanel6.BorderStyle = datta;
-            }
-            flowLayoutPanel2.BackColor = userdata.themeBlock;
-            flowLayoutPanel3.BackColor = userdata.themeBlock;
-            flowLayoutPanel4.BackColor = userdata.themeBlock;
-            flowLayoutPanel5.BackColor = userdata.themeBlock;
-            flowLayoutPanel6.BackColor = userdata.themeBlock;
+            flowLayoutPanel2.BackColor = bgColor;
+            flowLayoutPanel3.BackColor = bgColor;
+            flowLayoutPanel4.BackColor = bgColor;
+            flowLayoutPanel5.BackColor = bgColor;
+            flowLayoutPanel6.BackColor = bgColor;
             //toolStripContainer1.TopToolStripPanel.Controls.Clear();
             resetLastBlocks();
             if (flowLayoutPanel2.InvokeRequired) { this.Invoke((MethodInvoker)delegate { flowLayoutPanel2.Controls.Clear(); }); }
@@ -1225,7 +1375,7 @@ namespace EEditor
             {
                 AddToolStrip(decosBMD, 2, new int[] { 270, 271, 272, 273 }, null, false, "Dungeons", 2, 2, false);
             }
-            AddToolStrip(miscBMD, 1, new int[] { 505, 508, 512,514,518,519,523,527,529,533,534,538,542,546 }, null, false, "Shadow", 2, 2, true);
+            AddToolStrip(miscBMD, 1, new int[] { 505, 508, 512, 514, 518, 519, 523, 527, 529, 533, 534, 538, 542, 546 }, null, false, "Shadow", 2, 2, true);
             //Decorations 3
 
             #endregion Decoration
@@ -1266,7 +1416,7 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickgarden") || debug) { AddToolStrip(foregroundBMD, 0, new int[] { 303, 307 }, null, false, "Climbable", 1, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 303 }, null, false, "Climbable", 1, 0, false); }
             if (ihavethese.ContainsKey("brickdungeon") || debug) { AddToolStrip(foregroundBMD, 0, new int[] { 315 }, null, false, "Climbable", 1, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 315 }, null, false, "Climbable", 1, 0, false); }
             if (ihavethese.ContainsKey("brickswitchpurple") || debug) { AddToolStrip(miscBMD, 1, new int[] { 3, 554, 4, 5 }, null, false, "Purple Switches", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 3, 554, 4, 5 }, null, false, "Purple Switches", 1, 0, false); }
-            if (ihavethese.ContainsKey("brickswitchorange") || debug) { AddToolStrip(miscBMD, 1, new int[] { 259, 555,261, 262 }, null, false, "Orange Switches", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 259, 555,261, 262 }, null, false, "Orange Switches", 1, 0, false); }
+            if (ihavethese.ContainsKey("brickswitchorange") || debug) { AddToolStrip(miscBMD, 1, new int[] { 259, 555, 261, 262 }, null, false, "Orange Switches", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 259, 555, 261, 262 }, null, false, "Orange Switches", 1, 0, false); }
             if (ihavethese.ContainsKey("brickdeathdoor") || debug) { AddToolStrip(foregroundBMD, 0, new int[] { 198, 199 }, new uint[] { 0xA9A9A9, 0xA9A9A9 }, false, "Death", 1, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 198, 199 }, new uint[] { 0xA9A9A9, 0xA9A9A9 }, false, "Death", 1, 0, false); }
             if (ihavethese.ContainsKey("brickeffectzombie") || debug) { AddToolStrip(miscBMD, 1, new int[] { 79, 32, 31 }, null, false, "Zombie", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 79, 32, 31 }, null, false, "Zombie", 1, 0, false); }
             if (ihavethese.ContainsKey("brickeffectteam") || debug) { AddToolStrip(miscBMD, 1, new int[] { 80, 100, 93 }, null, false, "Teams", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 80, 100, 93 }, null, false, "Teams", 1, 0, false); }
@@ -1580,7 +1730,7 @@ namespace EEditor
                             strip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                             strip.Renderer = new removeBadRenderer();
                             strip.GripStyle = ToolStripGripStyle.Hidden;
-                            strip.BackColor = MainForm.userdata.themeBlocks;
+                            strip.BackColor = blockbgColor;
                             ToolTip tip = new ToolTip();
                             tip.SetToolTip(strip, desc);
 
@@ -1629,7 +1779,7 @@ namespace EEditor
                         GripStyle = ToolStripGripStyle.Hidden,
                         Margin = new System.Windows.Forms.Padding(4, 4, 4, 4),
                         Renderer = new removeBadRenderer(),
-                        BackColor = MainForm.userdata.themeBlocks
+                        BackColor = blockbgColor,
                     };
 
                     foreach (int id in ids)
@@ -1659,7 +1809,7 @@ namespace EEditor
                 : base("", image, onClick)
             {
                 MainForm = mainForm;
-                this.BackColor = MainForm.userdata.themeBlockBG;
+                this.BackColor = blockbgColor;
                 this.ID = id;
                 this.blockInfo = blockdata;
                 this.AutoSize = false;
@@ -4275,7 +4425,7 @@ namespace EEditor
                 {
                     Title = "Select a level to load from",
                     DefaultExt = "json",
-                    Filter = "JSON Database World(s)|*.json;*.tar.gz|All files (*.*)|*.*", //"JSON Database World (*.json)|(*.tar.gz)|*.*",
+                    Filter = "JSON Database World(s)|*.json|*.tar.gz", //"JSON Database World (*.json)|(*.tar.gz)|*.*",
                     FilterIndex = 1,
                     AddExtension = true,
                     RestoreDirectory = true,
@@ -4425,7 +4575,7 @@ namespace EEditor
                 fs.Close();
                 if (frame != null)
                 {
-                    
+
                     this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EEditor {this.ProductVersion}";
                     editArea.Init(frame, false);
                 }
@@ -4437,9 +4587,7 @@ namespace EEditor
             }
         }
 
-        private void MainForm_Paint(object sender, PaintEventArgs e)
-        {
-        }
+
 
         private void toolStripButton1_Click_1(object sender, EventArgs e)
         {
@@ -4494,7 +4642,7 @@ namespace EEditor
                     RestoreDirectory = true,
                     CheckFileExists = true
                 };
-                
+
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     string filename = ofd.FileName;
@@ -4544,6 +4692,62 @@ namespace EEditor
             {
                 MessageBox.Show("An error has occured: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void RoomDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            SetDummy();
+            try
+            {
+                MainForm.editArea.Back = null;
+                MainForm.editArea.Back1 = null;
+                OpenFileDialog ofd = new OpenFileDialog()
+                {
+                    Title = "Select a level to load from",
+                    DefaultExt = "json",
+                    Filter = "JSON Database World(s)|*.json|(*.tar.gz)|*.*", //"JSON Database World (*.json)|(*.tar.gz)|*.*",
+                    FilterIndex = 1,
+                    AddExtension = true,
+                    RestoreDirectory = true,
+                    CheckFileExists = true
+                };
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    string path = ofd.FileName;
+
+                    if (path.EndsWith(".tar.gz"))
+                    {
+                        var menu = Application.OpenForms.Cast<Form>().FirstOrDefault(form => form.Name == "WorldArchiveMenu");
+
+                        if (menu != null)
+                        {
+                            menu.BringToFront();
+                            return;
+                        }
+
+                        worldArchiveMenu = new WorldArchiveMenu(this);
+                        worldArchiveMenu.LoadArchiveFromFile(path);
+                        worldArchiveMenu.Show();
+                    }
+                    else
+                    {
+                        Frame frame = Frame.LoadJSONDatabaseWorld(path);
+                        if (frame != null)
+                        {
+                            this.Text = $"({Path.GetFileName(ofd.FileName)}) - [Unknown] ({frame.Width}x{frame.Height}) - EEditor {this.ProductVersion}";
+                            editArea.Init(frame, false);
+                        }
+                        else MessageBox.Show("The selected JSON Database World is either corrupt or invalid.", "Invalid JSON Database World", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error has occured: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 
@@ -4633,7 +4837,14 @@ namespace EEditor
         public bool fastshape { get; set; }
         public bool replaceit { get; set; }
     }
+    public class theme
+    {
+        public Color imageColors { get; set; }
+        public Color background { get; set; }
+        public Color foreground { get; set; }
 
+        public Color accent { get; set; }
+    }
     public class removeBadRenderer : ToolStripSystemRenderer
     {
         public removeBadRenderer()

@@ -61,11 +61,10 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.savToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eEBuilderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.myOwnWorldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eELVLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.roomDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.localToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.remoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.myOwnWorldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveDropButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.saveWorldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eelvlToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -135,7 +134,6 @@
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.LightToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.morphToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
             this.settingsToolStrip.SuspendLayout();
@@ -330,7 +328,7 @@
             this.settingsButton,
             this.aboutButton,
             this.StatisticButton});
-            this.settingsToolStrip.Location = new System.Drawing.Point(588, 0);
+            this.settingsToolStrip.Location = new System.Drawing.Point(619, 0);
             this.settingsToolStrip.Name = "settingsToolStrip";
             this.settingsToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.settingsToolStrip.Size = new System.Drawing.Size(180, 27);
@@ -388,7 +386,7 @@
             this.fileToolStrip.Location = new System.Drawing.Point(0, 0);
             this.fileToolStrip.Name = "fileToolStrip";
             this.fileToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.fileToolStrip.Size = new System.Drawing.Size(96, 27);
+            this.fileToolStrip.Size = new System.Drawing.Size(127, 27);
             this.fileToolStrip.TabIndex = 7;
             // 
             // newWorldButton
@@ -417,9 +415,9 @@
             this.savToolStripMenuItem,
             this.eEBuilderToolStripMenuItem,
             this.eELVLToolStripMenuItem,
+            this.roomDatabaseToolStripMenuItem,
             this.toolStripSeparator11,
-            this.myOwnWorldsToolStripMenuItem,
-            this.roomDatabaseToolStripMenuItem});
+            this.myOwnWorldsToolStripMenuItem});
             this.openWorldDropButton.Image = global::EEditor.Properties.Resources.open;
             this.openWorldDropButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openWorldDropButton.Name = "openWorldDropButton";
@@ -493,13 +491,6 @@
             this.eEBuilderToolStripMenuItem.Text = "EEBuilder";
             this.eEBuilderToolStripMenuItem.Click += new System.EventHandler(this.eEBuilderToolStripMenuItem_Click);
             // 
-            // myOwnWorldsToolStripMenuItem
-            // 
-            this.myOwnWorldsToolStripMenuItem.Name = "myOwnWorldsToolStripMenuItem";
-            this.myOwnWorldsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.myOwnWorldsToolStripMenuItem.Text = "My Own Worlds";
-            this.myOwnWorldsToolStripMenuItem.Click += new System.EventHandler(this.myOwnWorldsToolStripMenuItem_Click);
-            // 
             // eELVLToolStripMenuItem
             // 
             this.eELVLToolStripMenuItem.Name = "eELVLToolStripMenuItem";
@@ -509,28 +500,22 @@
             // 
             // roomDatabaseToolStripMenuItem
             // 
-            this.roomDatabaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.localToolStripMenuItem,
-            this.remoteToolStripMenuItem});
-            this.roomDatabaseToolStripMenuItem.Enabled = false;
             this.roomDatabaseToolStripMenuItem.Name = "roomDatabaseToolStripMenuItem";
             this.roomDatabaseToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.roomDatabaseToolStripMenuItem.Text = "JSON Database World";
-            this.roomDatabaseToolStripMenuItem.Visible = false;
+            this.roomDatabaseToolStripMenuItem.Click += new System.EventHandler(this.RoomDatabaseToolStripMenuItem_Click);
             // 
-            // localToolStripMenuItem
+            // toolStripSeparator11
             // 
-            this.localToolStripMenuItem.Name = "localToolStripMenuItem";
-            this.localToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.localToolStripMenuItem.Text = "Local";
-            this.localToolStripMenuItem.Click += new System.EventHandler(this.localToolStripMenuItem_Click);
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(185, 6);
             // 
-            // remoteToolStripMenuItem
+            // myOwnWorldsToolStripMenuItem
             // 
-            this.remoteToolStripMenuItem.Name = "remoteToolStripMenuItem";
-            this.remoteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.remoteToolStripMenuItem.Text = "Remote";
-            this.remoteToolStripMenuItem.Click += new System.EventHandler(this.remoteToolStripMenuItem_Click);
+            this.myOwnWorldsToolStripMenuItem.Name = "myOwnWorldsToolStripMenuItem";
+            this.myOwnWorldsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.myOwnWorldsToolStripMenuItem.Text = "My Own Worlds";
+            this.myOwnWorldsToolStripMenuItem.Click += new System.EventHandler(this.myOwnWorldsToolStripMenuItem_Click);
             // 
             // saveDropButton
             // 
@@ -558,7 +543,7 @@
             // eelvlToolStripMenuItem1
             // 
             this.eelvlToolStripMenuItem1.Name = "eelvlToolStripMenuItem1";
-            this.eelvlToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.eelvlToolStripMenuItem1.Size = new System.Drawing.Size(172, 22);
             this.eelvlToolStripMenuItem1.Text = "Offline Level";
             this.eelvlToolStripMenuItem1.Click += new System.EventHandler(this.EelvlToolStripMenuItem1_Click);
             // 
@@ -595,7 +580,7 @@
             this.insertDropButton,
             this.toolStripSeparator8,
             this.replaceButton});
-            this.toolToolStrip.Location = new System.Drawing.Point(96, 0);
+            this.toolToolStrip.Location = new System.Drawing.Point(127, 0);
             this.toolToolStrip.Name = "toolToolStrip";
             this.toolToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolToolStrip.Size = new System.Drawing.Size(204, 27);
@@ -675,7 +660,7 @@
             this.rectangleButton.Image = global::EEditor.Properties.Resources.rectangle;
             this.rectangleButton.Name = "rectangleButton";
             this.rectangleButton.ShortcutKeyDisplayString = ",";
-            this.rectangleButton.Size = new System.Drawing.Size(206, 22);
+            this.rectangleButton.Size = new System.Drawing.Size(205, 22);
             this.rectangleButton.Text = "Rectangle";
             this.rectangleButton.Click += new System.EventHandler(this.rectangleButton_Click);
             // 
@@ -684,7 +669,7 @@
             this.filledRectangleButton.Image = global::EEditor.Properties.Resources.rectanglefill;
             this.filledRectangleButton.Name = "filledRectangleButton";
             this.filledRectangleButton.ShortcutKeyDisplayString = "CTRL + ,";
-            this.filledRectangleButton.Size = new System.Drawing.Size(206, 22);
+            this.filledRectangleButton.Size = new System.Drawing.Size(205, 22);
             this.filledRectangleButton.Text = "Filled rectangle";
             this.filledRectangleButton.Click += new System.EventHandler(this.filledRectangleButton_Click);
             // 
@@ -693,7 +678,7 @@
             this.circleButton.Image = global::EEditor.Properties.Resources.circle;
             this.circleButton.Name = "circleButton";
             this.circleButton.ShortcutKeyDisplayString = ".";
-            this.circleButton.Size = new System.Drawing.Size(206, 22);
+            this.circleButton.Size = new System.Drawing.Size(205, 22);
             this.circleButton.Text = "Circle";
             this.circleButton.Click += new System.EventHandler(this.circleButton_Click);
             // 
@@ -702,7 +687,7 @@
             this.filledCircleButton.Image = global::EEditor.Properties.Resources.circlefill;
             this.filledCircleButton.Name = "filledCircleButton";
             this.filledCircleButton.ShortcutKeyDisplayString = "CTRL + .";
-            this.filledCircleButton.Size = new System.Drawing.Size(206, 22);
+            this.filledCircleButton.Size = new System.Drawing.Size(205, 22);
             this.filledCircleButton.Text = "Filled circle";
             this.filledCircleButton.Click += new System.EventHandler(this.filledCircleButton_Click);
             // 
@@ -711,7 +696,7 @@
             this.lineButton.Image = global::EEditor.Properties.Resources.line;
             this.lineButton.Name = "lineButton";
             this.lineButton.ShortcutKeyDisplayString = "-";
-            this.lineButton.Size = new System.Drawing.Size(206, 22);
+            this.lineButton.Size = new System.Drawing.Size(205, 22);
             this.lineButton.Text = "Line";
             this.lineButton.Click += new System.EventHandler(this.lineButton_Click);
             // 
@@ -817,6 +802,7 @@
             // 
             // delayTextBox
             // 
+            this.delayTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.delayTextBox.Name = "delayTextBox";
             this.delayTextBox.Size = new System.Drawing.Size(40, 25);
             this.delayTextBox.Text = "-Delay-";
@@ -843,7 +829,7 @@
             this.refreshButton,
             this.codeTextbox,
             this.uploadButton});
-            this.uploadToolStrip.Location = new System.Drawing.Point(378, 0);
+            this.uploadToolStrip.Location = new System.Drawing.Point(409, 0);
             this.uploadToolStrip.Name = "uploadToolStrip";
             this.uploadToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.uploadToolStrip.Size = new System.Drawing.Size(210, 27);
@@ -851,6 +837,7 @@
             // 
             // levelTextbox
             // 
+            this.levelTextbox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.levelTextbox.Name = "levelTextbox";
             this.levelTextbox.Size = new System.Drawing.Size(76, 27);
             this.levelTextbox.Text = "Level ID";
@@ -872,6 +859,7 @@
             // 
             // codeTextbox
             // 
+            this.codeTextbox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.codeTextbox.Name = "codeTextbox";
             this.codeTextbox.Size = new System.Drawing.Size(76, 27);
             this.codeTextbox.Text = "Code";
@@ -914,7 +902,7 @@
             this.undoButton,
             this.redoButton,
             this.historyButton});
-            this.historyToolStrip.Location = new System.Drawing.Point(300, 0);
+            this.historyToolStrip.Location = new System.Drawing.Point(331, 0);
             this.historyToolStrip.Name = "historyToolStrip";
             this.historyToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.historyToolStrip.Size = new System.Drawing.Size(78, 27);
@@ -1125,6 +1113,7 @@
             // 
             // filterTextBox
             // 
+            this.filterTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.filterTextBox.Name = "filterTextBox";
             this.filterTextBox.Size = new System.Drawing.Size(100, 27);
             this.filterTextBox.ToolTipText = "Filter blocks by pack (Enter to search)";
@@ -1231,11 +1220,6 @@
             this.toolStripSeparator10.Name = "toolStripSeparator10";
             this.toolStripSeparator10.Size = new System.Drawing.Size(6, 27);
             // 
-            // toolStripSeparator11
-            // 
-            this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(185, 6);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1257,7 +1241,6 @@
             this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
             this.morphToolStrip.ResumeLayout(false);
             this.morphToolStrip.PerformLayout();
             this.viewToolStrip.ResumeLayout(false);
@@ -1384,8 +1367,6 @@
         private System.Windows.Forms.ToolStripButton lastUsedBlockButton4;
         private System.Windows.Forms.ToolStripMenuItem backgroundIgnoreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem roomDatabaseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem localToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem remoteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mazeGeneratorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eEditor37ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem myOwnWorldsToolStripMenuItem;
