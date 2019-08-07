@@ -1098,5 +1098,11 @@ namespace EEditor
             WorldPortalRadioButton.Checked = true;
             NormalRadioButton.Checked = false;
         }
+
+        private void ClearBgsBlacklistButton_Click(object sender, EventArgs e)
+        {
+            BackgroundIgnore bgi = new BackgroundIgnore();
+            bgi.Show();
+        }
     }
 }

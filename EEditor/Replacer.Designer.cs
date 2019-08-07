@@ -35,6 +35,7 @@
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ClearBgsBlacklistButton = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -62,6 +63,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.NormalRadioButton = new System.Windows.Forms.RadioButton();
             this.RotationPictureBox2 = new System.Windows.Forms.PictureBox();
             this.RotationPictureBox1 = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -91,7 +93,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.WorldPortalRadioButton = new System.Windows.Forms.RadioButton();
             this.SignRadioButton = new System.Windows.Forms.RadioButton();
-            this.NormalRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rotateIcon2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rotateIcon1)).BeginInit();
@@ -158,6 +159,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ClearBgsBlacklistButton);
             this.groupBox1.Controls.Add(this.button9);
             this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button4);
@@ -171,6 +173,16 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Find && replace";
+            // 
+            // ClearBgsBlacklistButton
+            // 
+            this.ClearBgsBlacklistButton.Location = new System.Drawing.Point(152, 319);
+            this.ClearBgsBlacklistButton.Name = "ClearBgsBlacklistButton";
+            this.ClearBgsBlacklistButton.Size = new System.Drawing.Size(108, 24);
+            this.ClearBgsBlacklistButton.TabIndex = 18;
+            this.ClearBgsBlacklistButton.Text = "Block bg blacklist";
+            this.ClearBgsBlacklistButton.UseVisualStyleBackColor = true;
+            this.ClearBgsBlacklistButton.Click += new System.EventHandler(this.ClearBgsBlacklistButton_Click);
             // 
             // button9
             // 
@@ -225,11 +237,14 @@
             // 
             // ClearBgsButton
             // 
-            this.ClearBgsButton.Location = new System.Drawing.Point(152, 307);
+            this.ClearBgsButton.Image = global::EEditor.Properties.Resources.eeditor_bgIgnore;
+            this.ClearBgsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ClearBgsButton.Location = new System.Drawing.Point(17, 319);
             this.ClearBgsButton.Name = "ClearBgsButton";
-            this.ClearBgsButton.Size = new System.Drawing.Size(108, 36);
+            this.ClearBgsButton.Size = new System.Drawing.Size(96, 24);
             this.ClearBgsButton.TabIndex = 0;
-            this.ClearBgsButton.Text = "Clear bgs behind blocks";
+            this.ClearBgsButton.Text = "Clear block bg";
+            this.ClearBgsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ClearBgsButton.UseVisualStyleBackColor = true;
             this.ClearBgsButton.Click += new System.EventHandler(this.ClearBgsButton_Click);
             // 
@@ -492,6 +507,19 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Normal";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // NormalRadioButton
+            // 
+            this.NormalRadioButton.AutoSize = true;
+            this.NormalRadioButton.Checked = true;
+            this.NormalRadioButton.Location = new System.Drawing.Point(11, 98);
+            this.NormalRadioButton.Name = "NormalRadioButton";
+            this.NormalRadioButton.Size = new System.Drawing.Size(58, 17);
+            this.NormalRadioButton.TabIndex = 26;
+            this.NormalRadioButton.TabStop = true;
+            this.NormalRadioButton.Text = "Normal";
+            this.NormalRadioButton.UseVisualStyleBackColor = true;
+            this.NormalRadioButton.Click += new System.EventHandler(this.NormalRadioButton_Click);
             // 
             // RotationPictureBox2
             // 
@@ -823,19 +851,6 @@
             this.SignRadioButton.UseVisualStyleBackColor = true;
             this.SignRadioButton.Click += new System.EventHandler(this.SignRadioButton_Click);
             // 
-            // NormalRadioButton
-            // 
-            this.NormalRadioButton.AutoSize = true;
-            this.NormalRadioButton.Checked = true;
-            this.NormalRadioButton.Location = new System.Drawing.Point(11, 98);
-            this.NormalRadioButton.Name = "NormalRadioButton";
-            this.NormalRadioButton.Size = new System.Drawing.Size(58, 17);
-            this.NormalRadioButton.TabIndex = 26;
-            this.NormalRadioButton.TabStop = true;
-            this.NormalRadioButton.Text = "Normal";
-            this.NormalRadioButton.UseVisualStyleBackColor = true;
-            this.NormalRadioButton.Click += new System.EventHandler(this.NormalRadioButton_Click);
-            // 
             // Replacer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -953,5 +968,6 @@
         private System.Windows.Forms.PictureBox RotationPictureBox2;
         private System.Windows.Forms.PictureBox RotationPictureBox1;
         private System.Windows.Forms.RadioButton NormalRadioButton;
+        private System.Windows.Forms.Button ClearBgsBlacklistButton;
     }
 }
