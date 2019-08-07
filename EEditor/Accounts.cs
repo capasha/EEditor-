@@ -32,7 +32,7 @@ namespace EEditor
                 instructionsField.Rtf = everybodyEditsRTF;
             }
 
-            this.BackColor = MainForm.userdata.themeToolbarBg;
+            this.BackColor = MainForm.themecolors.background;
             foreach (var value0 in this.Controls)
             {
                 foreach (var value1 in ((Control)value0).Controls)
@@ -41,17 +41,17 @@ namespace EEditor
                     if (ctrl.GetType().ToString().Contains("TextBox"))
                     {
                         if (!ctrl.GetType().ToString().Contains("RichTextBox")) ((TextBox)ctrl).BorderStyle = BorderStyle.FixedSingle;
-                        ctrl.BackColor = MainForm.userdata.themeToolbarBg;
-                        ctrl.ForeColor = MainForm.userdata.themeToolbarText;
+                        ctrl.BackColor = MainForm.themecolors.accent;
+                        ctrl.ForeColor = MainForm.themecolors.foreground;
                     }
                     else if (ctrl.GetType().ToString().Contains("Label"))
                     {
-                        ctrl.ForeColor = MainForm.userdata.themeToolbarText;
+                        ctrl.ForeColor = MainForm.themecolors.foreground;
                     }
                     else if (ctrl.GetType().ToString().Contains("ListBox"))
                     {
-                        ctrl.BackColor = MainForm.userdata.themeToolbarBg;
-                        ctrl.ForeColor = MainForm.userdata.themeToolbarText;
+                        ctrl.BackColor = MainForm.themecolors.accent;
+                        ctrl.ForeColor = MainForm.themecolors.foreground;
                     }
                 }
             }

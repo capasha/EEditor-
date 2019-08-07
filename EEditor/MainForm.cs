@@ -526,8 +526,9 @@ namespace EEditor
                 var items = ((ToolStrip)control).Items;
                 control.BackColor = themecolors.background;
                 //ProfessionalColorTable colors = darktheme ? new DarkTable() : new WhiteTable();
-                if (darktheme) ((ToolStrip)control).Renderer = new ToolStripProfessionalRenderer(new DarkTable());
-                if (!darktheme) ((ToolStrip)control).Renderer = new ToolStripProfessionalRenderer(new WhiteTable());
+                if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
+                if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
+                
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
@@ -620,8 +621,8 @@ namespace EEditor
                 var control = bottomFlowLayoutPanel.Controls[ii];
                 var items = ((ToolStrip)control).Items;
                 control.BackColor = themecolors.background;
-                if (darktheme) ((ToolStrip)control).Renderer = new ToolStripProfessionalRenderer(new DarkTable());
-                if (!darktheme) ((ToolStrip)control).Renderer = new ToolStripProfessionalRenderer(new WhiteTable());
+                if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
+                if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
@@ -687,17 +688,18 @@ namespace EEditor
         public void updateImageColor()
         {
 
-            topFlowLayoutPanel.BackColor = userdata.themeToolbarBg;
-            bottomFlowLayoutPanel.BackColor = userdata.themeToolbarBg;
+            topFlowLayoutPanel.BackColor = themecolors.background;
+            bottomFlowLayoutPanel.BackColor = themecolors.background;
             //Image colors
             var incr2 = 0;
             for (int i = 0; i < topFlowLayoutPanel.Controls.Count; i++)
             {
                 var control = topFlowLayoutPanel.Controls[i];
                 var items = ((ToolStrip)control).Items;
-                control.BackColor = userdata.themeToolbarBg;
-                ((ToolStrip)control).Renderer = new removeBadRenderer();
-                if (((ToolStrip)control).Name != "lastUsedToolStrip")
+                control.BackColor = themecolors.background;
+        if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
+        if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
+        if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
                     {
@@ -707,7 +709,7 @@ namespace EEditor
                             {
                                 if (items[o].Text != null)
                                 {
-                                    items[o].ForeColor = userdata.themeToolbarText;
+                                    items[o].ForeColor = themecolors.foreground;
                                 }
                                 Bitmap bmp = (Bitmap)items[o].Image;
                                 if (!sblocks.ContainsKey(incr2)) sblocks.Add(incr2, bmp);
@@ -722,11 +724,11 @@ namespace EEditor
                                     {
                                         if (bmp.GetPixel(x, y).A > 80)
                                         {
-                                            bmp1.SetPixel(x, y, userdata.themeIcons);
+                                            bmp1.SetPixel(x, y, themecolors.imageColors);
                                         }
                                         else
                                         {
-                                            bmp1.SetPixel(x, y, userdata.themeIconsBg);
+                                            bmp1.SetPixel(x, y, themecolors.imageColors);
                                         }
                                     }
                                 }
@@ -738,19 +740,19 @@ namespace EEditor
                                 if (items[o].Name.Contains("Text"))
                                 {
                                     ((ToolStripTextBox)items[o]).BorderStyle = BorderStyle.FixedSingle;
-                                    items[o].BackColor = userdata.themeToolbarBg;
-                                    items[o].ForeColor = userdata.themeToolbarText;
+                                    items[o].BackColor = themecolors.background;
+                                    items[o].ForeColor = themecolors.foreground;
                                 }
                                 else if (items[o].Name.Contains("Combo"))
                                 {
-                                    items[o].BackColor = userdata.themeToolbarBg;
-                                    items[o].ForeColor = userdata.themeToolbarText;
+                                    items[o].BackColor = themecolors.background;
+                                    items[o].ForeColor = themecolors.foreground;
 
                                     //((ToolStripComboBox)items[o]) = new removeBadRenderer();
                                 }
                                 else if (items[o].Name.Contains("Label"))
                                 {
-                                    items[o].ForeColor = userdata.themeToolbarText;
+                                    items[o].ForeColor = themecolors.foreground;
                                 }
                             }
                         }
@@ -762,9 +764,10 @@ namespace EEditor
             {
                 var control = bottomFlowLayoutPanel.Controls[ii];
                 var items = ((ToolStrip)control).Items;
-                control.BackColor = userdata.themeToolbarBg;
-                ((ToolStrip)control).Renderer = new removeBadRenderer();
-                if (((ToolStrip)control).Name != "lastUsedToolStrip")
+                control.BackColor = themecolors.background;
+        if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
+        if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
+        if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
                     {
@@ -774,7 +777,7 @@ namespace EEditor
                             {
                                 if (items[oo].Text != null)
                                 {
-                                    items[oo].ForeColor = userdata.themeToolbarText;
+                                    items[oo].ForeColor = themecolors.foreground;
                                 }
                                 Bitmap bmp = (Bitmap)items[oo].Image;
                                 if (!sblocks1.ContainsKey(incr3)) sblocks1.Add(incr3, bmp);
@@ -789,11 +792,11 @@ namespace EEditor
                                     {
                                         if (bmp.GetPixel(xx, yy).R + bmp.GetPixel(xx, yy).G + bmp.GetPixel(xx, yy).B == 0 && bmp.GetPixel(xx, yy).A > 15)
                                         {
-                                            bmp1.SetPixel(xx, yy, userdata.themeIcons);
+                                            bmp1.SetPixel(xx, yy, themecolors.imageColors);
                                         }
                                         else
                                         {
-                                            bmp1.SetPixel(xx, yy, userdata.themeIconsBg);
+                                            bmp1.SetPixel(xx, yy, themecolors.background);
                                         }
                                     }
                                 }
@@ -805,17 +808,17 @@ namespace EEditor
                                 if (items[oo].Name.Contains("Text"))
                                 {
                                     ((ToolStripTextBox)items[oo]).BorderStyle = BorderStyle.FixedSingle;
-                                    items[oo].BackColor = userdata.themeToolbarBg;
-                                    items[oo].ForeColor = userdata.themeToolbarText;
+                                    items[oo].BackColor = themecolors.background;
+                                    items[oo].ForeColor = themecolors.foreground;
                                 }
                                 else if (items[oo].Name.Contains("Combo"))
                                 {
-                                    items[oo].BackColor = userdata.themeToolbarBg;
-                                    items[oo].ForeColor = userdata.themeToolbarText;
+                                    items[oo].BackColor = themecolors.background;
+                                    items[oo].ForeColor = themecolors.foreground;
                                 }
                                 else if (items[oo].Name.Contains("Label"))
                                 {
-                                    items[oo].ForeColor = userdata.themeToolbarText;
+                                    items[oo].ForeColor = themecolors.foreground;
                                 }
                             }
                         }
@@ -1742,8 +1745,10 @@ namespace EEditor
                             }
                             strip.AutoSize = true;
                             strip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-                            strip.Renderer = new removeBadRenderer();
-                            strip.GripStyle = ToolStripGripStyle.Hidden;
+                    //strip.Renderer = new removeBadRenderer();
+                    if (darktheme) strip.Renderer = new DarkTheme();
+                    if (!darktheme) strip.Renderer = new LightTheme();
+                    strip.GripStyle = ToolStripGripStyle.Hidden;
                             strip.BackColor = themecolors.accent;
                             ToolTip tip = new ToolTip();
                             tip.SetToolTip(strip, desc);
@@ -1792,11 +1797,11 @@ namespace EEditor
                         AutoSize = true,
                         GripStyle = ToolStripGripStyle.Hidden,
                         Margin = new System.Windows.Forms.Padding(4, 4, 4, 4),
-                        Renderer = new removeBadRenderer(),
                         BackColor = themecolors.accent,
                     };
-
-                    foreach (int id in ids)
+            if (darktheme) strip.Renderer = new DarkTheme();
+            if (!darktheme) strip.Renderer = new LightTheme();
+            foreach (int id in ids)
                     {
                         if (!tps.ContainsKey(id.ToString()))
                         {
@@ -1880,8 +1885,11 @@ namespace EEditor
                     var bid = cur.ID;
                     loadBid = cur.ID;
                     ContextMenuStrip cm = new ContextMenuStrip();
-                    cm.Name = cur.ID.ToString();
+            if (darktheme) cm.Renderer = new DarkTheme();
+            if (!darktheme) cm.Renderer = new LightTheme();
+            cm.Name = cur.ID.ToString();
                     cm.Items.Add("Copy BlockID", Properties.Resources.copy);
+                    cm.ForeColor = themecolors.foreground;
                     if (MainForm.decosBMI[cur.ID] == 0 && MainForm.miscBMI[cur.ID] == 0)
                     {
                         if (userdata.IgnoreBlocks.Contains(cur.ID))
@@ -3745,11 +3753,11 @@ namespace EEditor
                     {
                         if (bmp.GetPixel(x, y).A > 80)
                         {
-                            bmp1.SetPixel(x, y, userdata.themeIcons);
+                            bmp1.SetPixel(x, y, themecolors.imageColors);
                         }
                         else
                         {
-                            bmp1.SetPixel(x, y, userdata.themeIconsBg);
+                            bmp1.SetPixel(x, y, themecolors.background);
                         }
                     }
                 }
@@ -3854,11 +3862,11 @@ namespace EEditor
                         {
                             if (bmp.GetPixel(x, y).A > 80)
                             {
-                                bmp1.SetPixel(x, y, userdata.themeIcons);
+                                bmp1.SetPixel(x, y, themecolors.imageColors);
                             }
                             else
                             {
-                                bmp1.SetPixel(x, y, userdata.themeIconsBg);
+                                bmp1.SetPixel(x, y, themecolors.background);
                             }
                         }
                     }
@@ -4818,13 +4826,6 @@ namespace EEditor
         public bool saveWorldCrew { get; set; }
         public bool confirmClose { get; set; }
         public int uploadOption { get; set; }
-        public Color themeBlock { get; set; }
-        public Color themeBlocks { get; set; }
-        public Color themeIcons { get; set; }
-        public Color themeIconsBg { get; set; }
-        public Color themeToolbarBg { get; set; }
-        public Color themeToolbarText { get; set; }
-        public Color themeBlockBG { get; set; }
         public bool themeBorder { get; set; }
         public bool themeClean { get; set; }
         public bool drawMixed { get; set; }
@@ -4868,8 +4869,37 @@ namespace EEditor
     {
 
     }
+    public class LightTheme : ToolStripProfessionalRenderer
+    {
+        public LightTheme() : base(new WhiteTable())
+        {
+
+        }
+        protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
+        {
+        }
+
+        
+    }
+    public class DarkTheme : ToolStripProfessionalRenderer
+    {
+        public DarkTheme() : base(new DarkTable())
+        {
+
+        }
+        protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
+        {
+        }
+
+        protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
+        {
+            e.ArrowColor = Color.White;
+            base.OnRenderArrow(e);
+        }
+    }
     public class DarkTable : ProfessionalColorTable
     {
+
         public override Color ToolStripDropDownBackground
         {
             get
@@ -4913,7 +4943,7 @@ namespace EEditor
         {
             get
             {
-                return Color.White;
+                return Color.FromArgb(75, 75, 75);
             }
         }
 
