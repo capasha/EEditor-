@@ -91,6 +91,7 @@ namespace EEditor
             form1 = this;
             starting2 = true;
             starting1 = true;
+            updateTheme();
             string accss = @"\accounts.json";
 
             if (File.Exists(pathSettings))
@@ -461,7 +462,7 @@ namespace EEditor
             starting1 = false;
             hideBlocksButton.PerformClick();
             accountsComboBox.SelectedItem = userdata.username;
-            updateTheme();
+            
             starting1 = false;
             starting2 = false;
             /*if (userdata.updateChecker)
@@ -582,13 +583,12 @@ namespace EEditor
                             {
                                 if (items[o].Name.Contains("DropButton"))
                                 {
-                                    ((ToolStripDropDownButton)items[o]).ForeColor = Color.Red;
                                     var dropdownitems = ((ToolStripDropDownButton)items[o]).DropDownItems;
                                     for (int a = 0; a < dropdownitems.Count; a++)
                                     {
-                                        if (dropdownitems[a].Name.Contains("MenuItem"))
+                                        if (dropdownitems[a].Name.Contains("MenuItem") || dropdownitems[a].Name.Contains("Button"))
                                         {
-                                            dropdownitems[a].ForeColor = Color.Wheat;
+                                            dropdownitems[a].ForeColor = themecolors.foreground;
                                         }
 
                                     }
@@ -728,7 +728,7 @@ namespace EEditor
                                         }
                                         else
                                         {
-                                            bmp1.SetPixel(x, y, themecolors.imageColors);
+                                            bmp1.SetPixel(x, y, themecolors.background);
                                         }
                                     }
                                 }
@@ -1730,6 +1730,7 @@ namespace EEditor
                     {
 
                         ToolStrip strip = new ToolStrip();
+
                         if (searched != null && items[0].blockInfo.ToLower().Contains(searched) || filterTextBox.Text == string.Empty)
                         {
                             strip = new ToolStrip(items);
@@ -1745,10 +1746,10 @@ namespace EEditor
                             }
                             strip.AutoSize = true;
                             strip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-                    //strip.Renderer = new removeBadRenderer();
-                    if (darktheme) strip.Renderer = new DarkTheme();
-                    if (!darktheme) strip.Renderer = new LightTheme();
-                    strip.GripStyle = ToolStripGripStyle.Hidden;
+                            if (darktheme) strip.Renderer = new DarkTheme();
+                            if (!darktheme) strip.Renderer = new LightTheme();
+
+                            strip.GripStyle = ToolStripGripStyle.Hidden;
                             strip.BackColor = themecolors.accent;
                             ToolTip tip = new ToolTip();
                             tip.SetToolTip(strip, desc);
@@ -1792,25 +1793,26 @@ namespace EEditor
                     }
                     BrickButton items = new BrickButton(brick, this, SetBrick, ids[0], 0, true, mode, "no");
                     //editArea.Bricks[9] = brick;
-                    ToolStrip strip = new ToolStrip(items)
+                    ToolStrip strip1 = new ToolStrip(items)
                     {
                         AutoSize = true,
                         GripStyle = ToolStripGripStyle.Hidden,
                         Margin = new System.Windows.Forms.Padding(4, 4, 4, 4),
                         BackColor = themecolors.accent,
                     };
-            if (darktheme) strip.Renderer = new DarkTheme();
-            if (!darktheme) strip.Renderer = new LightTheme();
-            foreach (int id in ids)
+            if (darktheme) strip1.Renderer = new DarkTheme();
+            if (!darktheme) strip1.Renderer = new LightTheme();
+                    strip1.BackColor = themecolors.accent;
+                    foreach (int id in ids)
                     {
                         if (!tps.ContainsKey(id.ToString()))
                         {
-                            tps.Add(id.ToString(), strip);
+                            tps.Add(id.ToString(), strip1);
                         }
                     }
                     //ToolTip tip = new ToolTip();
                     //tip.SetToolTip(strip, desc);
-                    if (flowLayoutPanel6.InvokeRequired) { this.Invoke((MethodInvoker)delegate { flowLayoutPanel6.Controls.Add(strip); }); } else { flowLayoutPanel6.Controls.Add(strip); }
+                    if (flowLayoutPanel6.InvokeRequired) { this.Invoke((MethodInvoker)delegate { flowLayoutPanel6.Controls.Add(strip1); }); } else { flowLayoutPanel6.Controls.Add(strip1); }
                 }
             }
         }
@@ -1829,6 +1831,7 @@ namespace EEditor
             {
                 MainForm = mainForm;
                 this.BackColor = themecolors.accent;
+                
                 this.ID = id;
                 this.blockInfo = blockdata;
                 this.AutoSize = false;
