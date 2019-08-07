@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.usePenToolCheckBox = new System.Windows.Forms.CheckBox();
             this.selectAllBorderCheckBox = new System.Windows.Forms.CheckBox();
-            this.tempLabel = new System.Windows.Forms.Label();
             this.clearComboBox = new System.Windows.Forms.ComboBox();
             this.clearButton = new System.Windows.Forms.Button();
             this.confirmCloseCheckBox = new System.Windows.Forms.CheckBox();
@@ -67,15 +66,6 @@
             this.selectAllBorderCheckBox.Text = "Include borders with select all";
             this.selectAllBorderCheckBox.UseVisualStyleBackColor = true;
             this.selectAllBorderCheckBox.CheckedChanged += new System.EventHandler(this.selectAllBorderCheckBox_CheckedChanged);
-            // 
-            // tempLabel
-            // 
-            this.tempLabel.AutoSize = true;
-            this.tempLabel.Location = new System.Drawing.Point(8, 173);
-            this.tempLabel.Name = "tempLabel";
-            this.tempLabel.Size = new System.Drawing.Size(202, 26);
-            this.tempLabel.TabIndex = 26;
-            this.tempLabel.Text = "Accounts have moved! They are now in  \r\nmain window, on username dropdown.";
             // 
             // clearComboBox
             // 
@@ -122,9 +112,9 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Location = new System.Drawing.Point(11, 102);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(144, 17);
+            this.checkBox2.Size = new System.Drawing.Size(147, 17);
             this.checkBox2.TabIndex = 31;
-            this.checkBox2.Text = "Replace Uknown Blocks";
+            this.checkBox2.Text = "Replace unknown blocks";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
@@ -147,9 +137,9 @@
             this.StatusTextToolStripStatusLabel,
             this.StatusToolStripStatusLabel,
             this.StatusColorToolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 215);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 177);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(238, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(228, 22);
             this.statusStrip1.TabIndex = 31;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -177,7 +167,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 237);
+            this.ClientSize = new System.Drawing.Size(228, 199);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.FasterShapeStyleCheckBox);
@@ -186,7 +176,6 @@
             this.Controls.Add(this.confirmCloseCheckBox);
             this.Controls.Add(this.clearComboBox);
             this.Controls.Add(this.clearButton);
-            this.Controls.Add(this.tempLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
@@ -204,7 +193,6 @@
         #endregion
         private System.Windows.Forms.CheckBox usePenToolCheckBox;
         private System.Windows.Forms.CheckBox selectAllBorderCheckBox;
-        private System.Windows.Forms.Label tempLabel;
         private System.Windows.Forms.ComboBox clearComboBox;
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.CheckBox confirmCloseCheckBox;
