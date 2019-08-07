@@ -525,7 +525,9 @@ namespace EEditor
                 var control = topFlowLayoutPanel.Controls[i];
                 var items = ((ToolStrip)control).Items;
                 control.BackColor = themecolors.background;
-                ((ToolStrip)control).Renderer = new ToolStripProfessionalRenderer(new MyColorTable());
+                //ProfessionalColorTable colors = darktheme ? new DarkTable() : new WhiteTable();
+                if (darktheme) ((ToolStrip)control).Renderer = new ToolStripProfessionalRenderer(new DarkTable());
+                if (!darktheme) ((ToolStrip)control).Renderer = new ToolStripProfessionalRenderer(new WhiteTable());
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
@@ -618,7 +620,8 @@ namespace EEditor
                 var control = bottomFlowLayoutPanel.Controls[ii];
                 var items = ((ToolStrip)control).Items;
                 control.BackColor = themecolors.background;
-                ((ToolStrip)control).Renderer = new ToolStripProfessionalRenderer(new MyColorTable());
+                if (darktheme) ((ToolStrip)control).Renderer = new ToolStripProfessionalRenderer(new DarkTable());
+                if (!darktheme) ((ToolStrip)control).Renderer = new ToolStripProfessionalRenderer(new WhiteTable());
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
@@ -4861,20 +4864,24 @@ namespace EEditor
             //base.OnRenderToolStripBorder(e);
         }
     }
-    public class MyColorTable : ProfessionalColorTable
+    public class WhiteTable : ProfessionalColorTable
+    {
+
+    }
+    public class DarkTable : ProfessionalColorTable
     {
         public override Color ToolStripDropDownBackground
         {
             get
             {
-                return Color.Red;
+                return Color.FromArgb(75, 75, 75);
             }
         }
         public override Color ImageMarginGradientBegin
         {
             get
             {
-                return Color.Blue;
+                return Color.FromArgb(75, 75, 75);
             }
         }
 
@@ -4882,7 +4889,7 @@ namespace EEditor
         {
             get
             {
-                return Color.Blue;
+                return Color.FromArgb(75, 75, 75);
             }
         }
 
@@ -4890,7 +4897,7 @@ namespace EEditor
         {
             get
             {
-                return Color.Blue;
+                return Color.FromArgb(75, 75, 75);
             }
         }
 
@@ -4898,7 +4905,7 @@ namespace EEditor
         {
             get
             {
-                return Color.Black;
+                return Color.FromArgb(75, 75, 75);
             }
         }
 
@@ -4906,7 +4913,7 @@ namespace EEditor
         {
             get
             {
-                return Color.Black;
+                return Color.White;
             }
         }
 
@@ -4914,7 +4921,7 @@ namespace EEditor
         {
             get
             {
-                return Color.Navy;
+                return Color.FromArgb(100, 100, 100);
             }
         }
 
@@ -4922,7 +4929,7 @@ namespace EEditor
         {
             get
             {
-                return Color.Blue;
+                return Color.FromArgb(75, 75, 75);
             }
         }
 
@@ -4930,7 +4937,7 @@ namespace EEditor
         {
             get
             {
-                return Color.Blue;
+                return Color.FromArgb(75, 75, 75);
             }
         }
 
@@ -4938,7 +4945,7 @@ namespace EEditor
         {
             get
             {
-                return Color.Navy;
+                return Color.FromArgb(100, 100, 100);
             }
         }
 
@@ -4946,7 +4953,7 @@ namespace EEditor
         {
             get
             {
-                return Color.Navy;
+                return Color.FromArgb(100, 100, 100);
             }
         }
 
@@ -4954,7 +4961,7 @@ namespace EEditor
         {
             get
             {
-                return Color.Blue;
+                return Color.FromArgb(75, 75, 75);
             }
         }
 
@@ -4962,9 +4969,8 @@ namespace EEditor
         {
             get
             {
-                return Color.Blue;
+                return Color.FromArgb(75, 75, 75);
             }
         }
     }
-
 }
