@@ -92,7 +92,7 @@ namespace EEditor
         }
         private void loadWorlds(bool reset)
         {
-            int incr = 0, incr1 = 0, total1 = 0, total = 0;
+            int incr = 0, total = 0;
             listView1.Enabled = false;
             listView1.BeginUpdate();
             if (MainForm.userdata.username != "guest")

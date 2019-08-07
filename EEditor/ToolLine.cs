@@ -9,7 +9,6 @@ namespace EEditor
         private string incfg = null;
         private Point start = new Point();
         private Point end = new Point();
-        private bool remove = false;
         private Pen borderPen;
         private Bitmap img1 = new Bitmap(3000, 3000);
         private bool hide = false;
@@ -105,7 +104,6 @@ namespace EEditor
         public void PlaceBorder(Point q)
         {
             //Graphics g = Graphics.FromImage(editArea.Back);
-            remove = true;
             //g.DrawRectangle(borderPen, GetRectangleScaled(P, Q));
             Line(start, q);
 
@@ -128,7 +126,6 @@ namespace EEditor
                 //for (int y = 0; y <= r.Height; ++y) g.DrawImage(editArea.GetBrickID(r.X + r.Width - 1, y + r.Y), (r.X + r.Width - 1) * 16, (y + r.Y) * 16);
                 for (int y = 0; y < r.Height; ++y) editArea.Draw(r.X + r.Width - 1, y + r.Y, g, MainForm.userdata.thisColor);
                 editArea.Invalidate();
-                remove = false;
                 //editArea.Invalidate();
             }
         }

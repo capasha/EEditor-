@@ -21,6 +21,11 @@ namespace EEditor
 
         private void About_Load(object sender, EventArgs e)
         {
+            for (int i = 0;i < this.Controls.Count;i++)
+            {
+                Console.WriteLine(this.Controls[i].Name);
+                //if (this.Controls[i].name)
+            }
         }
 
         #region Main links
@@ -30,7 +35,6 @@ namespace EEditor
             switch (((Button)sender).Name.ToString())
             {
                 case "ForumButton":
-                    Console.WriteLine("should work");
                         link1 = "http://forums.everybodyedits.com/viewtopic.php?id=32502";
                     break;
                 case "BugsOrFeatureButton":

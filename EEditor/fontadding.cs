@@ -23,7 +23,6 @@ namespace EEditor
         private string[,] Text4;
         private string fontname = "Calibri";
         private int fontsize = 20;
-        private int increase = 0;
         private Bitmap bmp = new Bitmap(25, 25);
         private List<string> messages = new List<string>();
         public fontadding()

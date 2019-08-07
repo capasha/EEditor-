@@ -67,6 +67,7 @@ namespace EEditor
             tp.SetToolTip(accKongregate, "Use Kongregate Account");
             tp.SetToolTip(accArmorGames, "Use ArmorGames Account");
             tp.SetToolTip(accFacebook, "Use Facebook Account");
+            tp.Dispose();
             #endregion
         }
 
@@ -195,7 +196,7 @@ namespace EEditor
                                     MainForm.accs.Add(property.Key, new accounts() { login = property.Value["login"].ToString(), password = property.Value["password"].ToString(), loginMethod = (int)property.Value["loginMethod"], payvault = values });
                                     mf.cb.Items.Add(property.Key);
                                 }
-                                catch (Exception ex)
+                                catch (Exception)
                                 {
                                     switch (Convert.ToInt32(property.Value["loginMethod"]))
                                     {

@@ -20,7 +20,6 @@ namespace EEditor
         private string incfg = null;
         private Bitmap img1 = new Bitmap(3000, 3000);
         private Bitmap img2 = new Bitmap(3000, 3000);
-        private bool hide = true;
         public Rectangle Rect { get; set; }
         public ToolCircleFill(EditArea editArea)
             : base(editArea)

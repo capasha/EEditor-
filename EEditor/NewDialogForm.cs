@@ -28,7 +28,6 @@ namespace EEditor
         private Dictionary<string, string> data = new Dictionary<string, string>();
         private Semaphore s = new Semaphore(0, 1);
         private Semaphore s1 = new Semaphore(0, 1);
-        private int messages = 0;
         //private bool errors = false;
         public NewDialogForm(MainForm mainForm)
         {
@@ -40,7 +39,6 @@ namespace EEditor
             CheckForIllegalCrossThreadCalls = false;
             listBox1.SelectedIndex = 0;
             notsaved = false;
-            messages = 0;
         }
 
         //Enable-disable level combobox accordingly
@@ -76,7 +74,6 @@ namespace EEditor
             ToolPen.undolist.Clear();
             ToolPen.redolist.Clear();
             ToolPen.rotation.Clear();
-            messages = 0;
             //Clipboard.Clear();
             MainForm.tsc.Items.Clear();
             MainForm.tsc.Items.Add("Background");

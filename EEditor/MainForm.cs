@@ -26,7 +26,6 @@ namespace EEditor
         private Dictionary<int, Bitmap> sblocks = new Dictionary<int, Bitmap>();
         private Dictionary<int, Bitmap> sblocks1 = new Dictionary<int, Bitmap>();
         public static bool darktheme = false;
-        private int lastblocks = 0;
         private int[] greyColor = new int[] { 255, 77, 83, 157, 311, 312, 313, 314, 315, 316, 317, 318 };
         public static Dictionary<string, accounts> accs = new Dictionary<string, accounts>();
         public static Dictionary<string, ToolStrip> tps = new Dictionary<string, ToolStrip>();
@@ -63,7 +62,6 @@ namespace EEditor
         private int[,] bgInit;
         private bool starting = false;
         private bool starting1 = false;
-        private bool starting2 = false;
         public static Dictionary<int, int> amountOfID = new Dictionary<int, int>();
         public static Dictionary<string, int> ihavethese = new Dictionary<string, int>();
         public static Dictionary<int, int[]> ihavetheseBid = new Dictionary<int, int[]>();
@@ -89,10 +87,8 @@ namespace EEditor
         {
             InitializeComponent();
             form1 = this;
-            starting2 = true;
             starting1 = true;
             updateTheme();
-            string accss = @"\accounts.json";
 
             if (File.Exists(pathSettings))
             {
@@ -464,7 +460,6 @@ namespace EEditor
             accountsComboBox.SelectedItem = userdata.username;
             
             starting1 = false;
-            starting2 = false;
             /*if (userdata.updateChecker)
             {
                 About ab = new About(this);
@@ -551,6 +546,33 @@ namespace EEditor
                                         if (dropdownitems[a].Name.Contains("MenuItem") || dropdownitems[a].Name.Contains("Button"))
                                         {
                                             dropdownitems[a].ForeColor = themecolors.foreground;
+
+                                            if (dropdownitems[a].Image != null)
+                                            {
+                                                Bitmap bmpa = (Bitmap)dropdownitems[a].Image;
+                                                if (!sblocks.ContainsKey(incr2)) sblocks.Add(incr2, bmpa);
+                                                else if (sblocks.ContainsKey(incr2))
+                                                {
+                                                    bmpa = sblocks[incr2];
+                                                }
+                                                Bitmap bmpa1 = new Bitmap(dropdownitems[a].Image.Width, dropdownitems[a].Image.Height);
+                                                for (int x = 0; x < dropdownitems[a].Image.Width; x++)
+                                                {
+                                                    for (int y = 0; y < dropdownitems[a].Image.Height; y++)
+                                                    {
+                                                        if (bmpa.GetPixel(x, y).A > 80)
+                                                        {
+                                                            bmpa1.SetPixel(x, y, themecolors.imageColors);
+                                                        }
+                                                        else
+                                                        {
+                                                            bmpa1.SetPixel(x, y, themecolors.background);
+                                                        }
+                                                    }
+                                                }
+                                                dropdownitems[a].Image = bmpa1;
+                                                incr2 += 1;
+                                            }
                                         }
 
                                     }
@@ -1897,11 +1919,11 @@ namespace EEditor
                     {
                         if (userdata.IgnoreBlocks.Contains(cur.ID))
                         {
-                            cm.Items.Add("Remove", Properties.Resources.minus);
+                            cm.Items.Add("Remove bg ignore block", Properties.Resources.minus);
                         }
                         else
                         {
-                            cm.Items.Add("Add", Properties.Resources.plus);
+                            cm.Items.Add("Add bg ignore block", Properties.Resources.plus);
                         }
                         (cm.Items[1] as ToolStripMenuItem).Click += BrickButton_Click;
                     }
@@ -3912,6 +3934,7 @@ namespace EEditor
                     {
                         Accounts ac = new Accounts();
                         ac.Show();
+                        if (ac.Disposing) ac.Dispose();
                     }
                     else
                     {
@@ -3957,6 +3980,11 @@ namespace EEditor
                 {
                     rebuildGUI(false);
                 }
+                sf.Dispose();
+            }
+            else
+            {
+                sf.Dispose();
             }
         }
 
@@ -4479,6 +4507,11 @@ namespace EEditor
                         }
                         else MessageBox.Show("The selected JSON Database World is either corrupt or invalid.", "Invalid JSON Database World", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    ofd.Dispose();
+                }
+                else
+                {
+                    ofd.Dispose();
                 }
             }
             catch (Exception ex)
@@ -4547,6 +4580,11 @@ namespace EEditor
                         editArea.Init(frame, false);
                     }
                     else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ofd.Dispose();
+                }
+                else
+                {
+                    ofd.Dispose();
                 }
             }
             catch (Exception ex)
@@ -4567,6 +4605,7 @@ namespace EEditor
 
                 MyWorlds mw = new MyWorlds();
                 mw.ShowDialog();
+                
             }
         }
 
@@ -4599,6 +4638,7 @@ namespace EEditor
                     editArea.Init(frame, false);
                 }
                 else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ofd.Dispose();
             }
             catch (Exception ex)
             {
@@ -4672,7 +4712,13 @@ namespace EEditor
                         editArea.Init(frame, false);
                     }
                     else MessageBox.Show("The selected EELVL is either invalid or corrupt.", "Invalid EELVL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ofd.Dispose();
                 }
+                else
+                {
+                    ofd.Dispose();
+                }
+                
             }
             catch (Exception ex)
             {
@@ -4706,6 +4752,7 @@ namespace EEditor
                 FileStream fs = new FileStream(path, FileMode.OpenOrCreate);
                 editArea.CurFrame.SaveLVL(fs);
                 fs.Close();
+                ofd.Dispose();
             }
             catch (Exception ex)
             {
@@ -4760,7 +4807,13 @@ namespace EEditor
                         }
                         else MessageBox.Show("The selected JSON Database World is either corrupt or invalid.", "Invalid JSON Database World", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    ofd.Dispose();
                 }
+                else
+                {
+                    ofd.Dispose();
+                }
+                
             }
             catch (Exception ex)
             {

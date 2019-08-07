@@ -56,8 +56,7 @@ namespace EEditor
 
         private void sortby(int id)
         {
-            int position = 0, total = 0, wposition = 4;
-            int incrw = 0;
+            int position = 0, wposition = 4;
             foreach (var val in bdata)
             {
                 PictureBox table = new PictureBox();

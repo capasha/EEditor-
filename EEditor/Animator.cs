@@ -30,7 +30,6 @@ namespace EEditor
         static int Gcurrent1;
         static int Max1000 = 0;
         static int maxBlocks = 0;
-        bool owner = false;
         int botid = 0;
         DateTime epochStartTime;
         System.Threading.Timer passTimer;
@@ -38,7 +37,6 @@ namespace EEditor
         object[] param;
         bool restart = false;
         public static System.Windows.Forms.ProgressBar pb; //Make AnimateForm.cs' progressbar work with this upload status
-        public static System.Windows.Forms.Label time;
         public static IntPtr afHandle; //Make TaskbarProgress.cs' progressbar work with this upload status
         string[] ignoreMessages = new string[] { "m", "updatemeta", "show", "hide", "k", "init2", "add", "left", "b" };
         public Animator(List<Frame> frames, Connection conn, string levelPassword, bool shuffle, bool reversed, bool vertical)
@@ -83,7 +81,6 @@ namespace EEditor
         {
             conn.Send("init");
             locker.WaitOne();
-            owner = false;
             Gcurrent1 = 0;
             bool drawblocks = false;
             //var inca = 0;
@@ -739,7 +736,6 @@ namespace EEditor
                 }
                 else if (e.GetString(0) != e.GetString(13))
                 {
-                    owner = false;
                     if (MainForm.userdata.level.StartsWith("OW") && levelPassword.Length == 0)
                     {
                         if (e.GetBoolean(14))
@@ -823,7 +819,6 @@ namespace EEditor
                     }
                     AnimateForm.editRights = true;
                     AnimateForm.saveRights = true;
-                    owner = true;
                     locker.Release();
                 }
             }

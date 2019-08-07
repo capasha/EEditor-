@@ -113,7 +113,6 @@ namespace EEditor
         private int BestMatchRGB(Color c)
         {
             int j = 0;
-            int a = 0;
             double d = Distance(c, Color.FromArgb((int)Minimap.Colors[0]));
             if (checkBoxBackground.Checked)
             {
