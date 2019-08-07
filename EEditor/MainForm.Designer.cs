@@ -326,7 +326,7 @@
             this.accountsComboBox,
             this.settingsButton,
             this.aboutButton});
-            this.settingsToolStrip.Location = new System.Drawing.Point(612, 0);
+            this.settingsToolStrip.Location = new System.Drawing.Point(643, 0);
             this.settingsToolStrip.Name = "settingsToolStrip";
             this.settingsToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.settingsToolStrip.Size = new System.Drawing.Size(156, 27);
@@ -375,7 +375,7 @@
             this.fileToolStrip.Location = new System.Drawing.Point(0, 0);
             this.fileToolStrip.Name = "fileToolStrip";
             this.fileToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.fileToolStrip.Size = new System.Drawing.Size(96, 27);
+            this.fileToolStrip.Size = new System.Drawing.Size(127, 27);
             this.fileToolStrip.TabIndex = 7;
             // 
             // newWorldButton
@@ -437,14 +437,14 @@
             // 
             this.eEditor37ToolStripMenuItem.Name = "eEditor37ToolStripMenuItem";
             this.eEditor37ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.eEditor37ToolStripMenuItem.Text = "EEditor 3.7+";
+            this.eEditor37ToolStripMenuItem.Text = "EEditor 3.7";
             this.eEditor37ToolStripMenuItem.Click += new System.EventHandler(this.eEditor37ToolStripMenuItem_Click);
             // 
             // new33ToolStripMenuItem
             // 
             this.new33ToolStripMenuItem.Name = "new33ToolStripMenuItem";
             this.new33ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.new33ToolStripMenuItem.Text = "EEditor 3.3+";
+            this.new33ToolStripMenuItem.Text = "EEditor 3.3 - 3.6";
             this.new33ToolStripMenuItem.Click += new System.EventHandler(this.new33ToolStripMenuItem_Click);
             // 
             // loadNewMenuItem
@@ -569,7 +569,7 @@
             this.insertDropButton,
             this.toolStripSeparator8,
             this.replaceButton});
-            this.toolToolStrip.Location = new System.Drawing.Point(96, 0);
+            this.toolToolStrip.Location = new System.Drawing.Point(127, 0);
             this.toolToolStrip.Name = "toolToolStrip";
             this.toolToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolToolStrip.Size = new System.Drawing.Size(204, 27);
@@ -799,7 +799,7 @@
             this.refreshButton,
             this.codeTextbox,
             this.uploadButton});
-            this.uploadToolStrip.Location = new System.Drawing.Point(402, 0);
+            this.uploadToolStrip.Location = new System.Drawing.Point(433, 0);
             this.uploadToolStrip.Name = "uploadToolStrip";
             this.uploadToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.uploadToolStrip.Size = new System.Drawing.Size(210, 27);
@@ -871,7 +871,7 @@
             this.redoButton,
             this.historyButton,
             this.StatisticButton});
-            this.historyToolStrip.Location = new System.Drawing.Point(300, 0);
+            this.historyToolStrip.Location = new System.Drawing.Point(331, 0);
             this.historyToolStrip.Name = "historyToolStrip";
             this.historyToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.historyToolStrip.Size = new System.Drawing.Size(102, 27);
