@@ -34,6 +34,7 @@ namespace EEditor
             lastBlock = new int[MainForm.editArea.Frames[0].Height, MainForm.editArea.Frames[0].Width];
             MainForm.editArea.Back1 = MainForm.editArea.Back;
             numericUpDown1.Value = MainForm.editArea.Tool.PenID;
+            ReplaceUnknownCheckBox.Checked = MainForm.userdata.replaceit;
 
             PortalRadioButton.Image = MainForm.miscBMD.Clone(new Rectangle(108 * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
             PortalINVRadioButton.Image = MainForm.miscBMD.Clone(new Rectangle(112 * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
@@ -1103,6 +1104,11 @@ namespace EEditor
         {
             BackgroundIgnore bgi = new BackgroundIgnore();
             bgi.Show();
+        }
+
+        private void ReplaceUnknownCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            MainForm.userdata.replaceit = ReplaceUnknownCheckBox.Checked;
         }
     }
 }
