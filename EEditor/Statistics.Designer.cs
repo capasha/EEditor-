@@ -41,7 +41,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(289, 270);
             this.panel1.TabIndex = 2;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel1_Paint);
             // 
             // fgradioButton
             // 
@@ -54,7 +53,6 @@
             this.fgradioButton.TabIndex = 3;
             this.fgradioButton.TabStop = true;
             this.fgradioButton.UseVisualStyleBackColor = true;
-            this.fgradioButton.CheckedChanged += new System.EventHandler(this.FgradioButton_CheckedChanged);
             // 
             // actradioButton
             // 
@@ -96,7 +94,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(313, 345);
+            this.ClientSize = new System.Drawing.Size(313, 289);
             this.Controls.Add(this.decorradioButton);
             this.Controls.Add(this.bgradioButton);
             this.Controls.Add(this.actradioButton);

@@ -31,11 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.usePenToolCheckBox = new System.Windows.Forms.CheckBox();
             this.selectAllBorderCheckBox = new System.Windows.Forms.CheckBox();
-            this.tempLabel = new System.Windows.Forms.Label();
             this.clearComboBox = new System.Windows.Forms.ComboBox();
             this.clearButton = new System.Windows.Forms.Button();
             this.confirmCloseCheckBox = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.FasterShapeStyleCheckBox = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusTextToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -68,15 +66,6 @@
             this.selectAllBorderCheckBox.UseVisualStyleBackColor = true;
             this.selectAllBorderCheckBox.CheckedChanged += new System.EventHandler(this.selectAllBorderCheckBox_CheckedChanged);
             // 
-            // tempLabel
-            // 
-            this.tempLabel.AutoSize = true;
-            this.tempLabel.Location = new System.Drawing.Point(8, 173);
-            this.tempLabel.Name = "tempLabel";
-            this.tempLabel.Size = new System.Drawing.Size(202, 26);
-            this.tempLabel.TabIndex = 26;
-            this.tempLabel.Text = "Accounts have moved! They are now in  \r\nmain window, on username dropdown.";
-            // 
             // clearComboBox
             // 
             this.clearComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -88,7 +77,7 @@
             "",
             "Old EEditor settings & logins",
             "Current EEditor settings"});
-            this.clearComboBox.Location = new System.Drawing.Point(9, 149);
+            this.clearComboBox.Location = new System.Drawing.Point(11, 117);
             this.clearComboBox.Name = "clearComboBox";
             this.clearComboBox.Size = new System.Drawing.Size(139, 21);
             this.clearComboBox.TabIndex = 27;
@@ -97,7 +86,7 @@
             // clearButton
             // 
             this.clearButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.clearButton.Location = new System.Drawing.Point(150, 148);
+            this.clearButton.Location = new System.Drawing.Point(156, 117);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(49, 23);
             this.clearButton.TabIndex = 28;
@@ -116,17 +105,6 @@
             this.confirmCloseCheckBox.Text = "Confirm EEditor exit";
             this.confirmCloseCheckBox.UseVisualStyleBackColor = true;
             this.confirmCloseCheckBox.CheckedChanged += new System.EventHandler(this.confirmCloseCheckBox_CheckedChanged);
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(11, 102);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(144, 17);
-            this.checkBox2.TabIndex = 31;
-            this.checkBox2.Text = "Replace Uknown Blocks";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // FasterShapeStyleCheckBox
             // 
@@ -147,9 +125,9 @@
             this.StatusTextToolStripStatusLabel,
             this.StatusToolStripStatusLabel,
             this.StatusColorToolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 215);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 145);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(238, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(228, 22);
             this.statusStrip1.TabIndex = 31;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -177,8 +155,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 237);
-            this.Controls.Add(this.checkBox2);
+            this.ClientSize = new System.Drawing.Size(228, 167);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.FasterShapeStyleCheckBox);
             this.Controls.Add(this.usePenToolCheckBox);
@@ -186,7 +163,6 @@
             this.Controls.Add(this.confirmCloseCheckBox);
             this.Controls.Add(this.clearComboBox);
             this.Controls.Add(this.clearButton);
-            this.Controls.Add(this.tempLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
@@ -204,7 +180,6 @@
         #endregion
         private System.Windows.Forms.CheckBox usePenToolCheckBox;
         private System.Windows.Forms.CheckBox selectAllBorderCheckBox;
-        private System.Windows.Forms.Label tempLabel;
         private System.Windows.Forms.ComboBox clearComboBox;
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.CheckBox confirmCloseCheckBox;
@@ -213,6 +188,5 @@
         private System.Windows.Forms.ToolStripStatusLabel StatusToolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel StatusColorToolStripStatusLabel;
         private System.Windows.Forms.CheckBox FasterShapeStyleCheckBox;
-        private System.Windows.Forms.CheckBox checkBox2;
     }
 }

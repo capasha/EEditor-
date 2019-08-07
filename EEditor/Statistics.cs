@@ -54,22 +54,6 @@ namespace EEditor
             sortby(0);
         }
 
-        private void Button1_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void FgradioButton_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void sortby(int id)
         {
             int position = 0, total = 0, wposition = 4;
