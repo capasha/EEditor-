@@ -92,13 +92,14 @@ namespace EEditor
             starting2 = true;
             starting1 = true;
             string accss = @"\accounts.json";
+
             if (File.Exists(pathSettings))
             {
                 //var output = JObject.Parse(File.ReadAllText(pathSettings));
                 userdata = JsonConvert.DeserializeObject<userData>(File.ReadAllText(pathSettings));
                 if (userdata != null)
                 {
-                   
+
                     if (userdata.drawMixed.ToString() == null) userdata.drawMixed = false;
                     if (userdata.imageBackgrounds.ToString() == null) userdata.imageBackgrounds = true;
                     if (userdata.imageBlocks.ToString() == null) userdata.imageBlocks = true;
@@ -470,7 +471,7 @@ namespace EEditor
                 thread.Start();
             }*/
             SetPenTool();
-            
+
             MainForm.editArea.Focus();
         }
 
@@ -509,6 +510,7 @@ namespace EEditor
 
                 };
             }
+           // minimapAsImageToolStripMenuItem.ForeColor = Color.White;
             flowLayoutPanel2.BackColor = themecolors.background;
             flowLayoutPanel3.BackColor = themecolors.background;
             flowLayoutPanel4.BackColor = themecolors.background;
@@ -523,7 +525,7 @@ namespace EEditor
                 var control = topFlowLayoutPanel.Controls[i];
                 var items = ((ToolStrip)control).Items;
                 control.BackColor = themecolors.background;
-                ((ToolStrip)control).Renderer = new removeBadRenderer();
+                ((ToolStrip)control).Renderer = new ToolStripProfessionalRenderer(new MyColorTable());
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
@@ -533,21 +535,21 @@ namespace EEditor
                             //items[o].BackColor = bgColor;
                             if (items[o].Image != null)
                             {
+                                if (items[o].Text != null)
+                                {
+                                    items[o].ForeColor = themecolors.foreground;
+                                }
                                 if (items[o].Name.Contains("DropButton"))
                                 {
                                     var dropdownitems = ((ToolStripDropDownButton)items[o]).DropDownItems;
                                     for (int a = 0; a < dropdownitems.Count; a++)
                                     {
-                                        if (dropdownitems[a].Name.Contains("MenuItem"))
+                                        if (dropdownitems[a].Name.Contains("MenuItem") || dropdownitems[a].Name.Contains("Button"))
                                         {
-                                            dropdownitems[a].BackColor = Color.Red;
+                                            dropdownitems[a].ForeColor = themecolors.foreground;
                                         }
 
                                     }
-                                }
-                                if (items[o].Text != null)
-                                {
-                                    items[o].ForeColor = themecolors.foreground;
                                 }
                                 Bitmap bmp = (Bitmap)items[o].Image;
                                 if (!sblocks.ContainsKey(incr2)) sblocks.Add(incr2, bmp);
@@ -577,12 +579,13 @@ namespace EEditor
                             {
                                 if (items[o].Name.Contains("DropButton"))
                                 {
+                                    ((ToolStripDropDownButton)items[o]).ForeColor = Color.Red;
                                     var dropdownitems = ((ToolStripDropDownButton)items[o]).DropDownItems;
                                     for (int a = 0; a < dropdownitems.Count; a++)
                                     {
                                         if (dropdownitems[a].Name.Contains("MenuItem"))
                                         {
-                                            dropdownitems[a].BackColor = Color.Red;
+                                            dropdownitems[a].ForeColor = Color.Wheat;
                                         }
 
                                     }
@@ -615,7 +618,7 @@ namespace EEditor
                 var control = bottomFlowLayoutPanel.Controls[ii];
                 var items = ((ToolStrip)control).Items;
                 control.BackColor = themecolors.background;
-                ((ToolStrip)control).Renderer = new removeBadRenderer();
+                ((ToolStrip)control).Renderer = new ToolStripProfessionalRenderer(new MyColorTable());
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
@@ -3926,7 +3929,7 @@ namespace EEditor
         //Settings
         private void settingsButton_Click(object sender, EventArgs e)
         {
-        labeld:
+            labeld:
             SettingsForm sf = new SettingsForm();
             if (sf.ShowDialog() == DialogResult.OK)
             {
@@ -4864,4 +4867,6 @@ namespace EEditor
             //base.OnRenderToolStripBorder(e);
         }
     }
+
+
 }
