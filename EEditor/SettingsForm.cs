@@ -37,7 +37,6 @@ namespace EEditor
             selectAllBorderCheckBox.Checked = MainForm.userdata.selectAllBorder;
             confirmCloseCheckBox.Checked = MainForm.userdata.confirmClose;
             FasterShapeStyleCheckBox.Checked = MainForm.userdata.fastshape;
-            checkBox2.Checked = MainForm.userdata.replaceit;
             #endregion
 
             clearComboBox.SelectedIndex = 0; //Show "Clear settings..." by default
@@ -228,12 +227,6 @@ namespace EEditor
             {
                 MainForm.editArea.MainForm.rebuildGUI(false);
             }
-        }
-
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            MainForm.userdata.replaceit = checkBox2.Checked;
         }
     }
 }

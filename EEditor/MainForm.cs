@@ -4416,12 +4416,6 @@ namespace EEditor
         {
         }
 
-        private void backgroundIgnoreToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            BackgroundIgnore bgi = new BackgroundIgnore();
-            bgi.Show();
-        }
-
         private void localToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetDummy();

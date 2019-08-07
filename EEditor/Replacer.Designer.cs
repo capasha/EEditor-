@@ -35,6 +35,7 @@
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ClearBgsBlacklistButton = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -62,6 +63,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ReplaceUnknownCheckBox = new System.Windows.Forms.CheckBox();
             this.NormalRadioButton = new System.Windows.Forms.RadioButton();
             this.RotationPictureBox2 = new System.Windows.Forms.PictureBox();
             this.RotationPictureBox1 = new System.Windows.Forms.PictureBox();
@@ -158,6 +160,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ReplaceUnknownCheckBox);
+            this.groupBox1.Controls.Add(this.ClearBgsBlacklistButton);
             this.groupBox1.Controls.Add(this.button9);
             this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button4);
@@ -167,17 +171,27 @@
             this.groupBox1.Controls.Add(this.button8);
             this.groupBox1.Location = new System.Drawing.Point(270, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(278, 349);
+            this.groupBox1.Size = new System.Drawing.Size(278, 410);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Find && replace";
             // 
+            // ClearBgsBlacklistButton
+            // 
+            this.ClearBgsBlacklistButton.Location = new System.Drawing.Point(139, 378);
+            this.ClearBgsBlacklistButton.Name = "ClearBgsBlacklistButton";
+            this.ClearBgsBlacklistButton.Size = new System.Drawing.Size(121, 21);
+            this.ClearBgsBlacklistButton.TabIndex = 18;
+            this.ClearBgsBlacklistButton.Text = "Exceptions";
+            this.ClearBgsBlacklistButton.UseVisualStyleBackColor = true;
+            this.ClearBgsBlacklistButton.Click += new System.EventHandler(this.ClearBgsBlacklistButton_Click);
+            // 
             // button9
             // 
             this.button9.Enabled = false;
-            this.button9.Location = new System.Drawing.Point(152, 253);
+            this.button9.Location = new System.Drawing.Point(139, 303);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(92, 34);
+            this.button9.Size = new System.Drawing.Size(121, 33);
             this.button9.TabIndex = 17;
             this.button9.Text = "Replace unowned";
             this.button9.UseVisualStyleBackColor = true;
@@ -186,61 +200,76 @@
             // button5
             // 
             this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-            this.button5.Location = new System.Drawing.Point(152, 202);
+            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button5.Location = new System.Drawing.Point(139, 202);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(45, 45);
+            this.button5.Size = new System.Drawing.Size(121, 33);
             this.button5.TabIndex = 10;
+            this.button5.Text = "Replace next";
+            this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
             this.button4.Image = global::EEditor.Properties.Resources.find_next;
-            this.button4.Location = new System.Drawing.Point(31, 202);
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.Location = new System.Drawing.Point(17, 202);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(45, 45);
+            this.button4.Size = new System.Drawing.Size(106, 33);
             this.button4.TabIndex = 9;
+            this.button4.Text = "Find next";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button1
             // 
             this.button1.Image = global::EEditor.Properties.Resources.replace_all;
-            this.button1.Location = new System.Drawing.Point(199, 202);
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(139, 241);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(45, 45);
+            this.button1.Size = new System.Drawing.Size(121, 33);
             this.button1.TabIndex = 4;
+            this.button1.Text = "Replace all";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ClearBgsButton
             // 
-            this.ClearBgsButton.Location = new System.Drawing.Point(82, 293);
+            this.ClearBgsButton.Image = global::EEditor.Properties.Resources.eeditor_bgIgnore;
+            this.ClearBgsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ClearBgsButton.Location = new System.Drawing.Point(139, 345);
             this.ClearBgsButton.Name = "ClearBgsButton";
-            this.ClearBgsButton.Size = new System.Drawing.Size(136, 40);
+            this.ClearBgsButton.Size = new System.Drawing.Size(121, 36);
             this.ClearBgsButton.TabIndex = 0;
-            this.ClearBgsButton.Text = "Clear bgs behind blocks";
+            this.ClearBgsButton.Text = "Clear block background";
+            this.ClearBgsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ClearBgsButton.UseVisualStyleBackColor = true;
             this.ClearBgsButton.Click += new System.EventHandler(this.ClearBgsButton_Click);
             // 
             // button3
             // 
             this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(82, 202);
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(17, 241);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(45, 45);
+            this.button3.Size = new System.Drawing.Size(106, 33);
             this.button3.TabIndex = 8;
+            this.button3.Text = "Find all";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(28, 253);
+            this.button8.Location = new System.Drawing.Point(17, 366);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(92, 34);
+            this.button8.Size = new System.Drawing.Size(106, 33);
             this.button8.TabIndex = 16;
-            this.button8.Text = "Reset view";
+            this.button8.Text = "Reset search";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
@@ -374,7 +403,7 @@
             this.groupBox2.Controls.Add(this.toolStripContainer1);
             this.groupBox2.Location = new System.Drawing.Point(12, 5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(252, 324);
+            this.groupBox2.Size = new System.Drawing.Size(252, 410);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Get block ID by pack";
@@ -405,12 +434,12 @@
             this.toolStripContainer1.ContentPanel.AutoScroll = true;
             this.toolStripContainer1.ContentPanel.Controls.Add(this.toolStrip1);
             this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(241, 276);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(241, 357);
             this.toolStripContainer1.LeftToolStripPanelVisible = false;
             this.toolStripContainer1.Location = new System.Drawing.Point(5, 42);
             this.toolStripContainer1.Name = "toolStripContainer1";
             this.toolStripContainer1.RightToolStripPanelVisible = false;
-            this.toolStripContainer1.Size = new System.Drawing.Size(241, 276);
+            this.toolStripContainer1.Size = new System.Drawing.Size(241, 357);
             this.toolStripContainer1.TabIndex = 11;
             this.toolStripContainer1.Text = "toolStripContainer1";
             this.toolStripContainer1.TopToolStripPanelVisible = false;
@@ -431,7 +460,7 @@
             // 
             this.groupBox5.Controls.Add(this.progressBar1);
             this.groupBox5.Controls.Add(this.label4);
-            this.groupBox5.Location = new System.Drawing.Point(12, 360);
+            this.groupBox5.Location = new System.Drawing.Point(12, 421);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(536, 42);
             this.groupBox5.TabIndex = 16;
@@ -480,6 +509,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Normal";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // ReplaceUnknownCheckBox
+            // 
+            this.ReplaceUnknownCheckBox.AutoSize = true;
+            this.ReplaceUnknownCheckBox.Location = new System.Drawing.Point(147, 280);
+            this.ReplaceUnknownCheckBox.Name = "ReplaceUnknownCheckBox";
+            this.ReplaceUnknownCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.ReplaceUnknownCheckBox.TabIndex = 19;
+            this.ReplaceUnknownCheckBox.Text = "Replace unknown";
+            this.ReplaceUnknownCheckBox.UseVisualStyleBackColor = true;
+            this.ReplaceUnknownCheckBox.CheckedChanged += new System.EventHandler(this.ReplaceUnknownCheckBox_CheckedChanged);
             // 
             // NormalRadioButton
             // 
@@ -828,7 +868,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(558, 414);
+            this.ClientSize = new System.Drawing.Size(558, 474);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox2);
@@ -841,6 +881,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Replacer_FormClosed);
             this.Load += new System.EventHandler(this.Replacer_Load);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rotateIcon2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rotateIcon1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.replaceRotate)).EndInit();
@@ -941,5 +982,7 @@
         private System.Windows.Forms.PictureBox RotationPictureBox2;
         private System.Windows.Forms.PictureBox RotationPictureBox1;
         private System.Windows.Forms.RadioButton NormalRadioButton;
+        private System.Windows.Forms.Button ClearBgsBlacklistButton;
+        private System.Windows.Forms.CheckBox ReplaceUnknownCheckBox;
     }
 }
