@@ -21,10 +21,6 @@ namespace EEditor
         public static bool OpenWorld = false;
         public static bool OpenWorldCode = false;
         public static theme themecolors = new theme();
-        public static Color bgColor = Color.FromArgb(75, 75, 75);
-        public static Color imageColor = Color.White;
-        public static Color textColor = Color.White;
-        public static Color blockbgColor = Color.FromArgb(100, 100, 100);
         public static userData userdata = new userData();
         public static string pathSettings = $"{Directory.GetCurrentDirectory()}\\settings.json";
         private Dictionary<int, Bitmap> sblocks = new Dictionary<int, Bitmap>();
@@ -526,7 +522,7 @@ namespace EEditor
             {
                 var control = topFlowLayoutPanel.Controls[i];
                 var items = ((ToolStrip)control).Items;
-                control.BackColor = bgColor;
+                control.BackColor = themecolors.background;
                 ((ToolStrip)control).Renderer = new removeBadRenderer();
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
@@ -544,7 +540,7 @@ namespace EEditor
                                     {
                                         if (dropdownitems[a].Name.Contains("MenuItem"))
                                         {
-                                            ((ToolStripMenuItem)dropdownitems[a]).BackColor = Color.Red;
+                                            dropdownitems[a].BackColor = Color.Red;
                                         }
 
                                     }
@@ -579,6 +575,18 @@ namespace EEditor
                             }
                             else
                             {
+                                if (items[o].Name.Contains("DropButton"))
+                                {
+                                    var dropdownitems = ((ToolStripDropDownButton)items[o]).DropDownItems;
+                                    for (int a = 0; a < dropdownitems.Count; a++)
+                                    {
+                                        if (dropdownitems[a].Name.Contains("MenuItem"))
+                                        {
+                                            dropdownitems[a].BackColor = Color.Red;
+                                        }
+
+                                    }
+                                }
                                 if (items[o].Name.Contains("Text"))
                                 {
                                     ((ToolStripTextBox)items[o]).BorderStyle = BorderStyle.FixedSingle;
@@ -606,7 +614,7 @@ namespace EEditor
             {
                 var control = bottomFlowLayoutPanel.Controls[ii];
                 var items = ((ToolStrip)control).Items;
-                control.BackColor = bgColor;
+                control.BackColor = themecolors.background;
                 ((ToolStrip)control).Renderer = new removeBadRenderer();
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
@@ -899,11 +907,11 @@ namespace EEditor
                 }
                 userdata.brickHotkeys = s;
             }
-            flowLayoutPanel2.BackColor = bgColor;
-            flowLayoutPanel3.BackColor = bgColor;
-            flowLayoutPanel4.BackColor = bgColor;
-            flowLayoutPanel5.BackColor = bgColor;
-            flowLayoutPanel6.BackColor = bgColor;
+            flowLayoutPanel2.BackColor = themecolors.background;
+            flowLayoutPanel3.BackColor = themecolors.background;
+            flowLayoutPanel4.BackColor = themecolors.background;
+            flowLayoutPanel5.BackColor = themecolors.background;
+            flowLayoutPanel6.BackColor = themecolors.background;
             //toolStripContainer1.TopToolStripPanel.Controls.Clear();
             resetLastBlocks();
             if (flowLayoutPanel2.InvokeRequired) { this.Invoke((MethodInvoker)delegate { flowLayoutPanel2.Controls.Clear(); }); }
@@ -1730,7 +1738,7 @@ namespace EEditor
                             strip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                             strip.Renderer = new removeBadRenderer();
                             strip.GripStyle = ToolStripGripStyle.Hidden;
-                            strip.BackColor = blockbgColor;
+                            strip.BackColor = themecolors.accent;
                             ToolTip tip = new ToolTip();
                             tip.SetToolTip(strip, desc);
 
@@ -1779,7 +1787,7 @@ namespace EEditor
                         GripStyle = ToolStripGripStyle.Hidden,
                         Margin = new System.Windows.Forms.Padding(4, 4, 4, 4),
                         Renderer = new removeBadRenderer(),
-                        BackColor = blockbgColor,
+                        BackColor = themecolors.accent,
                     };
 
                     foreach (int id in ids)
@@ -1809,7 +1817,7 @@ namespace EEditor
                 : base("", image, onClick)
             {
                 MainForm = mainForm;
-                this.BackColor = blockbgColor;
+                this.BackColor = themecolors.accent;
                 this.ID = id;
                 this.blockInfo = blockdata;
                 this.AutoSize = false;
