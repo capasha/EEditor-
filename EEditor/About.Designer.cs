@@ -53,8 +53,8 @@
             this.CosturaLinkLabel = new System.Windows.Forms.LinkLabel();
             this.ZIPLinkLabel = new System.Windows.Forms.LinkLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lukemLinkLabel = new System.Windows.Forms.LinkLabel();
             this.InitParserLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.lukemlinkLabel = new System.Windows.Forms.LinkLabel();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -305,7 +305,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.lukemlinkLabel);
+            this.groupBox1.Controls.Add(this.lukemLinkLabel);
             this.groupBox1.Controls.Add(this.InitParserLinkLabel);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.ZIPLinkLabel);
@@ -332,6 +332,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Credits / License";
             // 
+            // lukemLinkLabel
+            // 
+            this.lukemLinkLabel.AutoSize = true;
+            this.lukemLinkLabel.Location = new System.Drawing.Point(155, 301);
+            this.lukemLinkLabel.Name = "lukemLinkLabel";
+            this.lukemLinkLabel.Size = new System.Drawing.Size(106, 13);
+            this.lukemLinkLabel.TabIndex = 23;
+            this.lukemLinkLabel.TabStop = true;
+            this.lukemLinkLabel.Text = "Lukem\'s .eelvl parser";
+            this.lukemLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
             // InitParserLinkLabel
             // 
             this.InitParserLinkLabel.AutoSize = true;
@@ -343,22 +354,11 @@
             this.InitParserLinkLabel.Text = "Yonom/Processor\'s InitParser";
             this.InitParserLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
-            // lukemlinkLabel
-            // 
-            this.lukemlinkLabel.AutoSize = true;
-            this.lukemlinkLabel.Location = new System.Drawing.Point(155, 301);
-            this.lukemlinkLabel.Name = "lukemlinkLabel";
-            this.lukemlinkLabel.Size = new System.Drawing.Size(106, 13);
-            this.lukemlinkLabel.TabIndex = 23;
-            this.lukemlinkLabel.TabStop = true;
-            this.lukemlinkLabel.Text = "Lukem\'s .eelvl parser";
-            this.lukemlinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
-            // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 492);
+            this.ClientSize = new System.Drawing.Size(351, 492);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox4);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -400,6 +400,6 @@
         private System.Windows.Forms.LinkLabel ZIPLinkLabel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.LinkLabel InitParserLinkLabel;
-        private System.Windows.Forms.LinkLabel lukemlinkLabel;
+        private System.Windows.Forms.LinkLabel lukemLinkLabel;
     }
 }

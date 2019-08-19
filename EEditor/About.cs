@@ -21,12 +21,39 @@ namespace EEditor
 
         private void About_Load(object sender, EventArgs e)
         {
+            this.ForeColor = MainForm.themecolors.foreground;
+            this.BackColor = MainForm.themecolors.background;
             for (int i = 0;i < this.Controls.Count;i++)
             {
-                Console.WriteLine(this.Controls[i].Name);
+                if (this.Controls[i].Name .Contains("groupBox"))
+                {
+                    for (int a = 0;a < this.Controls[i].Controls.Count;a++)
+                    {
+                        Console.WriteLine(this.Controls[i].Controls[a].Name);
+                        if (this.Controls[i].Controls[a].Name.Contains("Label") || this.Controls[i].Controls[a].Name.Contains("label") && !this.Controls[i].Controls[a].Name.Contains("LinkLabel"))
+                        {
+                            this.Controls[i].Controls[a].ForeColor = MainForm.themecolors.foreground;
+                            this.Controls[i].Controls[a].BackColor = MainForm.themecolors.background;
+                        }
+                        if (this.Controls[i].Controls[a].Name.Contains("LinkLabel"))
+                        {
+                            ((LinkLabel)this.Controls[i].Controls[a]).ForeColor = MainForm.themecolors.foreground;
+                            ((LinkLabel)this.Controls[i].Controls[a]).BackColor = MainForm.themecolors.background;
+                            ((LinkLabel)this.Controls[i].Controls[a]).LinkColor = MainForm.themecolors.link;
+                            ((LinkLabel)this.Controls[i].Controls[a]).VisitedLinkColor = MainForm.themecolors.visitedlink;
+                            ((LinkLabel)this.Controls[i].Controls[a]).ActiveLinkColor = MainForm.themecolors.activelink;
+
+
+                        }
+                        if (this.Controls[i].Controls[a].Name.Contains("Button"))
+                        {
+                            this.Controls[i].Controls[a].ForeColor = Color.Black;
+                        }
+                    }
+                }
                 //if (this.Controls[i].name)
             }
-        }
+    }
 
         #region Main links
         private void Button_Click(object sender, EventArgs e)

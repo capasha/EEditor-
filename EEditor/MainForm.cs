@@ -491,7 +491,10 @@ namespace EEditor
                     background = Color.FromArgb(75, 75, 75),
                     imageColors = Color.White,
                     accent = Color.FromArgb(100, 100, 100),
-                    foreground = Color.White
+                    foreground = Color.White,
+                    link = Color.Orange,
+                    activelink = Color.Orange,
+                    visitedlink = Color.Orange,
 
                 };
             }
@@ -502,7 +505,11 @@ namespace EEditor
                     background = SystemColors.Window,
                     imageColors = Color.Black,
                     accent = SystemColors.Control,
-                    foreground = Color.Black
+                    foreground = Color.Black,
+                    link = Color.FromArgb(0, 0, 255),
+                    visitedlink = Color.FromArgb(128, 0, 128),
+                    activelink = Color.Red,
+                
 
                 };
             }
@@ -4909,6 +4916,12 @@ namespace EEditor
         public Color foreground { get; set; }
 
         public Color accent { get; set; }
+
+        public Color link { get; set; }
+
+        public Color visitedlink { get; set; }
+
+        public Color activelink { get; set; }
     }
     public class removeBadRenderer : ToolStripSystemRenderer
     {

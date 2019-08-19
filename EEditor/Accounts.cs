@@ -367,18 +367,8 @@ namespace EEditor
         {
             Dictionary<string, int> pv = new Dictionary<string, int>();
 
-            client.BigDB.LoadMyPlayerObject((DatabaseObject dbo) =>
+            client.BigDB.LoadRange("usernames", "owner", null, client.ConnectUserId, null, 1, (DatabaseObject[] data) =>
             {
-                if (dbo.Contains("gold_expire") && dbo.GetDateTime("gold_expire") > DateTime.Now)
-                {
-                    if (!pv.ContainsKey("goldmember")) { pv.Add("goldmember", 0); }
-
-
-                }
-                else
-                {
-                    if (pv.ContainsKey("goldmember")) { pv.Remove("goldmember"); }
-                }
                 client.PayVault.Refresh(() =>
                 {
 
@@ -404,19 +394,19 @@ namespace EEditor
                                 }
                             }
                         }
-                        if (!MainForm.accs.ContainsKey(dbo["name"].ToString()))
+                        if (!MainForm.accs.ContainsKey(data[0].Key.ToString()))
                         {
-                            MainForm.accs.Add(dbo["name"].ToString(), new accounts() { login = login, password = password, loginMethod = loginmethod, payvault = pv });
+                            MainForm.accs.Add(data[0].Key.ToString(), new accounts() { login = login, password = password, loginMethod = loginmethod, payvault = pv });
                         }
-                        else if (MainForm.accs.ContainsKey(dbo["name"].ToString()))
+                        else if (MainForm.accs.ContainsKey(data[0].Key.ToString()))
                         {
-                            MainForm.accs[dbo["name"].ToString()] = new accounts() { login = login, password = password, loginMethod = loginmethod, payvault = pv };
+                            MainForm.accs[data[0].Key.ToString()] = new accounts() { login = login, password = password, loginMethod = loginmethod, payvault = pv };
                         }
                         File.WriteAllText(Directory.GetCurrentDirectory() + accss, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
                     }
                     else
                     {
-                        MainForm.accs.Add(dbo["name"].ToString(), new accounts() { login = login, password = password, loginMethod = loginmethod, payvault = pv });
+                        MainForm.accs.Add(data[0].Key.ToString(), new accounts() { login = login, password = password, loginMethod = loginmethod, payvault = pv });
                         File.WriteAllText(Directory.GetCurrentDirectory() + accss, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
                     }
                 },
@@ -428,18 +418,9 @@ namespace EEditor
         {
             Dictionary<string, int> pv = new Dictionary<string, int>();
 
-            client.BigDB.LoadMyPlayerObject((DatabaseObject dbo) =>
+            client.BigDB.LoadRange("usernames", "owner", null, client.ConnectUserId, null, 1, (DatabaseObject[] data) =>
             {
-                if (dbo.Contains("gold_expire") && dbo.GetDateTime("gold_expire") > DateTime.Now)
-                {
-                    if (!pv.ContainsKey("goldmember")) { pv.Add("goldmember", 0); }
 
-
-                }
-                else
-                {
-                    if (pv.ContainsKey("goldmember")) { pv.Remove("goldmember"); }
-                }
                 client.PayVault.Refresh(() =>
                 {
 
@@ -471,35 +452,35 @@ namespace EEditor
                         }
                         this.Invoke((MethodInvoker)delegate
                         {
-                            MainForm.userdata.username = dbo["name"].ToString();
-                            if (!MainForm.accs.ContainsKey(dbo["name"].ToString()))
+                            MainForm.userdata.username = data[0].Key.ToString();
+                            if (!MainForm.accs.ContainsKey(data[0].Key.ToString()))
                             {
                                 Console.WriteLine(accountOption);
-                                MainForm.accs.Add(dbo["name"].ToString(), new accounts() { login = loginField1.Text.ToLower(), password = loginField2.Text, loginMethod = way, payvault = pv });
+                                MainForm.accs.Add(data[0].Key.ToString(), new accounts() { login = loginField1.Text.ToLower(), password = loginField2.Text, loginMethod = way, payvault = pv });
                                 accountListBox.Items.Remove("(new account)");
-                                accountListBox.Items.Add(dbo["name"].ToString());
+                                accountListBox.Items.Add(data[0].Key.ToString());
                             }
-                            else if (MainForm.accs.ContainsKey(dbo["name"].ToString()))
+                            else if (MainForm.accs.ContainsKey(data[0].Key.ToString()))
                             {
-                                MainForm.accs[dbo["name"].ToString()] = new accounts() { login = loginField1.Text.ToLower(), password = loginField2.Text, loginMethod = way, payvault = pv };
+                                MainForm.accs[data[0].Key.ToString()] = new accounts() { login = loginField1.Text.ToLower(), password = loginField2.Text, loginMethod = way, payvault = pv };
                             }
                             File.WriteAllText(Directory.GetCurrentDirectory() + accss, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
-                            accountListBox.SelectedItem = dbo["name"].ToString();
+                            accountListBox.SelectedItem = data[0].Key.ToString();
                         });
                     }
                     else
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
-                            if (!MainForm.accs.ContainsKey(dbo["name"].ToString()))
+                            if (!MainForm.accs.ContainsKey(data[0].Key.ToString()))
                             {
-                                MainForm.userdata.username = dbo["name"].ToString();
-                                MainForm.accs.Add(dbo["name"].ToString(), new accounts() { login = loginField1.Text.ToLower(), password = loginField2.Text, loginMethod = way, payvault = pv });
+                                MainForm.userdata.username = data[0].Key.ToString();
+                                MainForm.accs.Add(data[0].Key.ToString(), new accounts() { login = loginField1.Text.ToLower(), password = loginField2.Text, loginMethod = way, payvault = pv });
                                 accountListBox.Items.Remove("(new account)");
-                                accountListBox.Items.Add(dbo["name"].ToString());
+                                accountListBox.Items.Add(data[0].Key.ToString());
 
                                 File.WriteAllText(Directory.GetCurrentDirectory() + accss, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
-                                accountListBox.SelectedItem = dbo["name"].ToString();
+                                accountListBox.SelectedItem = data[0].Key.ToString();
                                 toolStripProgressBar1.Value = 100;
                             }
                         });
@@ -513,28 +494,8 @@ namespace EEditor
         {
             if (MainForm.accs.ContainsKey(lastSelected))
             {
+                
                 Dictionary<string, int> pv = new Dictionary<string, int>();
-                client.BigDB.LoadMyPlayerObject((DatabaseObject dbo) =>
-                {
-                    if (dbo != null)
-                    {
-                        if (dbo.Contains("gold_expire") && dbo.GetDateTime("gold_expire") > DateTime.Now)
-                        {
-                            if (!pv.ContainsKey("goldmember"))
-                            {
-                                pv.Add("goldmember", 0);
-                            }
-
-                        }
-                        else
-                        {
-                            if (pv.ContainsKey("goldmember"))
-                            {
-                                pv.Remove("goldmember");
-                            }
-                        }
-                    }
-                });
                 client.PayVault.Refresh(() =>
                 {
 
