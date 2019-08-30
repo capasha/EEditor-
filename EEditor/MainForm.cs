@@ -503,9 +503,9 @@ namespace EEditor
                 themecolors = new theme()
                 {
                     background = SystemColors.Window,
-                    imageColors = Color.Black,
+                    imageColors = SystemColors.ControlText,
                     accent = SystemColors.Control,
-                    foreground = Color.Black,
+                    foreground = SystemColors.ControlText,
                     link = Color.FromArgb(0, 0, 255),
                     visitedlink = Color.FromArgb(128, 0, 128),
                     activelink = Color.Red,

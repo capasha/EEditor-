@@ -47,7 +47,7 @@ namespace EEditor
                         }
                         if (this.Controls[i].Controls[a].Name.Contains("Button"))
                         {
-                            this.Controls[i].Controls[a].ForeColor = Color.Black;
+                            this.Controls[i].Controls[a].ForeColor = MainForm.themecolors.foreground;
                         }
                     }
                 }
