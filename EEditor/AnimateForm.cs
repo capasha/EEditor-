@@ -236,6 +236,56 @@ namespace EEditor
             tp.SetToolTip(autoSaveCheckBox, "Saves the Everybody Edits world automatically during the upload and after that.\nWorks only if the bot has save access (world owner/crew member).");
 
             tp.SetToolTip(IgnoreDrawingCheckBox, "Ignore the blocks that someone is placing during uploading.");
+            this.ForeColor = MainForm.themecolors.foreground;
+            this.BackColor = MainForm.themecolors.background;
+            foreach (Control value in this.Controls)
+            {
+                if (value.GetType() == typeof(GroupBox))
+                {
+                    if (value.Controls.Count > 0)
+                    {
+                        foreach (Control cntrl in value.Controls)
+                        {
+                            if (cntrl.Controls.Count > 0)
+                            {
+                                foreach (Control cntrl1 in cntrl.Controls)
+                                {
+                                    if (cntrl1.GetType() == typeof(NumericUpDown))
+                                    {
+                                        cntrl1.ForeColor = MainForm.themecolors.foreground;
+                                        cntrl1.BackColor = MainForm.themecolors.accent;
+                                    }
+                                }
+                                if (cntrl.GetType() == typeof(GroupBox))
+                                {
+                                    cntrl.ForeColor = MainForm.themecolors.foreground;
+                                }
+                            }
+                            else
+                            {
+                                if (cntrl.GetType() == typeof(TextBox))
+                                {
+                                    cntrl.ForeColor = MainForm.themecolors.foreground;
+                                    cntrl.BackColor = MainForm.themecolors.accent;
+                                }
+
+                            }
+                        }
+                    }
+                    value.ForeColor = MainForm.themecolors.foreground;
+                }
+                if (value.GetType() == typeof(TextBox))
+                {
+                    value.ForeColor = MainForm.themecolors.foreground;
+                    value.BackColor = MainForm.themecolors.accent;
+                }
+                if (value.GetType() == typeof(Button))
+                {
+                    value.ForeColor = MainForm.themecolors.foreground;
+                    value.BackColor = MainForm.themecolors.accent;
+                    ((Button)value).FlatStyle = FlatStyle.Flat;
+                }
+            }
         }
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)

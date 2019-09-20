@@ -545,12 +545,12 @@ namespace EEditor
                                 {
                                     items[o].ForeColor = themecolors.foreground;
                                 }
-                                if (items[o].Name.Contains("DropButton"))
+                                if (items[o].GetType() == typeof(ToolStripDropDownButton))
                                 {
                                     var dropdownitems = ((ToolStripDropDownButton)items[o]).DropDownItems;
                                     for (int a = 0; a < dropdownitems.Count; a++)
                                     {
-                                        if (dropdownitems[a].Name.Contains("MenuItem") || dropdownitems[a].Name.Contains("Button"))
+                                        if (dropdownitems[a].GetType() == typeof(ToolStripMenuItem) || dropdownitems[a].Name.Contains("Button"))
                                         {
                                             dropdownitems[a].ForeColor = themecolors.foreground;
 
@@ -610,32 +610,30 @@ namespace EEditor
                             }
                             else
                             {
-                                if (items[o].Name.Contains("DropButton"))
+                                if (items[o].GetType() == typeof(ToolStripDropDownButton))
                                 {
                                     var dropdownitems = ((ToolStripDropDownButton)items[o]).DropDownItems;
                                     for (int a = 0; a < dropdownitems.Count; a++)
                                     {
-                                        if (dropdownitems[a].Name.Contains("MenuItem") || dropdownitems[a].Name.Contains("Button"))
+                                        if (dropdownitems[a].GetType() == typeof(ToolStripMenuItem) || dropdownitems[a].GetType() == typeof(ToolStripButton))
                                         {
                                             dropdownitems[a].ForeColor = themecolors.foreground;
                                         }
 
                                     }
                                 }
-                                if (items[o].Name.Contains("Text"))
+                                if (items[o].GetType() == typeof(ToolStripTextBox))
                                 {
                                     ((ToolStripTextBox)items[o]).BorderStyle = BorderStyle.FixedSingle;
                                     items[o].BackColor = themecolors.background;
                                     items[o].ForeColor = themecolors.foreground;
                                 }
-                                else if (items[o].Name.Contains("Combo"))
+                                if (items[o].GetType() == typeof(ToolStripComboBox))
                                 {
                                     items[o].BackColor = themecolors.background;
                                     items[o].ForeColor = themecolors.foreground;
-
-                                    //((ToolStripComboBox)items[o]) = new removeBadRenderer();
                                 }
-                                else if (items[o].Name.Contains("Label"))
+                                if (items[o].GetType() == typeof(ToolStripLabel))
                                 {
                                     items[o].ForeColor = themecolors.foreground;
                                 }
@@ -690,18 +688,18 @@ namespace EEditor
                             }
                             else
                             {
-                                if (items[oo].Name.Contains("Text"))
+                                if (items[oo].GetType() == typeof(ToolStripTextBox))
                                 {
                                     ((ToolStripTextBox)items[oo]).BorderStyle = BorderStyle.FixedSingle;
                                     items[oo].BackColor = themecolors.background;
                                     items[oo].ForeColor = themecolors.foreground;
                                 }
-                                else if (items[oo].Name.Contains("Combo"))
+                                if (items[oo].GetType() == typeof(ToolStripComboBox))
                                 {
                                     items[oo].BackColor = themecolors.background;
                                     items[oo].ForeColor = themecolors.foreground;
                                 }
-                                else if (items[oo].Name.Contains("Label"))
+                                if (items[oo].GetType() == typeof(ToolStripLabel))
                                 {
                                     items[oo].ForeColor = themecolors.foreground;
                                 }
@@ -3843,29 +3841,18 @@ namespace EEditor
             }
             else if (e.Button == MouseButtons.Right)
             {
-                if (levelTextbox.Text.StartsWith("PW") || levelTextbox.Text.StartsWith("BW") || levelTextbox.Text.StartsWith("OW") || levelTextbox.Text.StartsWith("CW"))
+                if (levelTextbox.Text.StartsWith("PW") || levelTextbox.Text.StartsWith("BW") || levelTextbox.Text.StartsWith("CW"))
                 {
                     SetDummy();
                     userdata.thisColor = Color.Transparent;
                     userdata.useColor = false;
-                    if (levelTextbox.Text.StartsWith("OW"))
-                    {
-                        OpenWorld = true;
-                        InsertImageForm.Background.Clear();
-                        InsertImageForm.Blocks.Clear();
-                        rebuildGUI(false);
-                    }
-                    else
-                    {
-                        if (OpenWorld)
-                        {
-                            OpenWorld = false;
-                            rebuildGUI(false);
-                        }
-                    }
-                    userdata.level = levelTextbox.Text.StartsWith("OW") ? levelTextbox.Text.Replace("-", " ") : levelTextbox.Text;
+                    userdata.level = levelTextbox.Text;
                     levelTextbox.Text = userdata.level;
                     loaddata(1);
+                }
+                else if (levelTextbox.Text.StartsWith("OW"))
+                {
+                    MessageBox.Show("Can't load open worlds in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {

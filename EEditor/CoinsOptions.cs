@@ -16,6 +16,17 @@ namespace EEditor
 
         private void CoinsOptions_Load(object sender, EventArgs e)
         {
+            this.ForeColor = MainForm.themecolors.foreground;
+            this.BackColor = MainForm.themecolors.background;
+            foreach (Control value in this.Controls)
+            {
+                if (value.GetType() == typeof(NumericUpDown))
+                {
+                    value.ForeColor = MainForm.themecolors.foreground;
+                    value.BackColor = MainForm.themecolors.accent;
+                }
+            }
+
         }
 
         private void CoinsOptions_FormClosing(object sender, FormClosingEventArgs e)

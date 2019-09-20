@@ -33,25 +33,62 @@ namespace EEditor
             }
 
             this.BackColor = MainForm.themecolors.background;
-            foreach (var value0 in this.Controls)
+            foreach (Control value0 in this.Controls)
             {
-                foreach (var value1 in ((Control)value0).Controls)
+                if(value0.GetType() == typeof(GroupBox))
                 {
-                    Control ctrl = ((Control)value1);
-                    if (ctrl.GetType().ToString().Contains("TextBox"))
+                    value0.ForeColor = MainForm.themecolors.foreground;
+                }
+                foreach (Control value1 in value0.Controls)
+                {
+                    Control ctrl = value1;
+                    
+                    if (ctrl.GetType() == typeof(TextBox))
                     {
-                        if (!ctrl.GetType().ToString().Contains("RichTextBox")) ((TextBox)ctrl).BorderStyle = BorderStyle.FixedSingle;
+                        ((TextBox)ctrl).BorderStyle = BorderStyle.FixedSingle;
                         ctrl.BackColor = MainForm.themecolors.accent;
                         ctrl.ForeColor = MainForm.themecolors.foreground;
                     }
-                    else if (ctrl.GetType().ToString().Contains("Label"))
-                    {
-                        ctrl.ForeColor = MainForm.themecolors.foreground;
-                    }
-                    else if (ctrl.GetType().ToString().Contains("ListBox"))
+                    if (ctrl.GetType() == typeof(RichTextBox))
                     {
                         ctrl.BackColor = MainForm.themecolors.accent;
                         ctrl.ForeColor = MainForm.themecolors.foreground;
+                    }
+                    
+                        if (ctrl.GetType() == typeof(Label))
+                    {
+                        ctrl.ForeColor = MainForm.themecolors.foreground;
+                    }
+                    if (ctrl.GetType() == typeof(ListBox))
+                    {
+                        ctrl.BackColor = MainForm.themecolors.accent;
+                        ctrl.ForeColor = MainForm.themecolors.foreground;
+                    }
+                    if (ctrl.GetType() == typeof(Button))
+                    {
+                        ctrl.BackColor = MainForm.themecolors.accent;
+                        ctrl.ForeColor = MainForm.themecolors.foreground;
+                        ((Button)ctrl).FlatStyle = FlatStyle.Flat;
+                        if (((Button)ctrl).Image != null)
+                        {
+                            Bitmap bmpa = (Bitmap)((Button)ctrl).Image;
+                            Bitmap bmpa1 = new Bitmap(((Button)ctrl).Image.Width, ((Button)ctrl).Image.Height);
+                            for (int x = 0; x < ((Button)ctrl).Image.Width; x++)
+                            {
+                                for (int y = 0; y < ((Button)ctrl).Image.Height; y++)
+                                {
+                                    if (bmpa.GetPixel(x, y).A > 80)
+                                    {
+                                        bmpa1.SetPixel(x, y, MainForm.themecolors.imageColors);
+                                    }
+                                    else
+                                    {
+                                        bmpa1.SetPixel(x, y, MainForm.themecolors.accent);
+                                    }
+                                }
+                            }
+                        ((Button)ctrl).Image = bmpa1;
+                        }
                     }
                 }
             }

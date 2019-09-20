@@ -45,7 +45,7 @@
             this.loadImageButton.Image = global::EEditor.Properties.Resources.open;
             this.loadImageButton.Location = new System.Drawing.Point(12, 159);
             this.loadImageButton.Name = "loadImageButton";
-            this.loadImageButton.Size = new System.Drawing.Size(28, 27);
+            this.loadImageButton.Size = new System.Drawing.Size(33, 27);
             this.loadImageButton.TabIndex = 1;
             this.loadImageButton.UseVisualStyleBackColor = true;
             this.loadImageButton.Click += new System.EventHandler(this.loadImageButton_Click);
@@ -93,7 +93,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(0, 68);
+            this.label1.Location = new System.Drawing.Point(6, 65);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 11;
@@ -152,6 +152,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Insert image";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InsertImageForm_FormClosing);
+            this.Load += new System.EventHandler(this.InsertImageForm_Load);
             this.CreateImagegroupBox.ResumeLayout(false);
             this.CreateImagegroupBox.PerformLayout();
             this.ResumeLayout(false);

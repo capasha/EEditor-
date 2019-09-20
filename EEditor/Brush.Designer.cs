@@ -71,6 +71,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Brush";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Brush_FormClosing);
+            this.Load += new System.EventHandler(this.Brush_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 

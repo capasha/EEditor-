@@ -25,17 +25,17 @@ namespace EEditor
             this.BackColor = MainForm.themecolors.background;
             for (int i = 0;i < this.Controls.Count;i++)
             {
-                if (this.Controls[i].Name .Contains("groupBox"))
+                if (this.Controls[i].GetType() == typeof(GroupBox))
                 {
+                    this.Controls[i].ForeColor = MainForm.themecolors.foreground;
                     for (int a = 0;a < this.Controls[i].Controls.Count;a++)
                     {
-                        Console.WriteLine(this.Controls[i].Controls[a].Name);
-                        if (this.Controls[i].Controls[a].Name.Contains("Label") || this.Controls[i].Controls[a].Name.Contains("label") && !this.Controls[i].Controls[a].Name.Contains("LinkLabel"))
+                        if (this.Controls[i].Controls[a].GetType() == typeof(Label))
                         {
                             this.Controls[i].Controls[a].ForeColor = MainForm.themecolors.foreground;
                             this.Controls[i].Controls[a].BackColor = MainForm.themecolors.background;
                         }
-                        if (this.Controls[i].Controls[a].Name.Contains("LinkLabel"))
+                        if (this.Controls[i].Controls[a].GetType() == typeof(LinkLabel))
                         {
                             ((LinkLabel)this.Controls[i].Controls[a]).ForeColor = MainForm.themecolors.foreground;
                             ((LinkLabel)this.Controls[i].Controls[a]).BackColor = MainForm.themecolors.background;
@@ -45,9 +45,11 @@ namespace EEditor
 
 
                         }
-                        if (this.Controls[i].Controls[a].Name.Contains("Button"))
+                        if (this.Controls[i].Controls[a].GetType() == typeof(Button))
                         {
-                            this.Controls[i].Controls[a].ForeColor = MainForm.themecolors.foreground;
+                            ((Button)this.Controls[i].Controls[a]).ForeColor = MainForm.themecolors.foreground;
+                            ((Button)this.Controls[i].Controls[a]).BackColor = MainForm.themecolors.accent;
+                            ((Button)this.Controls[i].Controls[a]).FlatStyle = FlatStyle.Flat;
                         }
                     }
                 }

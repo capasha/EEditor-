@@ -808,7 +808,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
 
         public void SetMarkBlock(string[,] Area, string[,] Back, string[,] Coins, string[,] id, string[,] target, string[,] text, string[,] text1, string[,] text2, string[,] text3)
         {
-            SetMarkBlock(Area, Back, Coins, id, target, text, text1, text2, text3, Math.Abs(AutoScrollPosition.X) / 16 + 1, Math.Abs(AutoScrollPosition.Y) / 16 + 1);
+            SetMarkBlock(Area, Back, Coins, id, target, text, text1, text2, text3, Math.Abs(AutoScrollPosition.X) / 16, Math.Abs(AutoScrollPosition.Y) / 16);
         }
 
         public void SetMarkBlock(string[,] Area, string[,] Back, string[,] Coins, string[,] id, string[,] target, string[,] text, string[,] text1, string[,] text2, string[,] text3, int xPos, int yPos)

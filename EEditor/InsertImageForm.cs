@@ -284,7 +284,7 @@ namespace EEditor
             {
                 this.Invoke((MethodInvoker)delegate
                 {
-                    Clipboard.SetData("EEData", new string[][,] { Area, Back, Coins, Id, Target, Text1,Text2,Text3,Text4 });
+                    Clipboard.SetData("EEData", new string[][,] { Area, Back, Coins, Id, Target, Text1, Text2, Text3, Text4 });
                     MainForm.editArea.MainForm.SetMarkTool();
                     MainForm.editArea.Focus();
                     SendKeys.Send("^{v}");
@@ -340,5 +340,45 @@ namespace EEditor
                 FlexibleMessageBox.Show("The picture doesn't exist or isn't loaded.");
             }
         }
+
+        private void InsertImageForm_Load(object sender, EventArgs e)
+        {
+            this.ForeColor = MainForm.themecolors.foreground;
+            this.BackColor = MainForm.themecolors.background;
+            foreach (Control value in this.Controls)
+            {
+                if (value.GetType() == typeof(Button))
+                {
+                    ((Button)value).ForeColor = MainForm.themecolors.foreground;
+                    ((Button)value).BackColor = MainForm.themecolors.accent;
+                    ((Button)value).FlatStyle = FlatStyle.Flat;
+                    if (((Button)value).Image != null)
+                    {
+                        Bitmap bmpa = (Bitmap)((Button)value).Image;
+                        Bitmap bmpa1 = new Bitmap(((Button)value).Image.Width, ((Button)value).Image.Height);
+                        for (int x = 0; x < ((Button)value).Image.Width; x++)
+                        {
+                            for (int y = 0; y < ((Button)value).Image.Height; y++)
+                            {
+                                if (bmpa.GetPixel(x, y).A > 80)
+                                {
+                                    bmpa1.SetPixel(x, y, MainForm.themecolors.imageColors);
+                                }
+                                else
+                                {
+                                    bmpa1.SetPixel(x, y, MainForm.themecolors.accent);
+                                }
+                            }
+                        }
+                        ((Button)value).Image = bmpa1;
+                    }
+                }
+                if (value.GetType() == typeof(GroupBox))
+                {
+                    value.ForeColor = MainForm.themecolors.foreground;
+                }
+            }
+        }
+    
     }
 }
