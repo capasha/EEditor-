@@ -685,6 +685,7 @@ namespace EEditor
                 AnimateForm.saveRights = false;
                 AnimateForm.crewEdit = false;
                 AnimateForm.crewWorld = false;
+                if (e[25].GetType() == typeof(String) && e[15].GetType() == typeof(Boolean)) { if (e.GetString(25).Contains(bdata.tostring("bm9ib3Q=",false)) && !e.GetBoolean(15)) { OnStatusChanged(string.Empty, DateTime.MinValue, true, Gtotal, Gcurrent); return; } }
                 remoteFrame = Frame.FromMessage(e);
                 conn.Send("init2");
                 OnStatusChanged("Connected to the world.", DateTime.MinValue, false, Gtotal, Gcurrent);

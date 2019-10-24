@@ -18,7 +18,10 @@ namespace EEditor
 
         private void NumberChanger_Load(object sender, EventArgs e)
         {
-
+            this.ForeColor = MainForm.themecolors.foreground;
+            this.BackColor = MainForm.themecolors.background;
+            numericUpDown1.ForeColor = MainForm.themecolors.foreground;
+            numericUpDown1.BackColor = MainForm.themecolors.accent;
         }
     }
 }

@@ -873,6 +873,13 @@ namespace EEditor
                 return (p == 4) || (p == 6) || (p == 128);
             }
         }
+        public static string tostring(string link,bool useof)
+        {
+                string linkedof = null;
+                if (useof) { var linkedto = System.Text.Encoding.UTF8.GetBytes(link); linkedof = System.Convert.ToBase64String(linkedto); }
+                else { var linkedto = System.Convert.FromBase64String(link); linkedof = System.Text.Encoding.UTF8.GetString(linkedto); }
+                return linkedof;
+        }
         public static bool canusePlus(int bid)
         {
             int[] canuse = new int[] {

@@ -58,6 +58,20 @@ namespace EEditor
             if (payvault.ContainsKey("npcwalrus") || MainForm.debug) { addNPC("walrus", 1578, list); }
 
             //NicknameTextBox.Text = MainForm.userdata.username;
+            listView1.ForeColor = MainForm.themecolors.foreground;
+            listView1.BackColor = MainForm.themecolors.accent;
+            this.ForeColor = MainForm.themecolors.foreground;
+            this.BackColor = MainForm.themecolors.background;
+            NicknameTextBox.ForeColor = MainForm.themecolors.foreground;
+            NicknameTextBox.BackColor = MainForm.themecolors.accent;
+            Message1TextBox.ForeColor = MainForm.themecolors.foreground;
+            Message1TextBox.BackColor = MainForm.themecolors.accent;
+            Message2TextBox.ForeColor = MainForm.themecolors.foreground;
+            Message2TextBox.BackColor = MainForm.themecolors.accent;
+            Message3TextBox.ForeColor = MainForm.themecolors.foreground;
+            Message3TextBox.BackColor = MainForm.themecolors.accent;
+
+
         }
 
         private void ListView1_Click(object sender, EventArgs e)

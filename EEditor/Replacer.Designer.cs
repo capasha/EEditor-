@@ -35,6 +35,7 @@
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ReplaceUnknownCheckBox = new System.Windows.Forms.CheckBox();
             this.ClearBgsBlacklistButton = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -63,7 +64,6 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.ReplaceUnknownCheckBox = new System.Windows.Forms.CheckBox();
             this.NormalRadioButton = new System.Windows.Forms.RadioButton();
             this.RotationPictureBox2 = new System.Windows.Forms.PictureBox();
             this.RotationPictureBox1 = new System.Windows.Forms.PictureBox();
@@ -171,14 +171,25 @@
             this.groupBox1.Controls.Add(this.button8);
             this.groupBox1.Location = new System.Drawing.Point(270, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(278, 410);
+            this.groupBox1.Size = new System.Drawing.Size(278, 424);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Find && replace";
             // 
+            // ReplaceUnknownCheckBox
+            // 
+            this.ReplaceUnknownCheckBox.AutoSize = true;
+            this.ReplaceUnknownCheckBox.Location = new System.Drawing.Point(147, 280);
+            this.ReplaceUnknownCheckBox.Name = "ReplaceUnknownCheckBox";
+            this.ReplaceUnknownCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.ReplaceUnknownCheckBox.TabIndex = 19;
+            this.ReplaceUnknownCheckBox.Text = "Replace unknown";
+            this.ReplaceUnknownCheckBox.UseVisualStyleBackColor = true;
+            this.ReplaceUnknownCheckBox.CheckedChanged += new System.EventHandler(this.ReplaceUnknownCheckBox_CheckedChanged);
+            // 
             // ClearBgsBlacklistButton
             // 
-            this.ClearBgsBlacklistButton.Location = new System.Drawing.Point(139, 378);
+            this.ClearBgsBlacklistButton.Location = new System.Drawing.Point(139, 389);
             this.ClearBgsBlacklistButton.Name = "ClearBgsBlacklistButton";
             this.ClearBgsBlacklistButton.Size = new System.Drawing.Size(121, 21);
             this.ClearBgsBlacklistButton.TabIndex = 18;
@@ -241,7 +252,7 @@
             // 
             this.ClearBgsButton.Image = global::EEditor.Properties.Resources.eeditor_bgIgnore;
             this.ClearBgsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ClearBgsButton.Location = new System.Drawing.Point(139, 345);
+            this.ClearBgsButton.Location = new System.Drawing.Point(139, 342);
             this.ClearBgsButton.Name = "ClearBgsButton";
             this.ClearBgsButton.Size = new System.Drawing.Size(121, 36);
             this.ClearBgsButton.TabIndex = 0;
@@ -403,7 +414,7 @@
             this.groupBox2.Controls.Add(this.toolStripContainer1);
             this.groupBox2.Location = new System.Drawing.Point(12, 5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(252, 410);
+            this.groupBox2.Size = new System.Drawing.Size(252, 424);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Get block ID by pack";
@@ -460,7 +471,7 @@
             // 
             this.groupBox5.Controls.Add(this.progressBar1);
             this.groupBox5.Controls.Add(this.label4);
-            this.groupBox5.Location = new System.Drawing.Point(12, 421);
+            this.groupBox5.Location = new System.Drawing.Point(12, 435);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(536, 42);
             this.groupBox5.TabIndex = 16;
@@ -509,17 +520,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Normal";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // ReplaceUnknownCheckBox
-            // 
-            this.ReplaceUnknownCheckBox.AutoSize = true;
-            this.ReplaceUnknownCheckBox.Location = new System.Drawing.Point(147, 280);
-            this.ReplaceUnknownCheckBox.Name = "ReplaceUnknownCheckBox";
-            this.ReplaceUnknownCheckBox.Size = new System.Drawing.Size(113, 17);
-            this.ReplaceUnknownCheckBox.TabIndex = 19;
-            this.ReplaceUnknownCheckBox.Text = "Replace unknown";
-            this.ReplaceUnknownCheckBox.UseVisualStyleBackColor = true;
-            this.ReplaceUnknownCheckBox.CheckedChanged += new System.EventHandler(this.ReplaceUnknownCheckBox_CheckedChanged);
             // 
             // NormalRadioButton
             // 
@@ -868,7 +868,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(558, 474);
+            this.ClientSize = new System.Drawing.Size(563, 489);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox2);

@@ -587,24 +587,23 @@ namespace EEditor
                 //if (e.Type != "b" && e.Type != "m" && e.Type != "hide" && e.Type != "show")Console.WriteLine(e.ToString());
             }
         }
-
         private void uid2name(string uid, string title, int width, int height)
         {
-            worldOwner = "Anonymous";
             if (uid != null)
             {
-                PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, "guest", "guest", null,
-                    (Client c) => {
-                        c.BigDB.Load("PlayerObjects", uid,
-                            (DatabaseObject dbo) => {
-                                worldOwner = dbo.Contains("name") ? dbo.GetString("name") : "Anonymous";
-                                MainForm.Text = $"({title}) [{worldOwner}] ({width}x{height}) - EEditor {this.ProductVersion}";
-                            },
-                            (PlayerIOError error) => {
-                            });
-                    },
-                       (PlayerIOError error) => {
-                       });
+                client.BigDB.LoadRange("usernames", "owner", null, uid, null, 1, (DatabaseObject[] data) =>
+                {
+
+                    if (data.Length == 1)
+                    {
+                        worldOwner = data[0].Key.ToString();
+                        MainForm.Text = $"({title}) [{worldOwner}] ({width}x{height}) - EEditor {this.ProductVersion}";
+                    }
+                    else
+                    {
+                        MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EEditor {this.ProductVersion}";
+                    }
+                }, (PlayerIOError error) => { MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EEditor {this.ProductVersion}";  });
             }
             else
             {
@@ -615,6 +614,38 @@ namespace EEditor
         private void NewDialogForm_Load(object sender, EventArgs e)
         {
             listBox1.Items.RemoveAt(16);
+            this.ForeColor = MainForm.themecolors.foreground;
+            this.BackColor = MainForm.themecolors.background;
+            listBox1.BackColor = MainForm.themecolors.accent;
+            listBox1.ForeColor = MainForm.themecolors.foreground;
+            foreach (Control cntr in this.Controls)
+            {
+                if (cntr.GetType() == typeof(Button))
+                {
+                    ((Button)cntr).ForeColor = MainForm.themecolors.foreground;
+                    ((Button)cntr).BackColor = MainForm.themecolors.accent;
+                    ((Button)cntr).FlatStyle = FlatStyle.Flat;
+                }
+                if (cntr.GetType() == typeof(GroupBox))
+                {
+                    cntr.ForeColor = MainForm.themecolors.foreground;
+                    cntr.BackColor = MainForm.themecolors.background;
+                    foreach (Control cntrl in cntr.Controls)
+                    {
+                        if (cntrl.GetType() == typeof(Button))
+                        {
+                            ((Button)cntrl).ForeColor = MainForm.themecolors.foreground;
+                            ((Button)cntrl).BackColor = MainForm.themecolors.accent;
+                            ((Button)cntrl).FlatStyle = FlatStyle.Flat;
+                        }
+                        if (cntrl.GetType() == typeof(TextBox))
+                        {
+                            cntrl.ForeColor = MainForm.themecolors.foreground;
+                            cntrl.BackColor = MainForm.themecolors.accent;
+                        }
+                    }
+                }
+            }
         }
 
         private void NewDialogForm_FormClosing(object sender, FormClosingEventArgs e)

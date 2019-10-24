@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Newtonsoft.Json;
 using System.IO;
+using static World;
 using Newtonsoft.Json.Linq;
 namespace EEditor
 {
@@ -22,6 +23,7 @@ namespace EEditor
         private List<string> rooms = new List<string>();
         public static myWorlds myworlds = new myWorlds();
         public string selectedworld = null;
+        private Client client_, cl;
         public Dictionary<string, myWorlds> worlds = new Dictionary<string, myWorlds>();
         private ListViewColumnSorter listviewsorter;
         public MyWorlds()
@@ -43,29 +45,31 @@ namespace EEditor
             if (((ListView)sender).SelectedIndices.Count == 1)
             {
                 selectedworld = ((ListView)sender).SelectedItems[0].SubItems[2].Text;
-               /* switch (MainForm.accs[MainForm.userdata.username].loginMethod)
-                {
-                    default:
-                    case 0:
-                        PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client client) => { GetMinimap(client, selectedworld); }, (PlayerIOError error) => { Errorhandler1(error); });
-                        break;
-                    case 2:
-                        PlayerIO.QuickConnect.KongregateConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client client) => { GetMinimap(client, selectedworld); }, (PlayerIOError error) => { Errorhandler1(error); });
-                        break;
-                    case 4:
-                        PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client cli) =>
-                        {
-                            cli.Multiplayer.CreateJoinRoom("$service-room", "AuthRoom", true, null, new Dictionary<string, string>() { { "type", "Link" } }, (Connection con) =>
-                            {
-                                con.OnMessage += (object sender1, PlayerIOClient.Message m) =>
-                                {
-                                    if (m.Type == "auth") PlayerIO.Authenticate(bdata.gameID, "connected", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null, (Client client) => { GetMinimap(client, selectedworld); }, (PlayerIOError error) => { Errorhandler1(error); });
-                                };
-                            },
-                            (PlayerIOError error) => { Errorhandler1(error); });
-                        }, (PlayerIOError error) => { Errorhandler1(error); });
-                        break;
-                }*/
+                System.Threading.Thread runner = new System.Threading.Thread(delegate () { GetMinimap(PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, "guest", "guest", null), selectedworld); });
+                runner.Start();
+                /* switch (MainForm.accs[MainForm.userdata.username].loginMethod)
+                 {
+                     default:
+                     case 0:
+                         PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client client) => { GetMinimap(client, selectedworld); }, (PlayerIOError error) => { Errorhandler1(error); });
+                         break;
+                     case 2:
+                         PlayerIO.QuickConnect.KongregateConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client client) => { GetMinimap(client, selectedworld); }, (PlayerIOError error) => { Errorhandler1(error); });
+                         break;
+                     case 4:
+                         PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client cli) =>
+                         {
+                             cli.Multiplayer.CreateJoinRoom("$service-room", "AuthRoom", true, null, new Dictionary<string, string>() { { "type", "Link" } }, (Connection con) =>
+                             {
+                                 con.OnMessage += (object sender1, PlayerIOClient.Message m) =>
+                                 {
+                                     if (m.Type == "auth") PlayerIO.Authenticate(bdata.gameID, "connected", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null, (Client client) => { GetMinimap(client, selectedworld); }, (PlayerIOError error) => { Errorhandler1(error); });
+                                 };
+                             },
+                             (PlayerIOError error) => { Errorhandler1(error); });
+                         }, (PlayerIOError error) => { Errorhandler1(error); });
+                         break;
+                 }*/
                 //if (worlds.Count() > 0) File.WriteAllText(Directory.GetCurrentDirectory() + "\\" + MainForm.userdata.username + ".myworlds.json", JsonConvert.SerializeObject(worlds, Newtonsoft.Json.Formatting.Indented));
                 //this.Close();
             }
@@ -74,15 +78,31 @@ namespace EEditor
         {
 
         }
-        private void GetMinimap(Client client, string worldid) {
-            /*client.BigDB.Load("worlds",worldid,(DatabaseObject dbo) =>
+        private void GetMinimap(Client client, string worldid)
+        {
+            var world = new World(InputType.BigDB, worldid, client);
+            Bitmap bmp = new Bitmap(world.Width, world.Height);
+            var value = world.Blocks.ToArray();
+            using (Graphics gr = Graphics.FromImage(bmp))
             {
-
-            }*/
+                gr.FillRectangle(new SolidBrush(Color.Black), 0, 0, bmp.Width, bmp.Height);
             }
+            foreach (var val in value)
+            {
+                int block = Convert.ToInt32(val.Type);
+                foreach (var vale in val.Locations)
+                {
+                    if (Minimap.Colors[block] != 321)
+                    {
+                        bmp.SetPixel(vale.X, vale.Y, Color.FromArgb((int)Minimap.Colors[block]));
+                    }
+                }
+            }
+            pictureBox1.Image = bmp;
+        }
         private void MyWorlds_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (worlds.Count() > 0) File.WriteAllText(Directory.GetCurrentDirectory() + "\\" + MainForm.userdata.username + ".myworlds.json", JsonConvert.SerializeObject(worlds, Newtonsoft.Json.Formatting.Indented));
+            if (worlds.Count() > 0) File.WriteAllText($"{Directory.GetCurrentDirectory()}\\{MainForm.userdata.username}.myworlds.json", JsonConvert.SerializeObject(worlds, Newtonsoft.Json.Formatting.Indented));
         }
 
         private void ResetButton_Click(object sender, EventArgs e)
@@ -97,15 +117,15 @@ namespace EEditor
             listView1.BeginUpdate();
             if (MainForm.userdata.username != "guest")
             {
-                retry:
-                if (File.Exists(Directory.GetCurrentDirectory() + "\\" + MainForm.userdata.username + ".myworlds.json"))
+            retry:
+                if (File.Exists($"{Directory.GetCurrentDirectory()}\\{MainForm.userdata.username}.myworlds.json"))
                 {
                     if (reset)
                     {
-                        File.Delete(Directory.GetCurrentDirectory() + "\\" + MainForm.userdata.username + ".myworlds.json");
+                        File.Delete($"{Directory.GetCurrentDirectory()}\\{MainForm.userdata.username}.myworlds.json");
                         goto retry;
                     }
-                    var output = JObject.Parse(File.ReadAllText(Directory.GetCurrentDirectory() + "\\" + MainForm.userdata.username + ".myworlds.json"));
+                    var output = JObject.Parse(File.ReadAllText($"{Directory.GetCurrentDirectory()}\\{MainForm.userdata.username}.myworlds.json"));
                     total = output.Count;
                     foreach (var property in output)
                     {
@@ -156,156 +176,213 @@ namespace EEditor
         }
         private void loginToWorlds(Client client)
         {
-            int incr = 0, incr1 = 0, total1 = 0, total = 0;
-            listView1.Enabled = false;
-            client.BigDB.LoadMyPlayerObject((DatabaseObject dbo) =>
+            client_ = client;
+            tryLobbyConnect(string.Format("{0}_{1}", client.ConnectUserId, RandomString(5)));
+        }
+        private void tryLobbyConnect(string id)
+        {
+            if (client_ != null)
             {
-                total = dbo.Count;
-                if (dbo != null)
-                {
-                    foreach (var value in dbo)
-                    {
-                        if (Regex.IsMatch(value.Key, "world[0-9]{0,5}x[0-9]{0,5}"))
-                        {
-                            if (!rooms.Contains(value.Value)) rooms.Add((string)value.Value);
+                client_.Multiplayer.CreateJoinRoom(id, $"Lobby{client_.BigDB.Load("config", "config")["version"]}", true, null, null, lobbyConnected, (PlayerIOError error) => { tryLobbyConnect(id); });
 
-                        }
-                        switch (value.Key)
-                        {
-                            case "room0":
-                            case "worldhome":
-                            case "betaonlyroom":
-                                if (!rooms.Contains(value.Value)) rooms.Add((string)value.Value);
-                                break;
-                        }
-                        incr++;
-                        if (total == incr)
-                        {
-                            s1.Release();
-                        }
+            }
+        }
 
-                    }
-                }
-            });
-
-            s1.WaitOne();
-            total1 = rooms.Count;
-            foreach (var value1 in rooms)
+        private void lobbyConnected(Connection con)
+        {
+            con.OnMessage += (s, m) =>
             {
-                DatabaseObject[] dba = client.BigDB.LoadKeys("worlds", value1);
-                if (dba != null)
+
+                switch (m.Type)
                 {
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        ListViewItem lvi = new ListViewItem();
-                        string names = null;
-                        int h = 0;
-                        int w = 0;
-                        string wh = null;
-                        if (!dba[0].Contains("width") && !dba[0].Contains("height"))
+                    case "LobbyTo":
+                        /*
+                           Message 1 is the current id that get generated for you.
+                           It will look like UserID_RandomString.
+                           You need to join the lobby 1 more time with the generated id for you.
+                           Before you can send connection messages to lobby.
+                        */
+                        tryLobbyConnect(m.GetString(0));
+                        break;
+
+                    //When connected to lobby you get this message.
+                    case "connectioncomplete":
+                        con.Send("getMySimplePlayerObject");
+                        break;
+                    case "getMySimplePlayerObject":
+                        string owner = "Unknown";
+                        int incr = 0, incr1 = 0, total1 = 0;
+                        int total = extractPlayerObjectsMessage(m) + 1;
+                        owner = m[(UInt32)total].ToString();
+                        total += 14;
+                        rooms.Add(m[(UInt32)total].ToString());
+                        total++;
+                        rooms.Add(m[(UInt32)total].ToString());
+                        total++;
+                        rooms.Add(m[(UInt32)total].ToString());
+                        total++;
+                        total++;
+                        if (m[(UInt32)total].ToString().Contains((char)0x1399))
                         {
-                            if (dba[0].Contains("type"))
+                            string[] worlds = m[(UInt32)total].ToString().Split(new char[] { (char)0x1399 });
+                            rooms.AddRange(worlds);
+                        }
+                        else
+                        {
+                            rooms.Add(m[(UInt32)total].ToString());
+                        }
+                        if (rooms.Count > 0)
+                        {
+                            total1 = rooms.Count;
+                            for (int i = 0; i < rooms.Count; i++)
                             {
-                                switch (dba[0]["type"])
+                                var world = new World(InputType.BigDB, rooms[i], cl);
+                                this.Invoke((MethodInvoker)delegate
                                 {
-                                    case 1:
-                                        w = 50;
-                                        h = 50;
-                                        break;
-                                    case 2:
-                                        w = 100;
-                                        h = 100;
-                                        break;
-                                    default:
-                                    case 3:
-                                        w = 200;
-                                        h = 200;
-                                        break;
-                                    case 4:
-                                        w = 400;
-                                        h = 50;
-                                        break;
-                                    case 5:
-                                        w = 400;
-                                        h = 200;
-                                        break;
-                                    case 6:
-                                        w = 100;
-                                        h = 400;
-                                        break;
-                                    case 7:
-                                        w = 636;
-                                        h = 50;
-                                        break;
-                                    case 8:
-                                        w = 110;
-                                        h = 110;
-                                        break;
-                                    case 11:
-                                        w = 300;
-                                        h = 300;
-                                        break;
-                                    case 12:
-                                        w = 250;
-                                        h = 150;
-                                        break;
-                                }
-                                wh = w + "x" + h;
-                            }
-                            else
-                            {
-                                wh = "?x?";
+                                    ListViewItem lvi = new ListViewItem();
+                                    string names = null;
+                                    int h = 0;
+                                    int w = 0;
+                                    string wh = null;
+                                    if (world.Width.ToString() == null && world.Height.ToString() == null)
+                                    {
+                                        if (world.Type.ToString() != null)
+                                        {
+                                            switch (world.Type)
+                                            {
+                                                case 1:
+                                                    w = 50;
+                                                    h = 50;
+                                                    break;
+                                                case 2:
+                                                    w = 100;
+                                                    h = 100;
+                                                    break;
+                                                default:
+                                                case 3:
+                                                    w = 200;
+                                                    h = 200;
+                                                    break;
+                                                case 4:
+                                                    w = 400;
+                                                    h = 50;
+                                                    break;
+                                                case 5:
+                                                    w = 400;
+                                                    h = 200;
+                                                    break;
+                                                case 6:
+                                                    w = 100;
+                                                    h = 400;
+                                                    break;
+                                                case 7:
+                                                    w = 636;
+                                                    h = 50;
+                                                    break;
+                                                case 8:
+                                                    w = 110;
+                                                    h = 110;
+                                                    break;
+                                                case 11:
+                                                    w = 300;
+                                                    h = 300;
+                                                    break;
+                                                case 12:
+                                                    w = 250;
+                                                    h = 150;
+                                                    break;
+                                            }
+                                            wh = $"{w}x{h}";
+                                        }
+                                        else
+                                        {
+                                            wh = "?x?";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        wh = $"{world.Width}x{world.Height}";
+                                    }
+                                    names = world.Name == null ? "Untitled" : world.Name;
+                                    lvi.Text = names;
+                                    lvi.SubItems.Add(wh);
+                                    lvi.SubItems.Add(rooms[i]);
+                                    listView1.Items.Add(lvi);
+                                    progressBar1.Value = (incr1 * 100) / total1;
+                                    if (!worlds.ContainsKey(rooms[i])) worlds.Add(rooms[i], new myWorlds() { name = names, size = wh });
+                                    incr1++;
+                                    if (incr1 >= total1)
+                                    {
+                                        s2.Release();
+                                    }
+
+                                });
                             }
                         }
                         else
                         {
-                            wh = dba[0]["width"].ToString() + "x" + dba[0]["height"].ToString();
+                            s2.Release();
                         }
-                        names = !dba[0].Contains("name") || dba[0]["name"].ToString() == null ? "Untitled World" : dba[0]["name"].ToString();
-                        lvi.Text = names;
-                        lvi.SubItems.Add(wh);
-                        lvi.SubItems.Add(value1);
-                        listView1.Items.Add(lvi);
-                        progressBar1.Value = (incr1 * 100) / total1;
-                        if (!worlds.ContainsKey(value1)) worlds.Add(value1, new myWorlds() { name = names, size = wh });
-                    });
-                    incr1++;
-                    if (incr1 >= total1)
-                    {
-                        s2.Release();
-                    }
+
+
+                        s2.WaitOne();
+                        if (listView1.InvokeRequired)
+                        {
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                listView1.Enabled = true;
+                                listView1.EndUpdate();
+                            });
+                        }
+                        if (!listView1.InvokeRequired)
+                        {
+                            listView1.Enabled = true;
+                            listView1.EndUpdate();
+                        }
+                        if (progressBar1.InvokeRequired)
+                        {
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                progressBar1.Value = 100;
+                            });
+                        }
+                        if (!progressBar1.InvokeRequired)
+                        {
+                            progressBar1.Value = 100;
+                        }
+
+
+
+                        break;
+                    /*
+                   case "theReceivedData":
+                           Here do you get the received data that you requested for. (Sent message)
+                        break;
+                    */
+                    case "linked":
+                        client_.Multiplayer.CreateJoinRoom("$service-room", "AuthRoom", true, null, new Dictionary<string, string>() { { "type", "Link" } }, (Connection conn) =>
+                        {
+                            conn.OnMessage += (object sender1, PlayerIOClient.Message mm) =>
+                            {
+                                if (mm.Type == "auth")
+                                {
+                                    PlayerIO.Authenticate("everybody-edits-su9rn58o40itdbnw69plyw", "connected", new Dictionary<string, string>() { { "userId", mm.GetString(0) }, { "auth", mm.GetString(1) } }, null, (Client client1) =>
+                                    {
+                                        cl = client1;
+                                        con.Disconnect();
+                                        tryLobbyConnect(string.Format("{0}_{1}", cl.ConnectUserId, RandomString(5)));
+                                    }, (PlayerIOError error) =>
+                                    {
+                                    });
+                                }
+                            };
+                        },
+                        (PlayerIOError error) =>
+                        {
+                        });
+                        break;
                 }
-                else
-                {
-                    s2.Release();
-                }
-            }
-            
-            s2.WaitOne();
-            if (listView1.InvokeRequired)
-            {
-                this.Invoke((MethodInvoker)delegate
-                {
-                    listView1.Enabled = true;
-                    listView1.EndUpdate();
-                });
-            }
-            if (!listView1.InvokeRequired)
-            {
-                listView1.Enabled = true;
-                listView1.EndUpdate();
-            }
-            if (progressBar1.InvokeRequired)
-            {
-                this.Invoke((MethodInvoker)delegate
-                {
-                    progressBar1.Value = 100;
-                });
-            }
-            if (!progressBar1.InvokeRequired)
-            {
-                progressBar1.Value = 100;
-            }
+            };
         }
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
@@ -338,6 +415,39 @@ namespace EEditor
                 MainForm.userdata.level = selectedworld;
                 this.Close();
             }
+        }
+        private int extractPlayerObjectsMessage(PlayerIOClient.Message param)
+        {
+            int _loc2_ = -1;
+            int _loc3_ = -1;
+            int _loc4_ = 0;
+            while (_loc4_ < param.Count)
+            {
+
+                if (param[(UInt32)_loc4_].GetType().ToString() == "System.String" && param.GetString(Convert.ToUInt32(_loc4_)) == "ss")
+                {
+                    _loc2_ = _loc4_;
+                }
+                else if (param[(UInt32)_loc4_].GetType().ToString() == "System.String" && param.GetString(Convert.ToUInt32(_loc4_)) == "se")
+                {
+                    _loc3_ = _loc4_;
+                }
+                _loc4_++;
+            }
+            if (_loc3_ == -1)
+            {
+                Console.WriteLine("Settings end is missing.");
+            }
+            if (_loc2_ == -1)
+            {
+                return _loc3_;
+            }
+            return _loc3_;
+        }
+        private string RandomString(int length)
+        {
+            const string chars = "abcdefghijlmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length).Select(s => s[new Random().Next(s.Length)]).ToArray());
         }
     }
     public class myWorlds

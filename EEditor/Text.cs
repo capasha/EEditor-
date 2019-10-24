@@ -83,6 +83,12 @@ namespace EEditor
                 SpawnIDNumericUpDown.Visible = true;
                 SpawnIDNumericUpDown.Value = this.cm1;
             }
+            textBox1.ForeColor = MainForm.themecolors.foreground;
+            textBox1.BackColor = MainForm.themecolors.accent;
+            this.ForeColor = MainForm.themecolors.foreground;
+            this.BackColor = MainForm.themecolors.background;
+            SpawnIDNumericUpDown.ForeColor = MainForm.themecolors.foreground;
+            SpawnIDNumericUpDown.BackColor = MainForm.themecolors.accent;
         }
 
         private void goldCoinsPictureBox_Click(object sender, EventArgs e)

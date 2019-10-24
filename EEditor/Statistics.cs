@@ -22,6 +22,8 @@ namespace EEditor
         {
             panel1.AutoScroll = true;
             panel1.BackColor = Color.Gray;
+            this.BackColor = MainForm.themecolors.background;
+            this.ForeColor = MainForm.themecolors.foreground;
             
             for (int x = 0; x < MainForm.editArea.CurFrame.Width; x++)
             {

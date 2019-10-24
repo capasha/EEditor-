@@ -72,6 +72,8 @@ namespace EEditor
             tp.SetToolTip(rotateIcon1, "Rotation or count"); tp.SetToolTip(rotateIcon2, "Rotation or count"); tp.SetToolTip(findRotate, "Rotation or count"); tp.SetToolTip(replaceRotate, "Rotation or count");
 
             tp.SetToolTip(toolStripContainer1.ContentPanel, "Left click: insert ID to find box\nRight click: insert ID to replace box"); // Would be more useful if the tooltip was added to single blocks
+            tp.SetToolTip(ClearBgsButton, "Clear background blocks that is behind normal blocks");
+
             this.Text = MainForm.debug ? "Find & replace - Debug Activated" : "Find & replace";
 
             for (int y = 0; y < MainForm.editArea.Frames[0].Height; y++)
@@ -79,6 +81,78 @@ namespace EEditor
                 for (int x = 0; x < MainForm.editArea.Frames[0].Width; x++)
                 {
                     lastBlock[y, x] = -1;
+                }
+            }
+            this.ForeColor = MainForm.themecolors.foreground;
+            this.BackColor = MainForm.themecolors.background;
+            foreach (Control cntr in this.Controls)
+            {
+                if (cntr.GetType() == typeof(TabControl))
+                {
+                    TabControl.TabPageCollection tabs = ((TabControl)cntr).TabPages;
+                    for (int i = 0; i < tabs.Count; i++)
+                    {
+                        tabs[i].UseVisualStyleBackColor = true;
+                        tabs[i].ForeColor = MainForm.themecolors.foreground;
+                        tabs[i].BackColor = MainForm.themecolors.accent;
+                        foreach (Control cnt in tabs[i].Controls)
+                        {
+                            if (cnt.GetType() == typeof(NumericUpDown))
+                            {
+                                cnt.ForeColor = MainForm.themecolors.foreground;
+                                cnt.BackColor = MainForm.themecolors.accent;
+                            }
+                            if (cnt.GetType() == typeof(Button))
+                            {
+                                cnt.ForeColor = MainForm.themecolors.foreground;
+                                cnt.BackColor = MainForm.themecolors.accent;
+                                ((Button)cnt).FlatStyle = FlatStyle.Flat;
+                            }
+                            if (cnt.GetType() == typeof(TextBox))
+                            {
+                                cnt.ForeColor = MainForm.themecolors.foreground;
+                                cnt.BackColor = MainForm.themecolors.accent;
+                            }
+                            if (cnt.GetType() == typeof(GroupBox))
+                            {
+                                cnt.ForeColor = MainForm.themecolors.foreground;
+                                cnt.BackColor = MainForm.themecolors.background;
+                                foreach (Control cn in cnt.Controls)
+                                {
+                                    if (cn.GetType() == typeof(Button))
+                                    {
+                                        cn.ForeColor = MainForm.themecolors.foreground;
+                                        cn.BackColor = MainForm.themecolors.accent;
+                                        ((Button)cn).FlatStyle = FlatStyle.Flat;
+                                    }
+                                    if (cn.GetType() == typeof(TextBox))
+                                    {
+                                        cn.ForeColor = MainForm.themecolors.foreground;
+                                        cn.BackColor = MainForm.themecolors.accent;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (cntr.GetType() == typeof(GroupBox))
+                {
+                    cntr.ForeColor = MainForm.themecolors.foreground;
+                    cntr.BackColor = MainForm.themecolors.background;
+                    foreach (Control cntrl in cntr.Controls)
+                    {
+                        if (cntrl.GetType() == typeof(Button))
+                        {
+                            cntrl.ForeColor = MainForm.themecolors.foreground;
+                            cntrl.BackColor = MainForm.themecolors.accent;
+                            ((Button)cntrl).FlatStyle = FlatStyle.Flat;
+                        }
+                        if (cntrl.GetType() == typeof(TextBox))
+                        {
+                            cntrl.ForeColor = MainForm.themecolors.foreground;
+                            cntrl.BackColor = MainForm.themecolors.accent;
+                        }
+                    }
                 }
             }
         }
@@ -483,6 +557,8 @@ namespace EEditor
                             bt.MouseDown += Bt_MouseDown;
                             bt.ToolTipText = "Left click: insert ID to find box\nRight click: insert ID to replace box";
                             strip.Items.Add(bt);
+                            strip.BackColor = MainForm.themecolors.accent;
+                            strip.ForeColor = MainForm.themecolors.foreground;
                         }
                     }
                 }
@@ -521,7 +597,7 @@ namespace EEditor
                 {
                     replaced[y, x] = 0;
                     replaced1[y, x] = 0;
-                    if (lastBlock[y,x] == numericUpDown1.Value)
+                    if (lastBlock[y, x] == numericUpDown1.Value)
                     {
                         first += 1;
                         if (first == 1)
@@ -631,10 +707,38 @@ namespace EEditor
                                                     MainForm.editArea.Frames[0].BlockData[yy, xx] = Convert.ToInt32(replaceRotate.Value);
                                                 }
                                             }
+                                            Console.WriteLine(NormalRadioButton.Checked);
+                                            if (NormalRadioButton.Checked)
+                                            {
+                                                Console.WriteLine(replaceRotate.Value);
+                                                MainForm.editArea.Frames[0].BlockData[yy, xx] = Convert.ToInt32(replaceRotate.Value);
+                                                //ToolPen.rotation[(int)numericUpDown2.Value] = Convert.ToInt32(replaceRotate.Value);
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (MainForm.editArea.Frames[0].BlockData[yy, xx] == findRotate.Value)
+                                    {
+                                        if (MainForm.editArea.Frames[0].Foreground[yy, xx] == 255)
+                                        {
+                                            //if (MainForm.editArea.Frames[0].BlockData[yy, xx] == )
+                                        }
+                                        else
+                                        {
+                                            if (MainForm.editArea.Frames[0].Foreground[yy, xx] == 385 || MainForm.editArea.Frames[0].Foreground[yy, xx] == 374)
+                                            {
+                                                if (SignRadioButton.Checked || WorldPortalRadioButton.Checked)
+                                                {
+                                                    MainForm.editArea.Frames[0].BlockData3[yy, xx] = ReplaceTextBox.Text;
+                                                    MainForm.editArea.Frames[0].BlockData[yy, xx] = Convert.ToInt32(replaceRotate.Value);
+                                                }
+                                            }
                                             if (NormalRadioButton.Checked)
                                             {
                                                 MainForm.editArea.Frames[0].BlockData[yy, xx] = Convert.ToInt32(replaceRotate.Value);
-                                                ToolPen.rotation[(int)numericUpDown2.Value] = Convert.ToInt32(replaceRotate.Value);
+                                                //ToolPen.rotation[(int)numericUpDown2.Value] = Convert.ToInt32(replaceRotate.Value);
                                             }
                                         }
                                     }

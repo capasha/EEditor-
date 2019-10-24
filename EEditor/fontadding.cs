@@ -159,6 +159,23 @@ namespace EEditor
             Graphics g = Graphics.FromImage(bmp);
             g.Clear(Color.Black);
             pictureBox1.Image = bmp;
+            foreach (Control cntrl in this.Controls)
+            {
+                if (cntrl.GetType() == typeof(Button))
+                {
+                    cntrl.BackColor = MainForm.themecolors.accent;
+                    cntrl.ForeColor = MainForm.themecolors.foreground;
+                   ((Button)cntrl).FlatStyle = FlatStyle.Flat;
+                }
+            }
+            button1.BackColor = MainForm.themecolors.accent;
+            button1.ForeColor = MainForm.themecolors.foreground;
+            button1.FlatStyle = FlatStyle.Flat;
+            textBox1.BackColor = MainForm.themecolors.accent;
+            textBox1.ForeColor = MainForm.themecolors.foreground;
+            this.BackColor = MainForm.themecolors.background;
+            this.ForeColor = MainForm.themecolors.foreground;
+
         }
 
         private void button3_Click(object sender, EventArgs e)

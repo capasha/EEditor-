@@ -17,6 +17,12 @@ namespace EEditor
             tp.SetToolTip(numericUpDown2, "Blocks per spray, in percentage.");
             numericUpDown1.Value = MainForm.userdata.sprayr;
             numericUpDown2.Value = MainForm.userdata.sprayp;
+            numericUpDown1.ForeColor = MainForm.themecolors.foreground;
+            numericUpDown1.BackColor = MainForm.themecolors.accent;
+            numericUpDown2.ForeColor = MainForm.themecolors.foreground;
+            numericUpDown2.BackColor = MainForm.themecolors.accent;
+            this.ForeColor = MainForm.themecolors.foreground;
+            this.BackColor = MainForm.themecolors.background;
         }
 
         private void SprayCan_FormClosing(object sender, FormClosingEventArgs e)

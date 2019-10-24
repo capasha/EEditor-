@@ -25,6 +25,10 @@ namespace EEditor
             comboBox1.Items.Add("Magenta");
             comboBox1.Items.Add("Yellow");
             comboBox1.SelectedIndex = color;
+            this.ForeColor = MainForm.themecolors.foreground;
+            this.BackColor = MainForm.themecolors.background;
+            comboBox1.ForeColor = MainForm.themecolors.foreground;
+            comboBox1.BackColor = MainForm.themecolors.accent;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

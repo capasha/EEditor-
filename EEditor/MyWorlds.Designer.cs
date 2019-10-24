@@ -45,6 +45,7 @@
             this.NameColumnHeader,
             this.SizecolumnHeader,
             this.RoomIDColumnHeader});
+            this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(359, 334);
@@ -90,7 +91,7 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(377, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(420, 334);
+            this.pictureBox1.Size = new System.Drawing.Size(320, 363);
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
@@ -108,7 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(376, 419);
+            this.ClientSize = new System.Drawing.Size(702, 419);
             this.Controls.Add(this.LoadWorldButton);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ResetButton);
