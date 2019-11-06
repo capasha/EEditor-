@@ -1214,5 +1214,17 @@ namespace EEditor
         {
             MainForm.userdata.replaceit = ReplaceUnknownCheckBox.Checked;
         }
+
+        public class removeBadRenderer : ToolStripSystemRenderer
+        {
+            public removeBadRenderer()
+            {
+            }
+
+            protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
+            {
+                //base.OnRenderToolStripBorder(e);
+            }
+        }
     }
 }

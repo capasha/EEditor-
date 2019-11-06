@@ -22,6 +22,10 @@ namespace EEditor
         public static bool OpenWorldCode = false;
         public static theme themecolors = new theme();
         public static userData userdata = new userData();
+        public static Dictionary<int,Bitmap> ActionBlocks = new Dictionary<int, Bitmap>();
+        public static Dictionary<int,Bitmap> ForegroundBlocks = new Dictionary<int, Bitmap>();
+        public static Dictionary<int,Bitmap> DecorationBlocks = new Dictionary<int, Bitmap>();
+        public static Dictionary<int,Bitmap> BackgroundBlocks = new Dictionary<int, Bitmap>();
         public static string pathSettings = $"{Directory.GetCurrentDirectory()}\\settings.json";
         private Dictionary<int, Bitmap> sblocks = new Dictionary<int, Bitmap>();
         private Dictionary<int, Bitmap> sblocks1 = new Dictionary<int, Bitmap>();
@@ -1685,18 +1689,34 @@ namespace EEditor
                         if (mode == 0)
                         {
                             ids[j] = blocks[ids[j]];
+                            if (!ForegroundBlocks.ContainsKey(ids[j]))
+                            {
+                                ForegroundBlocks.Add(ids[j],brick);
+                            }
                         }
                         else if (mode == 1)
                         {
                             ids[j] = misc[ids[j]];
+                            if (!ActionBlocks.ContainsKey(ids[j]))
+                            {
+                                ActionBlocks.Add(ids[j],brick);
+                            }
                         }
                         else if (mode == 2)
                         {
                             ids[j] = decos[ids[j]];
+                            if (!DecorationBlocks.ContainsKey(ids[j]))
+                            {
+                                DecorationBlocks.Add(ids[j],brick);
+                            }
                         }
                         else if (mode == 3)
                         {
                             ids[j] = bgs[ids[j]];
+                            if (!BackgroundBlocks.ContainsKey(ids[j]))
+                            {
+                                BackgroundBlocks.Add(ids[j],brick);
+                            }
                         }
                         int i = ids[j];
                         if (userdata.newestBlocks.Count >= 1)

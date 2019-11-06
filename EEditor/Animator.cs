@@ -831,10 +831,13 @@ namespace EEditor
                         switch (e[0].ToString())
                         {
                             case "Limit reached":
-                                OnStatusChanged("Limit Reached", DateTime.MinValue, true, Gtotal, Gcurrent);
+                                OnStatusChanged("Limit Reached.", DateTime.MinValue, true, Gtotal, Gcurrent);
                                 break;
                             case "World not available":
-                                OnStatusChanged("World is not availabe", DateTime.MinValue, true, Gtotal, Gcurrent);
+                                OnStatusChanged("World is not availabe.", DateTime.MinValue, true, Gtotal, Gcurrent);
+                                break;
+                            case "You are banned":
+                                OnStatusChanged("You have been kicked.", DateTime.MinValue, true, Gtotal, Gcurrent);
                                 break;
                             default:
                                 Console.WriteLine(e.ToString());

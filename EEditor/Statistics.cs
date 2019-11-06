@@ -24,41 +24,40 @@ namespace EEditor
             panel1.BackColor = Color.Gray;
             this.BackColor = MainForm.themecolors.background;
             this.ForeColor = MainForm.themecolors.foreground;
-            
+            sortby(3);
+        }
+
+        private void sortby(int id)
+        {
             for (int x = 0; x < MainForm.editArea.CurFrame.Width; x++)
             {
                 for (int y = 0; y < MainForm.editArea.CurFrame.Height; y++)
                 {
-                    if (bdata.ContainsKey(MainForm.editArea.CurFrame.Foreground[y, x]))
+                    if (bdata.ContainsKey(MainForm.editArea.CurFrame.Foreground[y, x]) && (id == 0 || id == 1))
                     {
 
 
                         bdata[MainForm.editArea.CurFrame.Foreground[y, x]] += 1;
                     }
-                    else
+                    else if (!bdata.ContainsKey(MainForm.editArea.CurFrame.Foreground[y, x]) && (id == 0 || id == 1))
                     {
 
                         bdata.Add(MainForm.editArea.CurFrame.Foreground[y, x], 1);
                     }
-                    if (bdata.ContainsKey(MainForm.editArea.CurFrame.Background[y, x]))
+                    if (bdata.ContainsKey(MainForm.editArea.CurFrame.Background[y, x]) && (id == 0 || id == 4))
                     {
 
 
                         bdata[MainForm.editArea.CurFrame.Background[y, x]] += 1;
                     }
-                    else
+                    else if (!bdata.ContainsKey(MainForm.editArea.CurFrame.Background[y, x]) && (id == 0 || id == 4))
                     {
 
                         bdata.Add(MainForm.editArea.CurFrame.Background[y, x], 1);
                     }
                 }
             }
-            sortby(0);
-        }
-
-        private void sortby(int id)
-        {
-            int position = 0, wposition = 4;
+                int position = 0, wposition = 4;
             foreach (var val in bdata)
             {
                 PictureBox table = new PictureBox();
@@ -69,21 +68,21 @@ namespace EEditor
                 table.Size = new Size(60, 30);
                 Bitmap bmp = new Bitmap(table.Width, table.Height);
                 Bitmap block = new Bitmap(16, 16);
-                if (MainForm.miscBMI[val.Key] != 0)
+                if (MainForm.ForegroundBlocks.ContainsKey(val.Key) && (id == 0 || id == 1))
                 {
-                    block = MainForm.miscBMD.Clone(new Rectangle(MainForm.miscBMI[val.Key] * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
+                    block = MainForm.ForegroundBlocks[val.Key];
                 }
-                else if (MainForm.decosBMI[val.Key] != 0)
+                if (MainForm.DecorationBlocks.ContainsKey(val.Key) && (id == 0 || id == 3))
                 {
-                    block = MainForm.decosBMD.Clone(new Rectangle(MainForm.decosBMI[val.Key] * 16, 0, 16, 16), MainForm.decosBMD.PixelFormat);
+                    block = MainForm.DecorationBlocks[val.Key];
                 }
-                else if (MainForm.foregroundBMI[val.Key] != 0 || val.Key == 0)
+                if (MainForm.ActionBlocks.ContainsKey(val.Key) && (id == 0 || id == 2))
                 {
-                    block = MainForm.foregroundBMD.Clone(new Rectangle(MainForm.foregroundBMI[val.Key] * 16, 0, 16, 16), MainForm.foregroundBMD.PixelFormat);
+                    block = MainForm.ActionBlocks[val.Key];
                 }
-                else if (MainForm.backgroundBMI[val.Key] != 0)
+                if (MainForm.BackgroundBlocks.ContainsKey(val.Key) && (id == 0 || id == 4))
                 {
-                    block = MainForm.backgroundBMD.Clone(new Rectangle(MainForm.backgroundBMI[val.Key] * 16, 0, 16, 16), MainForm.backgroundBMD.PixelFormat);
+                    block = MainForm.BackgroundBlocks[val.Key];
                 }
                 using (Graphics gr = Graphics.FromImage(bmp))
                 {
@@ -103,6 +102,34 @@ namespace EEditor
                 panel1.Controls.Add(table);
 
             }
+        }
+
+        private void fgradioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            bdata.Clear();
+            panel1.Controls.Clear();
+            sortby(1);
+        }
+
+        private void actradioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            bdata.Clear();
+            panel1.Controls.Clear();
+            sortby(2);
+        }
+
+        private void decorradioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            bdata.Clear();
+            panel1.Controls.Clear();
+            sortby(3);
+        }
+
+        private void bgradioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            bdata.Clear();
+            panel1.Controls.Clear();
+            sortby(4);
         }
     }
 }

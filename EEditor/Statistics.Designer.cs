@@ -53,6 +53,7 @@
             this.fgradioButton.TabIndex = 3;
             this.fgradioButton.TabStop = true;
             this.fgradioButton.UseVisualStyleBackColor = true;
+            this.fgradioButton.CheckedChanged += new System.EventHandler(this.fgradioButton_CheckedChanged);
             // 
             // actradioButton
             // 
@@ -65,36 +66,39 @@
             this.actradioButton.TabIndex = 4;
             this.actradioButton.TabStop = true;
             this.actradioButton.UseVisualStyleBackColor = true;
+            this.actradioButton.CheckedChanged += new System.EventHandler(this.actradioButton_CheckedChanged);
             // 
             // bgradioButton
             // 
             this.bgradioButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.bgradioButton.AutoSize = true;
             this.bgradioButton.Image = global::EEditor.Properties.Resources.eeditor_bg;
-            this.bgradioButton.Location = new System.Drawing.Point(92, 301);
+            this.bgradioButton.Location = new System.Drawing.Point(120, 301);
             this.bgradioButton.Name = "bgradioButton";
             this.bgradioButton.Size = new System.Drawing.Size(22, 22);
             this.bgradioButton.TabIndex = 5;
             this.bgradioButton.TabStop = true;
             this.bgradioButton.UseVisualStyleBackColor = true;
+            this.bgradioButton.CheckedChanged += new System.EventHandler(this.bgradioButton_CheckedChanged);
             // 
             // decorradioButton
             // 
             this.decorradioButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.decorradioButton.AutoSize = true;
             this.decorradioButton.Image = global::EEditor.Properties.Resources.eeditor_decor;
-            this.decorradioButton.Location = new System.Drawing.Point(120, 301);
+            this.decorradioButton.Location = new System.Drawing.Point(92, 301);
             this.decorradioButton.Name = "decorradioButton";
             this.decorradioButton.Size = new System.Drawing.Size(22, 22);
             this.decorradioButton.TabIndex = 6;
             this.decorradioButton.TabStop = true;
             this.decorradioButton.UseVisualStyleBackColor = true;
+            this.decorradioButton.CheckedChanged += new System.EventHandler(this.decorradioButton_CheckedChanged);
             // 
             // Statistics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(313, 289);
+            this.ClientSize = new System.Drawing.Size(313, 331);
             this.Controls.Add(this.decorradioButton);
             this.Controls.Add(this.bgradioButton);
             this.Controls.Add(this.actradioButton);
