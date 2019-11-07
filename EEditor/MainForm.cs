@@ -22,10 +22,10 @@ namespace EEditor
         public static bool OpenWorldCode = false;
         public static theme themecolors = new theme();
         public static userData userdata = new userData();
-        public static Dictionary<int,Bitmap> ActionBlocks = new Dictionary<int, Bitmap>();
-        public static Dictionary<int,Bitmap> ForegroundBlocks = new Dictionary<int, Bitmap>();
-        public static Dictionary<int,Bitmap> DecorationBlocks = new Dictionary<int, Bitmap>();
-        public static Dictionary<int,Bitmap> BackgroundBlocks = new Dictionary<int, Bitmap>();
+        public static Dictionary<int, Bitmap> ActionBlocks = new Dictionary<int, Bitmap>();
+        public static Dictionary<int, Bitmap> ForegroundBlocks = new Dictionary<int, Bitmap>();
+        public static Dictionary<int, Bitmap> DecorationBlocks = new Dictionary<int, Bitmap>();
+        public static Dictionary<int, Bitmap> BackgroundBlocks = new Dictionary<int, Bitmap>();
         public static string pathSettings = $"{Directory.GetCurrentDirectory()}\\settings.json";
         private Dictionary<int, Bitmap> sblocks = new Dictionary<int, Bitmap>();
         private Dictionary<int, Bitmap> sblocks1 = new Dictionary<int, Bitmap>();
@@ -462,7 +462,7 @@ namespace EEditor
             starting1 = false;
             hideBlocksButton.PerformClick();
             accountsComboBox.SelectedItem = userdata.username;
-            
+
             starting1 = false;
             /*if (userdata.updateChecker)
             {
@@ -513,11 +513,11 @@ namespace EEditor
                     link = Color.FromArgb(0, 0, 255),
                     visitedlink = Color.FromArgb(128, 0, 128),
                     activelink = Color.Red,
-                
+
 
                 };
             }
-           // minimapAsImageToolStripMenuItem.ForeColor = Color.White;
+            // minimapAsImageToolStripMenuItem.ForeColor = Color.White;
             flowLayoutPanel2.BackColor = themecolors.background;
             flowLayoutPanel3.BackColor = themecolors.background;
             flowLayoutPanel4.BackColor = themecolors.background;
@@ -535,7 +535,7 @@ namespace EEditor
                 //ProfessionalColorTable colors = darktheme ? new DarkTable() : new WhiteTable();
                 if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
                 if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
-                
+
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
@@ -728,9 +728,9 @@ namespace EEditor
                 var control = topFlowLayoutPanel.Controls[i];
                 var items = ((ToolStrip)control).Items;
                 control.BackColor = themecolors.background;
-        if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
-        if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
-        if (((ToolStrip)control).Name != "lastUsedToolStrip")
+                if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
+                if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
+                if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
                     {
@@ -796,9 +796,9 @@ namespace EEditor
                 var control = bottomFlowLayoutPanel.Controls[ii];
                 var items = ((ToolStrip)control).Items;
                 control.BackColor = themecolors.background;
-        if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
-        if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
-        if (((ToolStrip)control).Name != "lastUsedToolStrip")
+                if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
+                if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
+                if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
                     {
@@ -1662,6 +1662,7 @@ namespace EEditor
                             else if (mode == 1)
                             {
                                 values[i] += misc[ids[i]];
+
                             }
                             else if (mode == 2)
                             {
@@ -1686,37 +1687,69 @@ namespace EEditor
                     {
                         bid = ids[j];
                         Bitmap brick = bitmap.Clone(new Rectangle(16 * ids[j], 0, 16, 16), System.Drawing.Imaging.PixelFormat.DontCare);
+ 
+
                         if (mode == 0)
                         {
+                            if (toolstrip == 0)
+                            {
+                                if (!ForegroundBlocks.ContainsKey(blocks[bid]))
+                                {
+
+                                    ForegroundBlocks.Add(blocks[bid], foregroundBMD.Clone(new Rectangle(bid * 16, 0, 16, 16), foregroundBMD.PixelFormat));
+
+                                }
+                            }
+                            else
+                            {
+                                if (!ActionBlocks.ContainsKey(blocks[bid]))
+                                {
+
+                                    ActionBlocks.Add(blocks[bid], foregroundBMD.Clone(new Rectangle(bid * 16, 0, 16, 16), foregroundBMD.PixelFormat));
+
+                                }
+                            }
+
                             ids[j] = blocks[ids[j]];
-                            if (!ForegroundBlocks.ContainsKey(ids[j]))
-                            {
-                                ForegroundBlocks.Add(ids[j],brick);
-                            }
+
                         }
-                        else if (mode == 1)
+                        if (mode == 1)
                         {
+                            if (!ActionBlocks.ContainsKey(misc[bid]))
+                            {
+                                ActionBlocks.Add(misc[bid], miscBMD.Clone(new Rectangle(bid * 16, 0, 16, 16), miscBMD.PixelFormat));
+                            }
                             ids[j] = misc[ids[j]];
-                            if (!ActionBlocks.ContainsKey(ids[j]))
-                            {
-                                ActionBlocks.Add(ids[j],brick);
-                            }
+
+
                         }
-                        else if (mode == 2)
+                        if (mode == 2)
                         {
+                            if (toolstrip == 2)
+                            {
+                                if (!DecorationBlocks.ContainsKey(decos[bid]))
+                                {
+                                    DecorationBlocks.Add(decos[bid], decosBMD.Clone(new Rectangle(bid * 16, 0, 16, 16), decosBMD.PixelFormat));
+                                }
+                            }
+                            else if (toolstrip == 1)
+                            {
+                                if (!ActionBlocks.ContainsKey(decos[bid]))
+                                {
+                                    ActionBlocks.Add(decos[bid], decosBMD.Clone(new Rectangle(bid * 16, 0, 16, 16), decosBMD.PixelFormat));
+                                }
+                            }
                             ids[j] = decos[ids[j]];
-                            if (!DecorationBlocks.ContainsKey(ids[j]))
-                            {
-                                DecorationBlocks.Add(ids[j],brick);
-                            }
+
                         }
-                        else if (mode == 3)
+                        if (mode == 3)
                         {
-                            ids[j] = bgs[ids[j]];
-                            if (!BackgroundBlocks.ContainsKey(ids[j]))
+                            if (!BackgroundBlocks.ContainsKey(bgs[bid]))
                             {
-                                BackgroundBlocks.Add(ids[j],brick);
+                                BackgroundBlocks.Add(bgs[bid], backgroundBMD.Clone(new Rectangle(bid * 16, 0, 16, 16), backgroundBMD.PixelFormat));
                             }
+                            ids[j] = bgs[ids[j]];
+
                         }
                         int i = ids[j];
                         if (userdata.newestBlocks.Count >= 1)
@@ -1847,8 +1880,8 @@ namespace EEditor
                         Margin = new System.Windows.Forms.Padding(4, 4, 4, 4),
                         BackColor = themecolors.accent,
                     };
-            if (darktheme) strip1.Renderer = new DarkTheme();
-            if (!darktheme) strip1.Renderer = new LightTheme();
+                    if (darktheme) strip1.Renderer = new DarkTheme();
+                    if (!darktheme) strip1.Renderer = new LightTheme();
                     strip1.BackColor = themecolors.accent;
                     foreach (int id in ids)
                     {
@@ -1878,7 +1911,7 @@ namespace EEditor
             {
                 MainForm = mainForm;
                 this.BackColor = themecolors.accent;
-                
+
                 this.ID = id;
                 this.blockInfo = blockdata;
                 this.AutoSize = false;
@@ -1935,9 +1968,9 @@ namespace EEditor
                     var bid = cur.ID;
                     loadBid = cur.ID;
                     ContextMenuStrip cm = new ContextMenuStrip();
-            if (darktheme) cm.Renderer = new DarkTheme();
-            if (!darktheme) cm.Renderer = new LightTheme();
-            cm.Name = cur.ID.ToString();
+                    if (darktheme) cm.Renderer = new DarkTheme();
+                    if (!darktheme) cm.Renderer = new LightTheme();
+                    cm.Name = cur.ID.ToString();
                     cm.Items.Add("Copy BlockID", Properties.Resources.copy);
                     cm.ForeColor = themecolors.foreground;
                     if (MainForm.decosBMI[cur.ID] == 0 && MainForm.miscBMI[cur.ID] == 0)
@@ -3980,7 +4013,7 @@ namespace EEditor
         //Settings
         private void settingsButton_Click(object sender, EventArgs e)
         {
-            labeld:
+        labeld:
             SettingsForm sf = new SettingsForm();
             if (sf.ShowDialog() == DialogResult.OK)
             {
@@ -4619,7 +4652,7 @@ namespace EEditor
 
                 MyWorlds mw = new MyWorlds();
                 mw.ShowDialog();
-                
+
             }
         }
 
@@ -4732,7 +4765,7 @@ namespace EEditor
                 {
                     ofd.Dispose();
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -4827,7 +4860,7 @@ namespace EEditor
                 {
                     ofd.Dispose();
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -4955,7 +4988,7 @@ namespace EEditor
         {
         }
 
-        
+
     }
     public class DarkTheme : ToolStripProfessionalRenderer
     {

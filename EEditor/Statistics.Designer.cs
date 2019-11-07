@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Statistics));
             this.panel1 = new System.Windows.Forms.Panel();
             this.fgradioButton = new System.Windows.Forms.RadioButton();
             this.actradioButton = new System.Windows.Forms.RadioButton();
@@ -104,6 +105,7 @@
             this.Controls.Add(this.actradioButton);
             this.Controls.Add(this.fgradioButton);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Statistics";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Statistics";

@@ -36,6 +36,16 @@ namespace EEditor
 
         private void MyWorlds_Load(object sender, EventArgs e)
         {
+            this.BackColor = MainForm.themecolors.background;
+            this.ForeColor = MainForm.themecolors.foreground;
+            listView1.ForeColor = MainForm.themecolors.foreground;
+            listView1.BackColor = MainForm.themecolors.accent;
+            LoadWorldButton.ForeColor = MainForm.themecolors.foreground;
+            LoadWorldButton.BackColor = MainForm.themecolors.accent;
+            LoadWorldButton.FlatStyle = FlatStyle.Flat;
+            ResetButton.ForeColor = MainForm.themecolors.foreground;
+            ResetButton.BackColor = MainForm.themecolors.accent;
+            ResetButton.FlatStyle = FlatStyle.Flat;
             listView1.Items.Clear();
             loadWorlds(false);
         }
