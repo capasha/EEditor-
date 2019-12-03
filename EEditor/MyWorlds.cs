@@ -222,7 +222,7 @@ namespace EEditor
                     case "getMySimplePlayerObject":
                         string owner = "Unknown";
                         int incr = 0, incr1 = 0, total1 = 0;
-                        int total = extractPlayerObjectsMessage(m) + 1;
+                        int total = bdata.extractPlayerObjectsMessage(m) + 1;
                         owner = m[(UInt32)total].ToString();
                         total += 14;
                         rooms.Add(m[(UInt32)total].ToString());
@@ -426,34 +426,7 @@ namespace EEditor
                 this.Close();
             }
         }
-        private int extractPlayerObjectsMessage(PlayerIOClient.Message param)
-        {
-            int _loc2_ = -1;
-            int _loc3_ = -1;
-            int _loc4_ = 0;
-            while (_loc4_ < param.Count)
-            {
 
-                if (param[(UInt32)_loc4_].GetType().ToString() == "System.String" && param.GetString(Convert.ToUInt32(_loc4_)) == "ss")
-                {
-                    _loc2_ = _loc4_;
-                }
-                else if (param[(UInt32)_loc4_].GetType().ToString() == "System.String" && param.GetString(Convert.ToUInt32(_loc4_)) == "se")
-                {
-                    _loc3_ = _loc4_;
-                }
-                _loc4_++;
-            }
-            if (_loc3_ == -1)
-            {
-                Console.WriteLine("Settings end is missing.");
-            }
-            if (_loc2_ == -1)
-            {
-                return _loc3_;
-            }
-            return _loc3_;
-        }
         private string RandomString(int length)
         {
             const string chars = "abcdefghijlmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
