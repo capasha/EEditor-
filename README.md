@@ -7,4 +7,6 @@ Welcome to the EEditor GitHub page! Here we host sourcecode and latest version o
 * Have a feature to request or bug to report? Use the issues on this page.
 * Have other questions? [Post them on our forum topic.](https://forums.everybodyedits.com/viewtopic.php?id=32502) 
  
-* Bitbuckets issues is shut down. Please use the Everybody Edits forum to post anything about EEditor. 
+* Bitbuckets issues is shut down.
+
+![smile](https://i.imgur.com/RHiiC0q.png)
