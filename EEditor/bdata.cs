@@ -890,5 +890,33 @@ namespace EEditor
             return canuse.Contains(bid) ? true : false;
 
         }
+        public static int extractPlayerObjectsMessage(PlayerIOClient.Message param)
+        {
+            int _loc2_ = -1;
+            int _loc3_ = -1;
+            int _loc4_ = 0;
+            while (_loc4_ < param.Count)
+            {
+
+                if (param[(UInt32)_loc4_].GetType().ToString() == "System.String" && param.GetString(Convert.ToUInt32(_loc4_)) == "ss")
+                {
+                    _loc2_ = _loc4_;
+                }
+                else if (param[(UInt32)_loc4_].GetType().ToString() == "System.String" && param.GetString(Convert.ToUInt32(_loc4_)) == "se")
+                {
+                    _loc3_ = _loc4_;
+                }
+                _loc4_++;
+            }
+            if (_loc3_ == -1)
+            {
+                Console.WriteLine("Settings end is missing.");
+            }
+            if (_loc2_ == -1)
+            {
+                return _loc3_;
+            }
+            return _loc3_;
+        }
     }
 }
