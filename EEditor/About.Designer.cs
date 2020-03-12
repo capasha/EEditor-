@@ -55,6 +55,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lukemLinkLabel = new System.Windows.Forms.LinkLabel();
             this.InitParserLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.DownloadButton = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -110,6 +111,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.DownloadButton);
             this.groupBox4.Controls.Add(this.BugsOrFeatureButton);
             this.groupBox4.Controls.Add(this.AboutLabel);
             this.groupBox4.Controls.Add(this.WikiButton);
@@ -354,6 +356,16 @@
             this.InitParserLinkLabel.Text = "Yonom/Processor\'s InitParser";
             this.InitParserLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
+            // DownloadButton
+            // 
+            this.DownloadButton.Location = new System.Drawing.Point(215, 55);
+            this.DownloadButton.Name = "DownloadButton";
+            this.DownloadButton.Size = new System.Drawing.Size(97, 23);
+            this.DownloadButton.TabIndex = 4;
+            this.DownloadButton.Text = "Downloader";
+            this.DownloadButton.UseVisualStyleBackColor = true;
+            this.DownloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
+            // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -401,5 +413,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.LinkLabel InitParserLinkLabel;
         private System.Windows.Forms.LinkLabel lukemLinkLabel;
+        private System.Windows.Forms.Button DownloadButton;
     }
 }
