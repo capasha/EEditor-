@@ -28,7 +28,7 @@ namespace EEditor
                 Bitmap Image5 = MainForm.miscBMD.Clone(new Rectangle(256 * 16, 0, 16, 16), MainForm.foregroundBMD.PixelFormat);
                 Bitmap Image6 = MainForm.miscBMD.Clone(new Rectangle(257 * 16, 0, 16, 16), MainForm.foregroundBMD.PixelFormat);
                 Bitmap Image7 = MainForm.miscBMD.Clone(new Rectangle(258 * 16, 0, 16, 16), MainForm.foregroundBMD.PixelFormat);
-               if (MainForm.accs[Accounts.lastSelected].payvault.ContainsKey("goldmember")) { radioButton4.Enabled = true; }
+               if (MainForm.accs[MainForm.userdata.username].payvault.ContainsKey("goldmember")) { radioButton4.Enabled = true; }
                else { radioButton4.Enabled = false; }
                 goldCoinsPictureBox.Image = image1;
                 blueCoinsPictureBox.Image = image2;
