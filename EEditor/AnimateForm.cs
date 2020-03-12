@@ -205,21 +205,17 @@ namespace EEditor
         private void AnimateForm_Load(object sender, EventArgs e)
         {
             //this.Size = new Size(380, 184);
-            numericUpDown2.Value = MainForm.userdata.uploadDelay == 0 ? 1: MainForm.userdata.uploadDelay;
-            BPSNumericUpDown.Value = MainForm.userdata.BPSblocks == 0 ? 1: MainForm.userdata.BPSblocks;
+            DelayNumericUpDown.Value = MainForm.userdata.uploadDelay;
             levelTextBox.Text = MainForm.userdata.level;
-            BPSCheckBox.Checked = MainForm.userdata.BPSplacing;
             if (MainForm.userdata.uploadOption == 0) uploadOptionButton1.Checked = true;
             
             levelPassTextBox.Enabled = true;
             levelPassTextBox.Text = MainForm.userdata.levelPass;
-            IgnoreDrawingCheckBox.Checked = MainForm.userdata.ignoreplacing;
 
             ToolTip tp = new ToolTip();
             tp.SetToolTip(levelTextBox, "Insert the world ID you want to upload to.");
             tp.SetToolTip(levelPassTextBox, "Insert the code of the world you are uploading to.");
 
-            tp.SetToolTip(BPSNumericUpDown, "This will change how many blocks is sent between the delay.");
 
             tp.SetToolTip(button1, "Starts/stops uploading the world to Everybody Edits.");
 
@@ -229,13 +225,6 @@ namespace EEditor
 
             tp.SetToolTip(checkBoxRandom, "When activated, EEditor uploads blocks to different places.\nWhen none is selected the upload goes by top to bottom.");
 
-            tp.SetToolTip(BPSCheckBox, "When activated, EEditor is going to upload x blocks per second.");
-            tp.SetToolTip(label2, "Sets the delay of the blocks being uploaded to Everybody Edits.\nHigher values are slower, but less laggy.");
-            tp.SetToolTip(numericUpDown2, "Sets the delay of the blocks being uploaded to Everybody Edits.\nHigher values are slower, but less laggy.");
-
-            tp.SetToolTip(autoSaveCheckBox, "Saves the Everybody Edits world automatically during the upload and after that.\nWorks only if the bot has save access (world owner/crew member).");
-
-            tp.SetToolTip(IgnoreDrawingCheckBox, "Ignore the blocks that someone is placing during uploading.");
             this.ForeColor = MainForm.themecolors.foreground;
             this.BackColor = MainForm.themecolors.background;
             foreach (Control value in this.Controls)
@@ -259,6 +248,11 @@ namespace EEditor
                                 if (cntrl.GetType() == typeof(GroupBox))
                                 {
                                     cntrl.ForeColor = MainForm.themecolors.foreground;
+                                }
+                                if (cntrl.GetType() == typeof(NumericUpDown))
+                                {
+                                    cntrl.ForeColor = MainForm.themecolors.foreground;
+                                    cntrl.BackColor = MainForm.themecolors.accent;
                                 }
                             }
                             else
@@ -288,10 +282,6 @@ namespace EEditor
             }
         }
 
-        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
-        {
-            MainForm.userdata.uploadDelay = (int)numericUpDown2.Value;
-        }
 
         private void AnimateForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -368,29 +358,15 @@ namespace EEditor
             }
         }
 
-        private void IgnoreDrawingCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            MainForm.userdata.ignoreplacing = IgnoreDrawingCheckBox.Checked;
-        }
 
         private void waitForEditcheckBox_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void BPSCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void DelayNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            MainForm.userdata.BPSplacing = BPSCheckBox.Checked;
-        }
-
-        private void BPSNumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            MainForm.userdata.BPSblocks = Convert.ToInt32(BPSNumericUpDown.Value);
-        }
-
-        private void BPSNumericUpDown_KeyUp(object sender, KeyEventArgs e)
-        {
-            MainForm.userdata.BPSblocks = Convert.ToInt32(BPSNumericUpDown.Value);
+            MainForm.userdata.uploadDelay = Convert.ToInt32(DelayNumericUpDown.Value);
         }
     }
 
