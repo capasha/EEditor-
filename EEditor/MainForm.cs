@@ -10,6 +10,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace EEditor
 {
@@ -122,6 +123,8 @@ namespace EEditor
                     if (userdata.firstRun.ToString() == null) userdata.firstRun = false;
                     if (userdata.fastshape.ToString() == null) userdata.fastshape = true;
                     if (userdata.replaceit.ToString() == null) userdata.replaceit = false;
+                    if (userdata.checkUpdate.ToString() == null) userdata.checkUpdate = true;
+                    if (userdata.oldmark.ToString() == null) userdata.oldmark = true;
                 }
                 else
                 {
@@ -158,7 +161,10 @@ namespace EEditor
                         ColorBG = true,
                         ignoreplacing = false,
                         fastshape = true,
-                        replaceit = false
+                        replaceit = false,
+                        checkUpdate = true,
+                        oldmark = true
+
 
                     };
                     File.WriteAllText(pathSettings, JsonConvert.SerializeObject(userdata, Newtonsoft.Json.Formatting.Indented));
@@ -194,7 +200,9 @@ namespace EEditor
                     ColorFG = true,
                     ColorBG = true,
                     ignoreplacing = false,
-                    randomLines = false
+                    randomLines = false,
+                    checkUpdate = true,
+                    oldmark = true
                 };
                 File.WriteAllText(pathSettings, JsonConvert.SerializeObject(userdata, Newtonsoft.Json.Formatting.Indented));
             }
@@ -471,7 +479,7 @@ namespace EEditor
                 thread.Start();
             }*/
             SetPenTool();
-
+            checkUpdate();
             MainForm.editArea.Focus();
         }
 
@@ -4806,7 +4814,24 @@ namespace EEditor
                 MessageBox.Show("An error has occured: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        private void checkUpdate()
+        {
+            string file = $"{Directory.GetCurrentDirectory()}\\EEditorUpdater.exe";
+            if (File.Exists(file))
+            {
+                if (userdata.checkUpdate)
+                {
+                    Process process = new Process();
+                    process.StartInfo = new ProcessStartInfo
+                    {
+                        //WindowStyle = ProcessWindowStyle.Hidden,
+                        FileName = file,
+                        Arguments = "/silent"
+                    };
+                    process.Start();
+                }
+            }
+        }
         private void RoomDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -4948,6 +4973,8 @@ namespace EEditor
         public bool firstRun { get; set; }
         public bool fastshape { get; set; }
         public bool replaceit { get; set; }
+        public bool oldmark { get; set; }
+        public bool checkUpdate { get; set; }
     }
     public class theme
     {
