@@ -12,7 +12,8 @@ namespace EEditor
     internal class Animator
     {
         Connection conn;
-
+        private List<blocks> placedBlocks = new List<blocks>();
+        private List<blocks> placeBlocks = new List<blocks>();
         List<Frame> frames;
         int uploaded = 0;
         System.Timers.Timer timer = new System.Timers.Timer();
@@ -100,7 +101,7 @@ namespace EEditor
             else pb.Maximum = firstFrame.Count;
             epochStartTime = dt;
 
-            stopit:
+            //stopit:
             if (frames.Count == 1)
             {
                 diff = frames[0].Diff(remoteFrame);
@@ -121,341 +122,91 @@ namespace EEditor
             int total = diff.Count;
             //OnStatusChanged("Uploading blocks to level. (Total: " + Gcurrent1 + "/" + Gtotal + ")", dt, false, Gtotal, Gcurrent);
             TaskbarProgress.SetValue(afHandle, Gcurrent, Gtotal); //Set TaskbarProgress.cs' values
-            Queue<string[]> queue = new Queue<string[]>(diff);
+            //Queue<string[]> queue = new Queue<string[]>(diff);
             List<string[]> blocks1 = new List<string[]>(diff);
-            List<object[]> blocks = new List<object[]>();
-            //Set AnimateForm.cs' progressbar max value
-            while (queue.Count > 0)
+
+            foreach (var value in blocks1)
             {
-                string[] cur = queue.Dequeue();
-                int x;
-                int y;
-                if (cur[0] != null)
+                if (value.Length == 4)
                 {
-                    x = Convert.ToInt32(cur[0]);
-                    y = Convert.ToInt32(cur[1]);
-                    if (MainForm.OpenWorld && !MainForm.OpenWorldCode)
+                    placeBlocks.Add(new blocks() { layer = Convert.ToInt32(value[3]), x = Convert.ToInt32(value[0]), y = Convert.ToInt32(value[1]), bid = Convert.ToInt32(value[2]), data = new object[] { null } });
+                }
+                if (value.Length == 5)
+                {
+                    placeBlocks.Add(new blocks() { layer = Convert.ToInt32(value[3]), x = Convert.ToInt32(value[0]), y = Convert.ToInt32(value[1]), bid = Convert.ToInt32(value[2]), data = new object[] { value[4] } });
+                }
+                if (value.Length == 8)
+                {
+                    placeBlocks.Add(new blocks() { layer = Convert.ToInt32(value[3]), x = Convert.ToInt32(value[0]), y = Convert.ToInt32(value[1]), bid = Convert.ToInt32(value[2]), data = new object[] { value[4], value[5], value[6], value[7] } });
+                }
+                if (value.Length == 7)
+                {
+                    placeBlocks.Add(new blocks() { layer = Convert.ToInt32(value[3]), x = Convert.ToInt32(value[0]), y = Convert.ToInt32(value[1]), bid = Convert.ToInt32(value[2]), data = new object[] { value[4], value[5], value[6] } });
+                }
+                if (value.Length == 6)
+                {
+                    placeBlocks.Add(new blocks() { layer = Convert.ToInt32(value[3]), x = Convert.ToInt32(value[0]), y = Convert.ToInt32(value[1]), bid = Convert.ToInt32(value[2]), data = new object[] { value[4], value[5] } });
+                }
+            }
+            if (placeBlocks.Count != 0)
+            {
+                int totalblocks = placeBlocks.Count();
+                int count = 0;
+                foreach (blocks block in placeBlocks)
+                {
+                    if (block != null)
                     {
-                        drawblocks = y > 4;
+                        if (block.data.Length == 1)
+                        {
+
+
+                            sendParam(conn, new object[] { block.layer, block.x, block.y, block.bid, Convert.ToInt32(block.data[0]) });
+
+                        }
+                        else if (block.data.Length == 4)
+                        {
+                            sendParam(conn, new object[] { block.layer, block.x, block.y, block.bid, block.data[0], block.data[1], block.data[2], block.data[3] });
+
+                        }
+                        else if (block.data.Length == 3)
+                        {
+                            sendParam(conn, new object[] { block.layer, block.x, block.y, block.bid, Convert.ToInt32(block.data[0]), Convert.ToInt32(block.data[1]), Convert.ToInt32(block.data[2]) });
+
+                        }
+                        else if (block.data.Length == 2)
+                        {
+                            if (block.bid == 385)
+                            {
+                                sendParam(conn, new object[] { block.layer, block.x, block.y, block.bid, block.data[1], Convert.ToInt32(block.data[0]) });
+
+                            }
+                            else
+                            {
+                                sendParam(conn, new object[] { block.layer, block.x, block.y, block.bid, block.data[0], Convert.ToInt32(block.data[1]) });
+                            }
+                        }
+
+                        OnStatusChanged("Uploading blocks to level. (Total: " + placedBlocks.Count + "/" + totalblocks + ")", DateTime.MinValue, false, totalblocks, placedBlocks.Count);
+                        OnStatusChanged("", epochStartTime, false, totalblocks, placedBlocks.Count);
+                        if (Convert.ToDouble(placedBlocks.Count) <= pb.Maximum && Convert.ToDouble(placedBlocks.Count) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = placedBlocks.Count; }); TaskbarProgress.SetValue(afHandle, placedBlocks.Count, firstFrame.Count); }
+                        Thread.Sleep(MainForm.userdata.uploadDelay);
                     }
-                    else { drawblocks = true; }
-                    if (drawblocks)
+                }
+                OnStatusChanged("Level upload complete!", DateTime.MinValue, true, placeBlocks.Count, 0);
+                TaskbarProgress.SetValue(afHandle, 0, firstFrame.Count);
+                if (MainForm.userdata.saveWorldCrew)
+                {
+                    if (AnimateForm.saveRights)
                     {
-                        OnStatusChanged("", epochStartTime, false, firstFrame.Count, Gcurrent1);
-                        int type = Convert.ToInt32(cur[2]);
-                        int at = Convert.ToInt32(cur[3]);
-                        uploaded += 1;
-                        //Console.WriteLine(lastY + " " + y);
-                        if (at == 0)
-                        {
-                            if (remoteFrame.Foreground[y, x] != type)
-                            {
-                                if (bdata.morphable.Contains(type))
-                                {
-                                    b = true;
-                                }
-                                else if (bdata.goal.Contains(type) && type != 83 && type != 77 && type != 1520)
-                                {
-                                    if (cur.Length == 5)
-                                    {
-                                        b = true;
-                                    }
-                                }
-                                else if (bdata.rotate.Contains(type) && type != 385 && type != 374)
-                                {
-                                    if (cur.Length == 5)
-                                    {
-                                        b = true;
-                                    }
-                                }
-                                else if (type == 385)
-                                {
-                                    if (cur.Length == 6)
-                                    {
-                                        b = true;
-                                    }
-                                }
-                                else if (type == 374)
-                                {
-                                    if (cur.Length == 6)
-                                    {
-                                        b = true;
-                                    }
-                                }
-                                else if (type == 83 || type == 77 || type == 1520)
-                                {
-                                    if (cur.Length == 5)
-                                    {
-                                        b = true;
-                                    }
-                                }
-                                else if (bdata.portals.Contains(type))
-                                {
-                                    if (cur.Length == 7)
-                                    {
-                                        b = true;
-                                    }
-                                }
-                                else if (bdata.isNPC(type))
-                                {
-                                    if (cur.Length == 8)
-                                    {
-                                        b = true;
-                                    }
-                                }
-                                else
-                                {
-                                    b = true;
-                                }
-                            }
-                            else if (remoteFrame.Foreground[y, x] == type)
-                            {
-                                if (bdata.morphable.Contains(type))
-                                {
-                                    if (cur.Length == 5)
-                                    {
-                                        if (remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[4]))
-                                        {
-                                            b = true;
-                                        }
-                                    }
-                                }
-                                else if (bdata.goal.Contains(type) && type != 83 && type != 77 && type != 1520)
-                                {
-                                    if (cur.Length == 5)
-                                    {
-                                        if (remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[4]))
-                                        {
-                                            b = true;
-                                        }
-                                    }
-                                }
-                                else if (bdata.rotate.Contains(type) && type != 385 && type != 374)
-                                {
-                                    if (cur.Length == 5)
-                                    {
-                                        if (remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[4]))
-                                        {
-                                            b = true;
-                                        }
-                                    }
-                                }
-                                else if (type == 385)
-                                {
-                                    if (cur.Length == 6)
-                                    {
-                                        if (remoteFrame.BlockData3[y, x] != cur[5] || remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[4]))
-                                        {
-                                            b = true;
-                                        }
-                                    }
-                                }
-                                else if (bdata.isNPC(type))
-                                {
-                                    if (cur.Length == 8)
-                                    {
-                                        if (remoteFrame.BlockData3[y, x] != cur[5] || remoteFrame.BlockData4[y, x] != cur[6] || remoteFrame.BlockData5[y, x] != cur[7] || remoteFrame.BlockData6[y, x] != cur[8])
-                                        {
-                                            b = true;
-                                        }
-                                    }
-                                }
-                                else if (type == 374)
-                                {
-                                    if (cur.Length == 6)
-                                    {
-                                        if (remoteFrame.BlockData3[y, x] != cur[4] || remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[5]))
-                                        {
-                                            b = true;
-                                        }
-                                    }
-                                }
-                                else if (type == 83 || type == 77 || type == 1520)
-                                {
-                                    if (cur.Length == 5)
-                                    {
-                                        if (remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[4]))
-                                        {
-                                            b = true;
-                                        }
-                                    }
-                                }
-                                else if (bdata.portals.Contains(type))
-                                {
-                                    if (cur.Length == 7)
-                                    {
-                                        if (remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[4]) || remoteFrame.BlockData1[y, x] != Convert.ToInt32(cur[5]) || remoteFrame.BlockData2[y, x] != Convert.ToInt32(cur[6]))
-                                        {
-                                            b = true;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        if (at == 1)
-                        {
-                            if (remoteFrame.Background[y, x] != type)
-                            {
-                                b = true;
-                            }
-                        }
-                        if (b)
-                        {
-                            if (bdata.morphable.Contains(type) && type != 385)
-                            {
-                                param = new object[] { at, x, y, type, Convert.ToInt32(cur[4]) };
-                            }
-                            else if (bdata.goal.Contains(type))
-                            {
-                                if (cur.Length == 5)
-                                {
-                                    param = new object[] { at, x, y, type, Convert.ToInt32(cur[4]) };
-                                }
-                            }
-                            else if (bdata.rotate.Contains(type) && type != 385 && type != 374)
-                            {
-                                if (cur.Length == 5)
-                                {
-                                    param = new object[] { at, x, y, type, Convert.ToInt32(cur[4]) };
-                                }
-                            }
-                            else if (type == 385)
-                            {
-                                if (cur.Length == 6)
-                                {
-                                    param = new object[] { at, x, y, type, cur[5], Convert.ToInt32(cur[4]) };
-                                }
-                            }
-                            else if (type == 374)
-                            {
-                                if (cur.Length == 6)
-                                {
-                                    param = new object[] { at, x, y, type, cur[4], Convert.ToInt32(cur[5]) };
-                                }
-                            }
-                            else if (bdata.isNPC(type))
-                            {
-                                if (cur.Length == 8)
-                                {
-                                    param = new object[] { at, x, y, type, cur[4], cur[5], cur[6], cur[7] };
-                                }
-                            }
-                            else if (type == 77 || type == 83 || type == 1520)
-                            {
-                                if (cur.Length == 5)
-                                {
-                                    param = new object[] { at, x, y, type, int.Parse(cur[4]) };
-                                }
-                            }
-                            else if (bdata.portals.Contains(type))
-                            {
-                                if (cur.Length == 7)
-                                {
-                                    param = new object[] { at, x, y, type, Convert.ToInt32(cur[4]), Convert.ToInt32(cur[5]), Convert.ToInt32(cur[6]) };
-                                }
-                            }
-                            else
-                            {
-                                if (MainForm.userdata.level.StartsWith("OW") && MainForm.userdata.levelPass.Length > 0)
-                                {
-                                    param = new object[] { at, x, y, type };
-                                }
-                                else if (MainForm.userdata.level.StartsWith("OW") && MainForm.userdata.levelPass.Length == 0)
-                                {
-                                    if (y > 4)
-                                    {
-                                        param = new object[] { at, x, y, type };
-                                    }
-                                }
-                                else
-                                {
-                                    param = new object[] { at, x, y, type };
-                                }
-                            }
-                            if (conn == null)
-                            {
-                                OnStatusChanged("Lost connection!", DateTime.MinValue, true, Gtotal, Gcurrent);
-                                return;
-                            }
-                            maxBlocks += 1;
-                            Max1000 += 1;
-                            if (MainForm.userdata.saveWorldCrew)
-                            {
-                                if (AnimateForm.saveRights)
-                                {
-                                    if (Max1000 == 1000 && Max1000 < Gtotal)
-                                    {
-                                        conn.Send("save");
-                                        Max1000 = 0;
-                                    }
-                                }
-                            }
-                            int progress = (int)Math.Round((double)(100 * Gcurrent) / Gtotal);
-                            if (progress == 50) goto stopit;
-                            else if (progress == 90) goto stopit;
-                            if (restart) { restart = false; goto stopit; }
-
-                            if (param != null)
-                            {
-                                sendParam(conn, param);
-                                if (MainForm.userdata.BPSplacing)
-                                {
-                                    if (maxBlocks == MainForm.userdata.BPSblocks)
-                                    {
-                                        Thread.Sleep(MainForm.userdata.uploadDelay);
-                                        maxBlocks = 0;
-                                    }
-                                }
-                                else
-                                {
-                                    Thread.Sleep(MainForm.userdata.uploadDelay);
-                                }
-                            }
-
-                            if (Gcurrent1 >= firstFrame.Count)
-                            {
-                                break;
-                            }
-                            else
-                            {
-                                queue.Enqueue(cur);
-                                //if (bdata.morphable.Contains(type) || bdata.rotate.Contains(type)) Gcurrent++;
-                            }
-                            //queue.Enqueue(cur);
-                        }
-                        else
-                        {
-                            if (Gcurrent1 >= firstFrame.Count)
-                            {
-                                break;
-                            }
-                            else
-                            {
-                                queue.Enqueue(cur);
-                            }
-                            OnStatusChanged("Uploading blocks to level. (Total: " + firstFrame.Count + "/" + Gcurrent + ")", epochStartTime, false, Gtotal, Gcurrent);
-                            if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Maximum = firstFrame.Count; });
-                            TaskbarProgress.SetValue(afHandle, Gcurrent, firstFrame.Count);
-                            blocks.Clear();
-                            break;
-                        }
+                        conn.Send("save");
                     }
                 }
             }
-
-            //}
-            //if (frames.Count > 1) goto restart;
-            OnStatusChanged("Level upload complete!", DateTime.MinValue, true, firstFrame.Count, Gcurrent1);
-            Gcurrent1 = 0;
-            TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count);
-            if (MainForm.userdata.saveWorldCrew)
+            else
             {
-                if (AnimateForm.saveRights)
-                {
-                    conn.Send("save");
-                }
+
+                OnStatusChanged("Nothing to upload!", DateTime.MinValue, true, 0, 0);
             }
-            blocks.Clear();
         }
 
         static async void sendParam(Connection con, object[] param)
@@ -467,210 +218,52 @@ namespace EEditor
         {
             if (e.Type == "b")
             {
-                if (botid != (int)e.GetInt(4) && MainForm.userdata.ignoreplacing)
+                if (botid == (int)e.GetInt(4))
                 {
-                    if (e.GetInt(0) == 0)
-                    {
-                        frames[0].Foreground[e.GetInt(2), e.GetInt(1)] = e.GetInt(3);
-                        remoteFrame.Foreground[e.GetInt(2), e.GetInt(1)] = e.GetInt(3);
-                    }
-                    else
-                    {
-                        frames[0].Background[e.GetInt(2), e.GetInt(1)] = e.GetInt(3);
-                        remoteFrame.Background[e.GetInt(2), e.GetInt(1)] = e.GetInt(3);
-                        /*frames[0].Foreground[e.GetInt(2), e.GetInt(1)] = 0;
-                        remoteFrame.Foreground[e.GetInt(2), e.GetInt(1)] = 0;
-                        */
-                    }
-                    ++Gcurrent1;
-                    restart = true;
-                }
-                else
-                {
-                    int layer = e.GetInt(0), x = e.GetInt(1), y = e.GetInt(2), id = e.GetInt(3);
-                    if (layer == 0) { remoteFrame.Foreground[y, x] = id; } else { remoteFrame.Background[y, x] = id; }
-                    ++Gcurrent;
-                    ++Gcurrent1;
-                    int value = Gcurrent1;
-                    OnStatusChanged("Uploading blocks to level. (Total: " + value + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
-                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
-                }
-            }
-            else if (e.Type == "br")
-            {
-                if (botid != (int)e.GetInt(5) && MainForm.userdata.ignoreplacing)
-                {
-                    frames[0].Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    frames[0].BlockData[e.GetInt(1), e.GetInt(0)] = (int)e.GetInt(3);
-                    remoteFrame.Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    remoteFrame.BlockData[e.GetInt(1), e.GetInt(0)] = (int)e.GetInt(3);
-                    ++Gcurrent1;
-                    restart = true;
-                }
-                else
-                {
-                    int x = e.GetInt(0), y = e.GetInt(1);
-                    remoteFrame.Foreground[y, x] = e.GetInt(2);
-                    remoteFrame.BlockData[y, x] = (int)e.GetInt(3);
-                    ++Gcurrent;
-                    ++Gcurrent1;
-                    int value = Gcurrent1;
-                    OnStatusChanged("Uploading rotatable blocks to level. (Total: " + value + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
-                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
-                }
-            }
-            else if (e.Type == "wp")
-            {
-                if (botid != (int)e.GetInt(4) && MainForm.userdata.ignoreplacing)
-                {
-                    frames[0].Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    frames[0].BlockData3[e.GetInt(1), e.GetInt(0)] = e.GetString(3);
-                    remoteFrame.Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    remoteFrame.BlockData3[e.GetInt(1), e.GetInt(0)] = e.GetString(3);
-                    ++Gcurrent1;
-                    restart = true;
-                }
-                else
-                {
-                    int x = e.GetInt(0), y = e.GetInt(1);
-                    remoteFrame.Foreground[y, x] = e.GetInt(2);
-                    remoteFrame.BlockData3[y, x] = e.GetString(3);
-                    ++Gcurrent;
-                    ++Gcurrent1;
-                    int value = Gcurrent1;
-                    OnStatusChanged("Uploading world portals to level. (Total: " + value + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
-                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
-                }
-            }
-            else if (e.Type == "ts")
-            {
-                if (botid != (int)e.GetInt(5) && MainForm.userdata.ignoreplacing)
-                {
-                    frames[0].Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    frames[0].BlockData3[e.GetInt(1), e.GetInt(0)] = e.GetString(3);
-                    frames[0].BlockData[e.GetInt(1), e.GetInt(0)] = e.GetInt(4);
-                    remoteFrame.Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    remoteFrame.BlockData3[e.GetInt(1), e.GetInt(0)] = e.GetString(3);
-                    remoteFrame.BlockData[e.GetInt(1), e.GetInt(0)] = e.GetInt(4);
-                    ++Gcurrent1;
-                    restart = true;
-                }
-                else
-                {
-                    int x = e.GetInt(0), y = e.GetInt(1);
-                    remoteFrame.Foreground[y, x] = e.GetInt(2);
-                    remoteFrame.BlockData3[y, x] = e.GetString(3);
-                    remoteFrame.BlockData[y, x] = e.GetInt(4);
-                    ++Gcurrent;
-                    ++Gcurrent1;
-                    int value = Gcurrent1;
-                    OnStatusChanged("Uploading signs to level. (Total: " + value + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
-                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
-                }
-            }
-            else if (e.Type == "bn")
-            {
-                if (botid != (int)e.GetInt(7) && MainForm.userdata.ignoreplacing)
-                {
-                    frames[0].Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    remoteFrame.Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    remoteFrame.BlockData3[e.GetInt(1), e.GetInt(0)] = e.GetString(3);
-                    remoteFrame.BlockData4[e.GetInt(1), e.GetInt(0)] = e.GetString(4);
-                    remoteFrame.BlockData5[e.GetInt(1), e.GetInt(0)] = e.GetString(5);
-                    remoteFrame.BlockData6[e.GetInt(1), e.GetInt(0)] = e.GetString(6);
-                    ++Gcurrent1;
-                    restart = true;
-                }
-                else
-                {
-                    int x = e.GetInt(0), y = e.GetInt(1);
-                    remoteFrame.Foreground[y, x] = e.GetInt(2);
-                    remoteFrame.BlockData3[y, x] = e.GetString(3);
-                    remoteFrame.BlockData4[y, x] = e.GetString(4);
-                    remoteFrame.BlockData5[y, x] = e.GetString(5);
-                    remoteFrame.BlockData6[y, x] = e.GetString(6);
-                    ++Gcurrent;
-                    ++Gcurrent1;
-                    int value = Gcurrent1;
-                    OnStatusChanged("Uploading numbered action blocks to level. (Total: " + value + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
-                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
+                    placedBlocks.Add(new blocks() { layer = e.GetInt(0), x = e.GetInt(1), y = e.GetInt(2), bid = e.GetInt(3), data = new object[] { null } });
                 }
             }
             else if (e.Type == "bc")
             {
-                if (botid != (int)e.GetInt(4) && MainForm.userdata.ignoreplacing)
+                if (botid == (int)e.GetInt(4))
                 {
-                    frames[0].Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    frames[0].BlockData[e.GetInt(1), e.GetInt(0)] = e.GetInt(3);
-                    remoteFrame.Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    remoteFrame.BlockData[e.GetInt(1), e.GetInt(0)] = e.GetInt(3);
-                    ++Gcurrent1;
-                    restart = true;
+                    placedBlocks.Add(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetInt(3) } });
                 }
-                else
+            }
+            else if (e.Type == "wp")
+            {
+                if (botid == (int)e.GetInt(5))
                 {
-                    int x = e.GetInt(0), y = e.GetInt(1);
-                    remoteFrame.Foreground[y, x] = e.GetInt(2);
-                    remoteFrame.BlockData[y, x] = e.GetInt(3);
-                    ++Gcurrent;
-                    ++Gcurrent1;
-                    int value = Gcurrent1;
-                    OnStatusChanged("Uploading numbered action blocks to level. (Total: " + value + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
-                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
+                    placedBlocks.Add(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetString(3), e.GetInt(4) } });
+                }
+
+            }
+            else if (e.Type == "ts")
+            {
+                if (botid == (int)e.GetInt(5))
+                {
+                    placedBlocks.Add(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetString(3), e.GetInt(4), } });
+                }
+            }
+            else if (e.Type == "bn")
+            {
+                if (botid == (int)e.GetInt(7))
+                {
+                    placedBlocks.Add(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetString(3), e.GetString(4), e.GetString(5), e.GetString(6) } });
                 }
             }
             else if (e.Type == "pt")
             {
-                if (botid != (int)e.GetInt(6) && MainForm.userdata.ignoreplacing)
+                if (botid == (int)e.GetInt(6))
                 {
-                    frames[0].Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    frames[0].BlockData[e.GetInt(1), e.GetInt(0)] = e.GetInt(3);
-                    frames[0].BlockData1[e.GetInt(1), e.GetInt(0)] = e.GetInt(4);
-                    frames[0].BlockData2[e.GetInt(1), e.GetInt(0)] = e.GetInt(5);
-                    remoteFrame.Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    remoteFrame.BlockData[e.GetInt(1), e.GetInt(0)] = e.GetInt(3);
-                    remoteFrame.BlockData1[e.GetInt(1), e.GetInt(0)] = e.GetInt(4);
-                    remoteFrame.BlockData2[e.GetInt(1), e.GetInt(0)] = e.GetInt(5);
-                    ++Gcurrent1;
-                    restart = true;
-                }
-                else
-                {
-                    int x = e.GetInt(0);
-                    int y = e.GetInt(1);
-                    remoteFrame.Foreground[y, x] = e.GetInt(2);
-                    remoteFrame.BlockData[y, x] = e.GetInt(3);
-                    remoteFrame.BlockData1[y, x] = e.GetInt(4);
-                    remoteFrame.BlockData2[y, x] = e.GetInt(5);
-                    ++Gcurrent;
-                    ++Gcurrent1;
-                    int value = Gcurrent1;
-                    OnStatusChanged("Uploading portals to level. (Total: " + value + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
-                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
+                    placedBlocks.Add(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetInt(3), e.GetInt(4), e.GetInt(5) } });
                 }
             }
             else if (e.Type == "bs")
             {
-                if (botid != (int)e.GetInt(4) && MainForm.userdata.ignoreplacing)
+                if (botid == (int)e.GetInt(4))
                 {
-                    frames[0].Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    frames[0].BlockData[e.GetInt(1), e.GetInt(0)] = e.GetInt(3);
-                    remoteFrame.Foreground[e.GetInt(1), e.GetInt(0)] = e.GetInt(2);
-                    remoteFrame.BlockData[e.GetInt(1), e.GetInt(0)] = e.GetInt(3);
-                    ++Gcurrent1;
-                    restart = true;
-                }
-                else
-                {
-                    int x = e.GetInt(0);
-                    int y = e.GetInt(1);
-                    remoteFrame.Foreground[y, x] = e.GetInt(2);
-                    remoteFrame.BlockData[y, x] = e.GetInt(3);
-                    ++Gcurrent;
-                    ++Gcurrent1;
-                    int value = Gcurrent1;
-                    OnStatusChanged("Uploading noteblocks to level. (Total: " + value + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
-                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
+                    placedBlocks.Add(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetInt(3) } });
                 }
             }
             else if (e.Type == "access")
@@ -685,10 +278,10 @@ namespace EEditor
                 AnimateForm.saveRights = false;
                 AnimateForm.crewEdit = false;
                 AnimateForm.crewWorld = false;
-                if (e[25].GetType() == typeof(String) && e[15].GetType() == typeof(Boolean)) { if (e.GetString(25).Contains(bdata.tostring("bm9ib3Q=",false)) && !e.GetBoolean(15)) { OnStatusChanged(string.Empty, DateTime.MinValue, true, Gtotal, Gcurrent); return; } }
+                if (e[25].GetType() == typeof(String) && e[15].GetType() == typeof(Boolean)) { if (e.GetString(25).Contains(bdata.tostring("bm9ib3Q=", false)) && !e.GetBoolean(15)) { OnStatusChanged(string.Empty, DateTime.MinValue, true, 0, 0); return; } }
                 remoteFrame = Frame.FromMessage(e);
                 conn.Send("init2");
-                OnStatusChanged("Connected to the world.", DateTime.MinValue, false, Gtotal, Gcurrent);
+                OnStatusChanged("Connected to the world.", DateTime.MinValue, false, 0, 0);
                 if (frames[0].Width <= remoteFrame.Width && frames[0].Height <= remoteFrame.Height)
                 {
                 }
@@ -698,7 +291,7 @@ namespace EEditor
                     ModifyProgressBarColor.SetState(pb, 2);
                     TaskbarProgress.SetValue(afHandle, Gcurrent, Gtotal);
                     TaskbarProgress.SetState(afHandle, TaskbarProgress.TaskbarStates.Error);
-                    OnStatusChanged("Wrong level size. Please create a level with the size of " + remoteFrame.Width + "x" + remoteFrame.Height + ".", DateTime.MinValue, true, Gtotal, Gcurrent);
+                    OnStatusChanged("Wrong level size. Please create a level with the size of " + remoteFrame.Width + "x" + remoteFrame.Height + ".", DateTime.MinValue, true, 0, 0);
                     return;
                 }
                 if (e.GetBoolean(34))
@@ -731,7 +324,7 @@ namespace EEditor
                     }
                     else
                     {
-                        OnStatusChanged("Crew: You doesn't have edit rights in this world", DateTime.MinValue, true, Gtotal, Gcurrent);
+                        OnStatusChanged("Crew: You doesn't have edit rights in this world", DateTime.MinValue, true, 0, 0);
                         return;
                     }
                 }
@@ -749,7 +342,7 @@ namespace EEditor
                         {
                             MainForm.OpenWorld = false;
                             MainForm.OpenWorldCode = false;
-                            OnStatusChanged("You need a password for this world", DateTime.MinValue, true, Gtotal, Gcurrent);
+                            OnStatusChanged("You need a password for this world", DateTime.MinValue, true, 0, 0);
                             return;
                         }
                     }
@@ -760,13 +353,13 @@ namespace EEditor
                             MainForm.OpenWorld = true;
                             MainForm.OpenWorldCode = true;
                             conn.Send("access", levelPassword);
-                            passTimer = new System.Threading.Timer(x => OnStatusChanged("Wrong level code. Please enter the right one and retry.", DateTime.MinValue, true, Gtotal, Gcurrent), null, 5000, Timeout.Infinite);
+                            passTimer = new System.Threading.Timer(x => OnStatusChanged("Wrong level code. Please enter the right one and retry.", DateTime.MinValue, true, 0, 0), null, 5000, Timeout.Infinite);
                         }
                         else
                         {
                             MainForm.OpenWorld = true;
                             MainForm.OpenWorldCode = false;
-                            OnStatusChanged("This world isn't password protected", DateTime.MinValue, true, Gtotal, Gcurrent);
+                            OnStatusChanged("This world isn't password protected", DateTime.MinValue, true, 0, 0);
                             return;
                         }
                     }
@@ -774,7 +367,7 @@ namespace EEditor
                     {
                         if (MainForm.userdata.saveWorldCrew)
                         {
-                            OnStatusChanged("You are not the owner of this world. You can't save.", DateTime.MinValue, true, Gtotal, Gcurrent);
+                            OnStatusChanged("You are not the owner of this world. You can't save.", DateTime.MinValue, true, 0, 0);
                             return;
                         }
                         else
@@ -786,7 +379,7 @@ namespace EEditor
                                 TaskbarProgress.SetValue(afHandle, Gcurrent, Gtotal);
                                 TaskbarProgress.SetState(afHandle, TaskbarProgress.TaskbarStates.Paused);
                                 conn.Send("access", levelPassword);
-                                passTimer = new System.Threading.Timer(x => OnStatusChanged("Wrong level code. Please enter the right one and retry.", DateTime.MinValue, true, Gtotal, Gcurrent), null, 5000, Timeout.Infinite);
+                                passTimer = new System.Threading.Timer(x => OnStatusChanged("Wrong level code. Please enter the right one and retry.", DateTime.MinValue, true, 0, 0), null, 5000, Timeout.Infinite);
                             }
                             else if (e.GetBoolean(14))
                             {
@@ -795,7 +388,7 @@ namespace EEditor
                             }
                             else
                             {
-                                passTimer = new System.Threading.Timer(x => OnStatusChanged("Didn't get edit. Timer stopped.", DateTime.MinValue, true, Gtotal, Gcurrent), null, 20000, Timeout.Infinite);
+                                passTimer = new System.Threading.Timer(x => OnStatusChanged("Didn't get edit. Timer stopped.", DateTime.MinValue, true, 0, 0), null, 20000, Timeout.Infinite);
                             }
                         }
                     }
@@ -831,13 +424,13 @@ namespace EEditor
                         switch (e[0].ToString())
                         {
                             case "Limit reached":
-                                OnStatusChanged("Limit Reached.", DateTime.MinValue, true, Gtotal, Gcurrent);
+                                OnStatusChanged("Limit Reached.", DateTime.MinValue, true, 0, 0);
                                 break;
                             case "World not available":
-                                OnStatusChanged("World is not availabe.", DateTime.MinValue, true, Gtotal, Gcurrent);
+                                OnStatusChanged("World is not availabe.", DateTime.MinValue, true, 0, 0);
                                 break;
                             case "You are banned":
-                                OnStatusChanged("You have been kicked.", DateTime.MinValue, true, Gtotal, Gcurrent);
+                                OnStatusChanged("You have been kicked.", DateTime.MinValue, true, 0, 0);
                                 break;
                             default:
                                 Console.WriteLine(e.ToString());
@@ -852,5 +445,23 @@ namespace EEditor
     public static class upl
     {
         public static object[] blockdata { get; set; }
+    }
+    public class blocks : IEquatable<blocks>
+    {
+        public int layer { get; set; }
+        public int x { get; set; }
+        public int y { get; set; }
+        public int bid { get; set; }
+        public object[] data { get; set; }
+
+        public bool Equals(blocks other)
+        {
+            // Would still want to check for null etc. first.
+            return this.layer == other.layer &&
+                   this.x == other.x &&
+                   this.y == other.y &&
+                   this.bid == other.bid &&
+                   this.data == other.data;
+        }
     }
 }
