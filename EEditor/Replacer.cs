@@ -189,7 +189,7 @@ namespace EEditor
                 {
                     Bitmap img1 = MainForm.foregroundBMD.Clone(new Rectangle(MainForm.foregroundBMI[Convert.ToInt32(numericUpDown1.Value)] * 16, 0, 16, 16), MainForm.foregroundBMD.PixelFormat);
                     FindPictureBox.Image = img1;
-                    numericUpDown1.ForeColor = SystemColors.ControlText;
+                    numericUpDown1.ForeColor = MainForm.themecolors.foreground;
                     button4.Enabled = true;
                     button3.Enabled = true;
                     findRotate.Value = 1;
@@ -210,7 +210,7 @@ namespace EEditor
                 {
                     Bitmap img7 = MainForm.backgroundBMD.Clone(new Rectangle(MainForm.backgroundBMI[Convert.ToInt32(numericUpDown1.Value)] * 16, 0, 16, 16), MainForm.backgroundBMD.PixelFormat);
                     FindPictureBox.Image = img7;
-                    numericUpDown1.ForeColor = SystemColors.ControlText;
+                    numericUpDown1.ForeColor = MainForm.themecolors.foreground;
                     button4.Enabled = true;
                     button3.Enabled = true;
                 }
@@ -242,7 +242,7 @@ namespace EEditor
                     {
                         Bitmap img1 = MainForm.decosBMD.Clone(new Rectangle(MainForm.decosBMI[Convert.ToInt32(numericUpDown2.Value)] * 16, 0, 16, 16), MainForm.decosBMD.PixelFormat);
                         ReplacePictureBox.Image = img1;
-                        numericUpDown2.ForeColor = SystemColors.ControlText;
+                        numericUpDown2.ForeColor = MainForm.themecolors.foreground;
                         label4.Text = null;
                         button5.Enabled = true;
                         button1.Enabled = true;
@@ -265,7 +265,7 @@ namespace EEditor
                     {
                         Bitmap img1 = MainForm.miscBMD.Clone(new Rectangle(MainForm.miscBMI[Convert.ToInt32(numericUpDown2.Value)] * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
                         ReplacePictureBox.Image = img1;
-                        numericUpDown2.ForeColor = SystemColors.ControlText;
+                        numericUpDown2.ForeColor = MainForm.themecolors.foreground;
                         label4.Text = null;
                         button5.Enabled = true;
                         button1.Enabled = true;
@@ -287,7 +287,7 @@ namespace EEditor
                     {
                         Bitmap img1 = MainForm.foregroundBMD.Clone(new Rectangle(MainForm.foregroundBMI[Convert.ToInt32(numericUpDown2.Value)] * 16, 0, 16, 16), MainForm.foregroundBMD.PixelFormat);
                         ReplacePictureBox.Image = img1;
-                        numericUpDown2.ForeColor = SystemColors.ControlText;
+                        numericUpDown2.ForeColor = MainForm.themecolors.foreground;
                         label4.Text = null;
                         button5.Enabled = true;
                         button1.Enabled = true;
@@ -311,7 +311,7 @@ namespace EEditor
                 {
                     Bitmap img6 = MainForm.backgroundBMD.Clone(new Rectangle(MainForm.backgroundBMI[Convert.ToInt32(numericUpDown2.Value)] * 16, 0, 16, 16), MainForm.backgroundBMD.PixelFormat);
                     ReplacePictureBox.Image = img6;
-                    numericUpDown2.ForeColor = SystemColors.ControlText;
+                    numericUpDown2.ForeColor = MainForm.themecolors.foreground;
                     label4.Text = null;
                     button5.Enabled = true;
                     button1.Enabled = true;
@@ -345,7 +345,7 @@ namespace EEditor
                         button5.Enabled = true;
                         button1.Enabled = true;
                         label4.Text = null;
-                        numericUpDown2.ForeColor = SystemColors.ControlText;
+                        numericUpDown2.ForeColor = MainForm.themecolors.foreground;
                     }
                     else
                     {
@@ -365,7 +365,7 @@ namespace EEditor
                         button5.Enabled = true;
                         button1.Enabled = true;
                         label4.Text = null;
-                        numericUpDown2.ForeColor = SystemColors.ControlText;
+                        numericUpDown2.ForeColor = MainForm.themecolors.foreground;
                     }
                     else
                     {
@@ -385,7 +385,7 @@ namespace EEditor
                         button5.Enabled = true;
                         button1.Enabled = true;
                         label4.Text = null;
-                        numericUpDown2.ForeColor = SystemColors.ControlText;
+                        numericUpDown2.ForeColor = MainForm.themecolors.foreground;
                     }
                     else
                     {
@@ -406,7 +406,7 @@ namespace EEditor
                     button5.Enabled = true;
                     button1.Enabled = true;
                     label4.Text = null;
-                    numericUpDown2.ForeColor = SystemColors.ControlText;
+                    numericUpDown2.ForeColor = MainForm.themecolors.foreground;
                 }
                 else
                 {
@@ -443,7 +443,7 @@ namespace EEditor
                 {
                     Bitmap img1 = MainForm.foregroundBMD.Clone(new Rectangle(MainForm.foregroundBMI[Convert.ToInt32(numericUpDown1.Value)] * 16, 0, 16, 16), MainForm.foregroundBMD.PixelFormat);
                     FindPictureBox.Image = img1;
-                    numericUpDown1.ForeColor = SystemColors.ControlText;
+                    numericUpDown1.ForeColor = MainForm.themecolors.foreground;
                 }
                 else
                 {
