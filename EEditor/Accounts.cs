@@ -112,7 +112,6 @@ namespace EEditor
             tp.SetToolTip(accKongregate, "Use Kongregate Account");
             tp.SetToolTip(accArmorGames, "Use ArmorGames Account");
             tp.SetToolTip(accFacebook, "Use Facebook Account");
-            tp.Dispose();
             #endregion
         }
 
@@ -132,7 +131,7 @@ namespace EEditor
         #region RTF tutorial
         //Everybody Edits rtf line
         private string everybodyEditsRTF = @"{\rtf1\pc Use the e-mail and password you signed up with.";
-
+        private string everybodyEditsRTF2 = @"{\rtf1\pc Use the e-mail and password you got when transfered your account from facebook or armorgames.";
         //Kongregate rtf line
         private string kongregateRTF = @"{\rtf1\pc 1. Go to http://pastebin.com/raw/SMFAdPH9 and drag the text to bookmarks bar\par
 2. Go to Everybody Edits in Kongregate and click the bookmark\par
@@ -178,7 +177,7 @@ namespace EEditor
                 loginField2.Width = 125;
                 loginField2.Location = new Point(69, 219);
 
-                instructionsField.Rtf = everybodyEditsRTF;
+                instructionsField.Rtf = everybodyEditsRTF2;
             }
             /* Facebook disabled
              * else if (value.Text == "Facebook")
