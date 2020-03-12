@@ -137,5 +137,13 @@ namespace EEditor
             }
         }
 
+        private void DownloadButton_Click(object sender, EventArgs e)
+        {
+            var file = $"{Directory.GetCurrentDirectory()}\\EEditorUpdater.exe";
+            if (File.Exists(file))
+            {
+                Process.Start(file);
+            }
+        }
     }
 }
