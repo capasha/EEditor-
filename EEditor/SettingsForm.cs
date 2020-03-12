@@ -28,15 +28,18 @@ namespace EEditor
 
             #region Setting checkboxes
             ToolTip tp = new ToolTip();
-            tp.SetToolTip(usePenToolCheckBox, "Enables draw tool after switching blocks.");
+            tp.SetToolTip(usePenToolCheckBox, "Enables Pen tool after switching blocks.");
             tp.SetToolTip(selectAllBorderCheckBox, "Includes bordering blocks when selecting the whole world by hotkey Ctrl+A.");
             tp.SetToolTip(confirmCloseCheckBox, "Prompts when you attempt to close EEditor.");
             tp.SetToolTip(FasterShapeStyleCheckBox, "Showing red lines instead of blocks.");
-
+            tp.SetToolTip(UpdateCheckCheckBox, "Check for new updates.");
+            tp.SetToolTip(OldMarkCheckBox, "Using old selection tool.");
             usePenToolCheckBox.Checked = MainForm.userdata.usePenTool;
             selectAllBorderCheckBox.Checked = MainForm.userdata.selectAllBorder;
             confirmCloseCheckBox.Checked = MainForm.userdata.confirmClose;
             FasterShapeStyleCheckBox.Checked = MainForm.userdata.fastshape;
+            UpdateCheckCheckBox.Checked = MainForm.userdata.checkUpdate;
+            OldMarkCheckBox.Checked = MainForm.userdata.oldmark;
             #endregion
 
             clearComboBox.SelectedIndex = 0; //Show "Clear settings..." by default
@@ -87,7 +90,23 @@ namespace EEditor
         {
             MainForm.userdata.confirmClose = confirmCloseCheckBox.Checked;
         }
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!formload)
+            {
+                MainForm.editArea.MainForm.rebuildGUI(false);
+            }
+        }
 
+        private void UpdateCheckCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            MainForm.userdata.checkUpdate = UpdateCheckCheckBox.Checked;
+        }
+
+        private void OldMarkCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            MainForm.userdata.oldmark = OldMarkCheckBox.Checked;
+        }
         #endregion
 
         #region Clear settings
@@ -185,12 +204,14 @@ namespace EEditor
                         IgnoreBlocks = new List<JToken>(),
                         fastshape = true,
                         replaceit = false,
+                        oldmark = true,
+                        checkUpdate = true
 
                     };
                     MainForm.OpenWorld = false;
                     MainForm.userdata.useColor = false;
                     MainForm.userdata.thisColor = Color.Transparent;
-                    MainForm.editArea.MainForm.updateImageColor();
+                    MainForm.editArea.MainForm.updateTheme();
                     Clipboard.Clear();
                     ToolPen.rotation.Clear();
                     ToolPen.id.Clear();
@@ -221,12 +242,6 @@ namespace EEditor
             this.DialogResult = DialogResult.OK;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!formload)
-            {
-                MainForm.editArea.MainForm.rebuildGUI(false);
-            }
-        }
+
     }
 }
