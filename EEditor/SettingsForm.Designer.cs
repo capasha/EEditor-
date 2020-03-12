@@ -39,6 +39,8 @@
             this.StatusTextToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusColorToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.UpdateCheckCheckBox = new System.Windows.Forms.CheckBox();
+            this.OldMarkCheckBox = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,9 +50,9 @@
             this.usePenToolCheckBox.Location = new System.Drawing.Point(11, 15);
             this.usePenToolCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.usePenToolCheckBox.Name = "usePenToolCheckBox";
-            this.usePenToolCheckBox.Size = new System.Drawing.Size(157, 17);
+            this.usePenToolCheckBox.Size = new System.Drawing.Size(184, 17);
             this.usePenToolCheckBox.TabIndex = 8;
-            this.usePenToolCheckBox.Text = "Draw tool after block switch";
+            this.usePenToolCheckBox.Text = "Select Pen tool after block switch";
             this.usePenToolCheckBox.UseVisualStyleBackColor = true;
             this.usePenToolCheckBox.CheckedChanged += new System.EventHandler(this.usePenToolCheckBox_CheckedChanged);
             // 
@@ -77,7 +79,7 @@
             "",
             "Old EEditor settings & logins",
             "Current EEditor settings"});
-            this.clearComboBox.Location = new System.Drawing.Point(11, 117);
+            this.clearComboBox.Location = new System.Drawing.Point(11, 149);
             this.clearComboBox.Name = "clearComboBox";
             this.clearComboBox.Size = new System.Drawing.Size(139, 21);
             this.clearComboBox.TabIndex = 27;
@@ -86,7 +88,7 @@
             // clearButton
             // 
             this.clearButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.clearButton.Location = new System.Drawing.Point(156, 117);
+            this.clearButton.Location = new System.Drawing.Point(156, 149);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(49, 23);
             this.clearButton.TabIndex = 28;
@@ -110,7 +112,7 @@
             // 
             this.FasterShapeStyleCheckBox.AutoSize = true;
             this.FasterShapeStyleCheckBox.Enabled = false;
-            this.FasterShapeStyleCheckBox.Location = new System.Drawing.Point(11, 79);
+            this.FasterShapeStyleCheckBox.Location = new System.Drawing.Point(11, 126);
             this.FasterShapeStyleCheckBox.Name = "FasterShapeStyleCheckBox";
             this.FasterShapeStyleCheckBox.Size = new System.Drawing.Size(111, 17);
             this.FasterShapeStyleCheckBox.TabIndex = 30;
@@ -125,7 +127,7 @@
             this.StatusTextToolStripStatusLabel,
             this.StatusToolStripStatusLabel,
             this.StatusColorToolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 145);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 187);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(228, 22);
             this.statusStrip1.TabIndex = 31;
@@ -151,11 +153,39 @@
             this.StatusColorToolStripStatusLabel.Name = "StatusColorToolStripStatusLabel";
             this.StatusColorToolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
+            // UpdateCheckCheckBox
+            // 
+            this.UpdateCheckCheckBox.AutoSize = true;
+            this.UpdateCheckCheckBox.Checked = true;
+            this.UpdateCheckCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.UpdateCheckCheckBox.Location = new System.Drawing.Point(11, 79);
+            this.UpdateCheckCheckBox.Name = "UpdateCheckCheckBox";
+            this.UpdateCheckCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.UpdateCheckCheckBox.TabIndex = 32;
+            this.UpdateCheckCheckBox.Text = "Check for updates";
+            this.UpdateCheckCheckBox.UseVisualStyleBackColor = true;
+            this.UpdateCheckCheckBox.CheckedChanged += new System.EventHandler(this.UpdateCheckCheckBox_CheckedChanged);
+            // 
+            // OldMarkCheckBox
+            // 
+            this.OldMarkCheckBox.AutoSize = true;
+            this.OldMarkCheckBox.Checked = true;
+            this.OldMarkCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.OldMarkCheckBox.Location = new System.Drawing.Point(11, 102);
+            this.OldMarkCheckBox.Name = "OldMarkCheckBox";
+            this.OldMarkCheckBox.Size = new System.Drawing.Size(109, 17);
+            this.OldMarkCheckBox.TabIndex = 33;
+            this.OldMarkCheckBox.Text = "Old selection way";
+            this.OldMarkCheckBox.UseVisualStyleBackColor = true;
+            this.OldMarkCheckBox.CheckedChanged += new System.EventHandler(this.OldMarkCheckBox_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(228, 167);
+            this.ClientSize = new System.Drawing.Size(228, 209);
+            this.Controls.Add(this.OldMarkCheckBox);
+            this.Controls.Add(this.UpdateCheckCheckBox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.FasterShapeStyleCheckBox);
             this.Controls.Add(this.usePenToolCheckBox);
@@ -188,5 +218,7 @@
         private System.Windows.Forms.ToolStripStatusLabel StatusToolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel StatusColorToolStripStatusLabel;
         private System.Windows.Forms.CheckBox FasterShapeStyleCheckBox;
+        private System.Windows.Forms.CheckBox UpdateCheckCheckBox;
+        private System.Windows.Forms.CheckBox OldMarkCheckBox;
     }
 }
