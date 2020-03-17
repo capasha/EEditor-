@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EEditorDownloader")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("EEditor Updater")]
+[assembly: AssemblyDescription("EEditor downloading tool")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EEditorDownloader")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCompany("EEditor Authors")]
+[assembly: AssemblyProduct("EEditorUpdater")]
+[assembly: AssemblyCopyright("Copyright © EEditor Authors")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("44b548eb-e680-463e-9cfb-04c84751d0a4")]
+[assembly: Guid("59a8ec42-6ba9-408c-a570-654b2d97f64e")]
 
 // Version information for an assembly consists of the following four values:
 //

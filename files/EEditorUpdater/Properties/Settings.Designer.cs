@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EEditorDownloader.Properties
+namespace EEditorUpdater.Properties
 {
 
 
