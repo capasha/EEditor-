@@ -574,11 +574,13 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
             else if (fid == 0)
             {
             }
-            if (bdata.goal.Contains(fid) && fid != 423 && fid != 417 && fid != 418 && fid != 419 && fid != 420 && fid != 421 && fid != 422 && fid != 453 && fid != 1027 && fid != 1028)
+            if (bdata.goal.Contains(fid) && fid != 423 && fid != 417 && fid != 418 && fid != 419 && fid != 420 && fid != 421 && fid != 422 && fid != 453 && fid != 1027 && fid != 1028 && fid != 1582)
             {
+                
                 int offSet = coins >= 10 ? 4 : 9;
-                if (fid == 467 || fid == 1079 || fid == 1080 || fid == 1012 || fid == 214 || fid == 165 || fid == 113 || fid == 184 || fid == 185 || fid == 213 || fid == 461 || fid == 1619 || fid == 1620)
+                if (fid == 467 || fid == 1079 || fid == 1080 || fid == 1012 || fid == 113 || fid == 184 || fid == 185 || fid == 461 || fid == 1619 || fid == 1620)
                 {
+                    
                     if (fid == 461 && coins == 0 || coins > 1 && coins <= 999)
                     {
                         DrawText(coins.ToString(), Back, Brushes.White, bfont.Families[0], 8, "bottom", "right", x * 16, y * 16, false);
@@ -603,12 +605,32 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                             DrawText("999", Back, Brushes.White, bfont.Families[0], 8, "bottom", "right", x * 16, y * 16, false);
                         }
                     }
+
                     //g.DrawString(coins.ToString(), new Font("Courier", 6), Brushes.White, new PointF(x * 16 + offSet, y * 16 + 8));
+                }
+
+                else if (fid == 165 || fid == 43 || fid == 213 || fid == 214)
+                {
+                    if (coins <= 999)
+                    {
+                        DrawText(coins.ToString(), Back, fid == 43 ? Brushes.Black:Brushes.White, bfont.Families[0], 8, "bottom", "right", x * 16, y * 16, false);
+                    }
+                    else
+                    {
+                        DrawText("999", Back, fid == 43 ? Brushes.Black : Brushes.White, bfont.Families[0], 8, "bottom", "right", x * 16, y * 16, false);
+                    }
                 }
                 else if (fid != 77 && fid != 83 && fid != 1520)
                 {
                     //Console.WriteLine(bfont.Families[0]);
-                    DrawText(coins.ToString(), Back, Brushes.Black, bfont.Families[0], 8, "bottom", "right", x * 16, y * 16, false);
+                    if (coins <= 999)
+                    {
+                        DrawText(coins.ToString(), Back, Brushes.Black, bfont.Families[0], 8, "bottom", "right", x * 16, y * 16, false);
+                    }
+                    else
+                    {
+                        DrawText("999", Back,Brushes.Black, bfont.Families[0], 8, "bottom", "right", x * 16, y * 16, false);
+                    }
                 }
             }
             else
