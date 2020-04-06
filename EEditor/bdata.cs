@@ -11,8 +11,9 @@ namespace EEditor
         public static string gameID = "everybody-edits-su9rn58o40itdbnw69plyw";
         public static int[] goal = { 77, 83, 43, 165, 213, 214, 417, 418, 419, 420, 421, 422, 423, 1027, 1028, 113, 185, 184, 1011, 1012, 453, 461, 467, 1079, 1080, 1520,1582,1619,1620 };
         //public static int[] effects = { 417, 418, 419, 420, 421, 422, 453 };
-        public static int[] rotate = { 1001, 1002, 1003, 1004, 1027, 1028, 361, 385, 374, 1052, 1053, 1054, 1055, 1056, 1092};
-        public static int[] ignore = { 1001, 1002, 1003, 1004, 361, 417, 418, 419, 420, 1052, 1053, 1054, 1055, 1056, 1092 };
+        //spikes
+        public static int[] rotate = { 1001, 1002, 1003, 1004, 1027, 1028, 361, 385, 374, 1052, 1053, 1054, 1055, 1056, 1092, 1625, 1627, 1629, 1631, 1633, 1635 };
+        public static int[] ignore = { 1001, 1002, 1003, 1004, 361, 417, 418, 419, 420, 1052, 1053, 1054, 1055, 1056, 1092, 1625, 1627, 1629, 1631, 1633, 1635 };
         public static int[] morphable = {
             375, 376, 379, 380, 377, 378, 438, 439, 276, 277, 279, 280, 440, 275,
             329, 273, 328, 327, 338, 339, 340, 1041, 1042, 1043, 456, 457, 458, 447, 448, 449, 450, 451, 452,
@@ -23,11 +24,12 @@ namespace EEditor
 
         public static int[] sound = { 77, 83, 1520 };
         //ToolPen (Increase up to 1, 2, 3, 5)
+        //spikes
         public static int[] increase3 = {
             1001, 1002, 1003, 1004, 361, 375, 376, 377, 378, 379, 380, 438, 439, 275,
             329, 273, 328, 327, 338, 339, 340, 1041, 1042, 1043, 447, 448, 449, 450, 451, 452, 1052, 1053, 1054, 1055,
             1056, 1075, 1076, 1077, 1078, 1092, 492, 493, 494, 499, 1502, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123,
-            1124, 1125, 1537,1140,1141,1155,1160,1592,1593,1594,1595,1596,1597,1605,1607,1609,1610,1612,1614,1615,1616,1617};
+            1124, 1125, 1537,1140,1141,1155,1160,1592,1593,1594,1595,1596,1597,1605,1607,1609,1610,1612,1614,1615,1616,1617,1625,1627,1629,1631,1633,1635};
         public static int[] increase2 = { 417, 276, 277, 279, 280, 471, 475, 476, 477, 483, 1134, 419 };
         public static int[] increase1 = { 418, 420, 453, 456, 457, 458, 1135, 1536,1535, 1500,1587, 1606,1611 };
         public static int[] increase4 = { 1507, 1506, 464, 465,1588,1517 };
@@ -42,7 +44,7 @@ namespace EEditor
         }
         public static bool isNPC(int id)
         {
-            if (id >= 1550 && id <= 1559 || id >= 1569 && id <= 1578) return true;
+            if (id >= 1550 && id <= 1559 || id >= 1569 && id <= 1579) return true;
             else return false;
         }
         public static bool ParamNumbers(PlayerIOClient.Message m, int message, string type)
@@ -87,7 +89,18 @@ namespace EEditor
                     Bitmap bmp2 = MainForm.foregroundBMD.Clone(new Rectangle(MainForm.foregroundBMI[fid] * 16, 0, 16, 16), MainForm.foregroundBMD.PixelFormat);
                     return bmp2;
                 }
-                else if (fid == 276 || fid == 277 || fid == 279 || fid == 280 || fid == 338 || fid == 339 || fid == 340 || fid == 1041 || fid == 1042 || fid == 1043 || fid == 456 || fid == 457 || fid == 458 || fid == 447 || fid == 448 || fid == 449 || fid == 450 || fid == 451 || fid == 452 || fid >= 1075 && fid <= 1078 || fid == 471 || fid == 475 || fid == 476 || fid == 477 || fid == 497 || fid == 492 || fid == 493 || fid == 494 || fid == 499 || fid == 1500 || fid == 1502 || fid == 1506 || fid == 1507 || fid == 1517 || fid >= 1116 && fid <= 1125 || fid == 1135 || fid == 1134 || fid == 1538 || fid == 1536 || fid == 1537 || fid == 1140 || fid == 1141 || fid == 1535 || fid == 1581 || fid == 1587 || fid == 1588 || fid == 1155 || fid == 1160 || fid == 1592 || fid == 1593 || fid == 1594 || fid == 1595 || fid == 1596 || fid == 1597 || fid == 1584 || fid == 1605 || fid == 1606 || fid == 1607 || fid == 1609 || fid == 1610 || fid == 1611 || fid == 1612 || fid == 1614 || fid == 1615 || fid == 1616 || fid == 1617)
+                else if (fid == 276 || fid == 277 || fid == 279 || fid == 280 || fid == 338 || 
+                    fid == 339 || fid == 340 || fid == 1041 || fid == 1042 || fid == 1043 || 
+                    fid == 456 || fid == 457 || fid == 458 || fid == 447 || fid == 448 || 
+                    fid == 449 || fid == 450 || fid == 451 || fid == 452 || fid >= 1075 && fid <= 1078 || 
+                    fid == 471 || fid == 475 || fid == 476 || fid == 477 || fid == 497 || fid == 492 || 
+                    fid == 493 || fid == 494 || fid == 499 || fid == 1500 || fid == 1502 || fid == 1506 || 
+                    fid == 1507 || fid == 1517 || fid >= 1116 && fid <= 1125 || fid == 1135 || fid == 1134 
+                    || fid == 1538 || fid == 1536 || fid == 1537 || fid == 1140 || fid == 1141 || fid == 1535 
+                    || fid == 1581 || fid == 1587 || fid == 1588 || fid == 1155 || fid == 1160 || fid == 1592 
+                    || fid == 1593 || fid == 1594 || fid == 1595 || fid == 1596 || fid == 1597 || fid == 1584 
+                    || fid == 1605 || fid == 1606 || fid == 1607 || fid == 1609 || fid == 1610 || fid == 1611 
+                    || fid == 1612 || fid == 1614 || fid == 1615 || fid == 1616 || fid == 1617)
                 {
                     int roted = 15;
                     //bool empty = false;
@@ -620,25 +633,55 @@ namespace EEditor
                     return null;
                 }
             }
-            else if (fid == 361)
+            else if (fid == 361 || fid == 1625 || fid == 1627 || fid == 1629 || fid == 1631 || fid == 1633 || fid == 1635)
             {
                 var roted = 15;
                 switch (coins)
                 {
                     case 0:
-                        roted = 23;
+                        if (fid == 361) roted = 23;
+                        if (fid == 1625) roted = 557;
+                        if (fid == 1627) roted = 562;
+                        if (fid == 1629) roted = 567;
+                        if (fid == 1631) roted = 572;
+                        if (fid == 1633) roted = 577;
+                        if (fid == 1635) roted = 582;
                         break;
                     case 1:
-                        roted = 24;
+                        if (fid == 361) roted = 24;
+                        if (fid == 1625) roted = 558;
+                        if (fid == 1627) roted = 563;
+                        if (fid == 1629) roted = 568;
+                        if (fid == 1631) roted = 573;
+                        if (fid == 1633) roted = 578;
+                        if (fid == 1635) roted = 583;
                         break;
                     case 2:
-                        roted = 25;
+                        if (fid == 361) roted = 25;
+                        if (fid == 1625) roted = 559;
+                        if (fid == 1627) roted = 564;
+                        if (fid == 1629) roted = 569;
+                        if (fid == 1631) roted = 574;
+                        if (fid == 1633) roted = 579;
+                        if (fid == 1635) roted = 584;
                         break;
                     case 3:
-                        roted = 26;
+                        if (fid == 361) roted = 26;
+                        if (fid == 1625) roted = 560;
+                        if (fid == 1627) roted = 565;
+                        if (fid == 1629) roted = 570;
+                        if (fid == 1631) roted = 575;
+                        if (fid == 1633) roted = 580;
+                        if (fid == 1635) roted = 585;
                         break;
                     default:
-                        roted = 23;
+                        if (fid == 361) roted = 23;
+                        if (fid == 1625) roted = 557;
+                        if (fid == 1627) roted = 562;
+                        if (fid == 1629) roted = 567;
+                        if (fid == 1631) roted = 572;
+                        if (fid == 1633) roted = 577;
+                        if (fid == 1635) roted = 582;
                         break;
                 }
                 Bitmap bmp2 = MainForm.miscBMD.Clone(new Rectangle(roted * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
