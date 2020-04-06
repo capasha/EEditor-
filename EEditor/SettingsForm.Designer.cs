@@ -41,6 +41,7 @@
             this.StatusColorToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.UpdateCheckCheckBox = new System.Windows.Forms.CheckBox();
             this.OldMarkCheckBox = new System.Windows.Forms.CheckBox();
+            this.DarkThemeCheckBox = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,7 +80,7 @@
             "",
             "Old EEditor settings & logins",
             "Current EEditor settings"});
-            this.clearComboBox.Location = new System.Drawing.Point(11, 149);
+            this.clearComboBox.Location = new System.Drawing.Point(11, 208);
             this.clearComboBox.Name = "clearComboBox";
             this.clearComboBox.Size = new System.Drawing.Size(139, 21);
             this.clearComboBox.TabIndex = 27;
@@ -88,7 +89,7 @@
             // clearButton
             // 
             this.clearButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.clearButton.Location = new System.Drawing.Point(156, 149);
+            this.clearButton.Location = new System.Drawing.Point(156, 206);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(49, 23);
             this.clearButton.TabIndex = 28;
@@ -112,7 +113,7 @@
             // 
             this.FasterShapeStyleCheckBox.AutoSize = true;
             this.FasterShapeStyleCheckBox.Enabled = false;
-            this.FasterShapeStyleCheckBox.Location = new System.Drawing.Point(11, 126);
+            this.FasterShapeStyleCheckBox.Location = new System.Drawing.Point(11, 185);
             this.FasterShapeStyleCheckBox.Name = "FasterShapeStyleCheckBox";
             this.FasterShapeStyleCheckBox.Size = new System.Drawing.Size(111, 17);
             this.FasterShapeStyleCheckBox.TabIndex = 30;
@@ -127,7 +128,7 @@
             this.StatusTextToolStripStatusLabel,
             this.StatusToolStripStatusLabel,
             this.StatusColorToolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 187);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 232);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(228, 22);
             this.statusStrip1.TabIndex = 31;
@@ -179,11 +180,23 @@
             this.OldMarkCheckBox.UseVisualStyleBackColor = true;
             this.OldMarkCheckBox.CheckedChanged += new System.EventHandler(this.OldMarkCheckBox_CheckedChanged);
             // 
+            // DarkThemeCheckBox
+            // 
+            this.DarkThemeCheckBox.AutoSize = true;
+            this.DarkThemeCheckBox.Location = new System.Drawing.Point(11, 125);
+            this.DarkThemeCheckBox.Name = "DarkThemeCheckBox";
+            this.DarkThemeCheckBox.Size = new System.Drawing.Size(85, 17);
+            this.DarkThemeCheckBox.TabIndex = 34;
+            this.DarkThemeCheckBox.Text = "Dark Theme";
+            this.DarkThemeCheckBox.UseVisualStyleBackColor = true;
+            this.DarkThemeCheckBox.CheckedChanged += new System.EventHandler(this.DarkThemeCheckBox_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(228, 209);
+            this.ClientSize = new System.Drawing.Size(228, 254);
+            this.Controls.Add(this.DarkThemeCheckBox);
             this.Controls.Add(this.OldMarkCheckBox);
             this.Controls.Add(this.UpdateCheckCheckBox);
             this.Controls.Add(this.statusStrip1);
@@ -220,5 +233,6 @@
         private System.Windows.Forms.CheckBox FasterShapeStyleCheckBox;
         private System.Windows.Forms.CheckBox UpdateCheckCheckBox;
         private System.Windows.Forms.CheckBox OldMarkCheckBox;
+        private System.Windows.Forms.CheckBox DarkThemeCheckBox;
     }
 }
