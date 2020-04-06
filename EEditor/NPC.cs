@@ -56,6 +56,7 @@ namespace EEditor
             if (payvault.ContainsKey("npcsanta") || MainForm.debug) { addNPC("santa", 1576, list); }
             if (payvault.ContainsKey("npcsnowman") || MainForm.debug) { addNPC("snowman", 1577, list); }
             if (payvault.ContainsKey("npcwalrus") || MainForm.debug) { addNPC("walrus", 1578, list); }
+            if (payvault.ContainsKey("npccrab") || MainForm.debug) { addNPC("crab", 1579, list); }
 
             //NicknameTextBox.Text = MainForm.userdata.username;
             listView1.ForeColor = MainForm.themecolors.foreground;
@@ -93,9 +94,12 @@ namespace EEditor
             list.Images.Add(name, image);
             listView1.SmallImageList = list;
             ListViewItem lvi = new ListViewItem(name);
-            if (MainForm.userdata.username != "guest" || MainForm.ihavethese.Any(x => x.Key.StartsWith("npc")))
+
+            if (!MainForm.debug && MainForm.userdata.username != "guest" && MainForm.ihavethese.Any(x => x.Key.StartsWith("npc")))
             {
+
                 lvi.SubItems.Add(MainForm.accs[MainForm.userdata.username].payvault[name == "computer" ? "npcdt" : $"npc{name}"].ToString());
+
             }
             else
             {
