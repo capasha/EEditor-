@@ -12,13 +12,13 @@ namespace EEditor
     internal class Animator
     {
         Connection conn;
-        private List<blocks> placedBlocks = new List<blocks>();
-        private List<blocks> placeBlocks = new List<blocks>();
+        private List<BlockCollection> placedBlocks = new List<BlockCollection>();
+        private List<BlockCollection> placeBlocks = new List<BlockCollection>();
         List<Frame> frames;
         int uploaded = 0;
         System.Timers.Timer timer = new System.Timers.Timer();
         List<string[]> firstFrame = new List<string[]>();
-        bool b = false;
+        bool correctWay = false;
         private static Semaphore locker;
         Frame remoteFrame;
         List<Frame> remoteFrame_;
@@ -101,7 +101,7 @@ namespace EEditor
             else pb.Maximum = firstFrame.Count;
             epochStartTime = dt;
 
-            //stopit:
+        stopit:
             if (frames.Count == 1)
             {
                 diff = frames[0].Diff(remoteFrame);
@@ -124,88 +124,300 @@ namespace EEditor
             TaskbarProgress.SetValue(afHandle, Gcurrent, Gtotal); //Set TaskbarProgress.cs' values
             //Queue<string[]> queue = new Queue<string[]>(diff);
             List<string[]> blocks1 = new List<string[]>(diff);
-
-            foreach (var value in blocks1)
+            Queue<string[]> queue = new Queue<string[]>(diff);
+            while (queue.Count > 0)
             {
-                if (value.Length == 4)
+                string[] cur = queue.Dequeue();
+                int x, y;
+                if (cur[0] != null)
                 {
-                    placeBlocks.Add(new blocks() { layer = Convert.ToInt32(value[3]), x = Convert.ToInt32(value[0]), y = Convert.ToInt32(value[1]), bid = Convert.ToInt32(value[2]), data = new object[] { null } });
-                }
-                if (value.Length == 5)
-                {
-                    placeBlocks.Add(new blocks() { layer = Convert.ToInt32(value[3]), x = Convert.ToInt32(value[0]), y = Convert.ToInt32(value[1]), bid = Convert.ToInt32(value[2]), data = new object[] { value[4] } });
-                }
-                if (value.Length == 8)
-                {
-                    placeBlocks.Add(new blocks() { layer = Convert.ToInt32(value[3]), x = Convert.ToInt32(value[0]), y = Convert.ToInt32(value[1]), bid = Convert.ToInt32(value[2]), data = new object[] { value[4], value[5], value[6], value[7] } });
-                }
-                if (value.Length == 7)
-                {
-                    placeBlocks.Add(new blocks() { layer = Convert.ToInt32(value[3]), x = Convert.ToInt32(value[0]), y = Convert.ToInt32(value[1]), bid = Convert.ToInt32(value[2]), data = new object[] { value[4], value[5], value[6] } });
-                }
-                if (value.Length == 6)
-                {
-                    placeBlocks.Add(new blocks() { layer = Convert.ToInt32(value[3]), x = Convert.ToInt32(value[0]), y = Convert.ToInt32(value[1]), bid = Convert.ToInt32(value[2]), data = new object[] { value[4], value[5] } });
-                }
-            }
-            if (placeBlocks.Count != 0)
-            {
-                int totalblocks = placeBlocks.Count();
-                int count = 0;
-                foreach (blocks block in placeBlocks)
-                {
-                    if (block != null)
+                    x = Convert.ToInt32(cur[0]);
+                    y = Convert.ToInt32(cur[1]);
+                    if (MainForm.OpenWorld && !MainForm.OpenWorldCode)
                     {
-                        if (block.data.Length == 1)
+                        drawblocks = y > 4;
+                    }
+                    else { drawblocks = true; }
+                    if (drawblocks)
+                    {
+                        OnStatusChanged("", epochStartTime, false, firstFrame.Count, Gcurrent1);
+                        int blockId = Convert.ToInt32(cur[2]);
+                        int layer = Convert.ToInt32(cur[3]);
+
+                        if (layer == 0)
                         {
-
-
-                            sendParam(conn, new object[] { block.layer, block.x, block.y, block.bid, Convert.ToInt32(block.data[0]) });
-
-                        }
-                        else if (block.data.Length == 4)
-                        {
-                            sendParam(conn, new object[] { block.layer, block.x, block.y, block.bid, block.data[0], block.data[1], block.data[2], block.data[3] });
-
-                        }
-                        else if (block.data.Length == 3)
-                        {
-                            sendParam(conn, new object[] { block.layer, block.x, block.y, block.bid, Convert.ToInt32(block.data[0]), Convert.ToInt32(block.data[1]), Convert.ToInt32(block.data[2]) });
-
-                        }
-                        else if (block.data.Length == 2)
-                        {
-                            if (block.bid == 385)
+                            if (remoteFrame.Foreground[y, x] != blockId)
                             {
-                                sendParam(conn, new object[] { block.layer, block.x, block.y, block.bid, block.data[1], Convert.ToInt32(block.data[0]) });
+                                if (bdata.morphable.Contains(blockId))
+                                {
+                                    correctWay = true;
+                                }
 
+                                else if (bdata.goal.Contains(blockId) && blockId != 83 && blockId != 77 && blockId != 1520)
+                                {
+                                    if (cur.Length == 5)
+                                    {
+                                        correctWay = true;
+                                    }
+                                }
+                                else if (bdata.rotate.Contains(blockId) && blockId != 385 && blockId != 374)
+                                {
+                                    if (cur.Length == 5)
+                                    {
+                                        correctWay = true;
+                                    }
+                                }
+                                else if (blockId == 385)
+                                {
+                                    if (cur.Length == 6)
+                                    {
+                                        correctWay = true;
+                                    }
+                                }
+                                else if (blockId == 374)
+                                {
+                                    if (cur.Length == 6)
+                                    {
+                                        correctWay = true;
+                                    }
+                                }
+                                else if (blockId == 83 || blockId == 77 || blockId == 1520)
+                                {
+                                    if (cur.Length == 5)
+                                    {
+                                        correctWay = true;
+                                    }
+                                }
+                                else if (bdata.portals.Contains(blockId))
+                                {
+                                    if (cur.Length == 7)
+                                    {
+                                        correctWay = true;
+                                    }
+                                }
+                                else if (bdata.isNPC(blockId))
+                                {
+                                    if (cur.Length == 8)
+                                    {
+                                        correctWay = true;
+                                    }
+                                }
+                                else
+                                {
+                                    correctWay = true;
+                                }
+                            }
+                            else if (remoteFrame.Foreground[y, x] == blockId)
+                            {
+                                if (bdata.morphable.Contains(blockId))
+                                {
+                                    if (cur.Length == 5)
+                                    {
+                                        if (remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[4]))
+                                        {
+                                            correctWay = true;
+                                        }
+                                    }
+                                }
+                                else if (bdata.goal.Contains(blockId) && blockId != 83 && blockId != 77 && blockId != 1520)
+                                {
+                                    if (cur.Length == 5)
+                                    {
+                                        if (remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[4]))
+                                        {
+                                            correctWay = true;
+                                        }
+                                    }
+                                }
+                                else if (bdata.rotate.Contains(blockId) && blockId != 385 && blockId != 374)
+                                {
+                                    if (cur.Length == 5)
+                                    {
+                                        if (remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[4]))
+                                        {
+                                            correctWay = true;
+                                        }
+                                    }
+                                }
+                                else if (blockId == 385)
+                                {
+                                    if (cur.Length == 6)
+                                    {
+                                        if (remoteFrame.BlockData3[y, x] != cur[5] || remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[4]))
+                                        {
+                                            correctWay = true;
+                                        }
+                                    }
+                                }
+                                else if (bdata.isNPC(blockId))
+                                {
+                                    if (cur.Length == 8)
+                                    {
+                                        if (remoteFrame.BlockData3[y, x] != cur[5] || remoteFrame.BlockData4[y, x] != cur[6] || remoteFrame.BlockData5[y, x] != cur[7] || remoteFrame.BlockData6[y, x] != cur[8])
+                                        {
+                                            correctWay = true;
+                                        }
+                                    }
+                                }
+                                else if (blockId == 374)
+                                {
+                                    if (cur.Length == 6)
+                                    {
+                                        if (remoteFrame.BlockData3[y, x] != cur[4] || remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[5]))
+                                        {
+                                            correctWay = true;
+                                        }
+                                    }
+                                }
+                                else if (blockId == 83 || blockId == 77 || blockId == 1520)
+                                {
+                                    if (cur.Length == 5)
+                                    {
+                                        if (remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[4]))
+                                        {
+                                            correctWay = true;
+                                        }
+                                    }
+                                }
+                                else if (bdata.portals.Contains(blockId))
+                                {
+                                    if (cur.Length == 7)
+                                    {
+                                        if (remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[4]) || remoteFrame.BlockData1[y, x] != Convert.ToInt32(cur[5]) || remoteFrame.BlockData2[y, x] != Convert.ToInt32(cur[6]))
+                                        {
+                                            correctWay = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (layer == 1)
+                        {
+                            if (remoteFrame.Background[y, x] != blockId)
+                            {
+                                correctWay = true;
+                            }
+                        }
+                        if (correctWay)
+                        {
+                            if (bdata.morphable.Contains(blockId) && blockId != 385)
+                            {
+                                param = new object[] { layer, x, y, blockId, Convert.ToInt32(cur[4]) };
+                            }
+                            else if (bdata.goal.Contains(blockId))
+                            {
+                                if (cur.Length == 5)
+                                {
+                                    param = new object[] { layer, x, y, blockId, Convert.ToInt32(cur[4]) };
+                                }
+                            }
+                            else if (bdata.rotate.Contains(blockId) && blockId != 385 && blockId != 374)
+                            {
+                                if (cur.Length == 5)
+                                {
+                                    param = new object[] { layer, x, y, blockId, Convert.ToInt32(cur[4]) };
+                                }
+                            }
+                            else if (blockId == 385)
+                            {
+                                if (cur.Length == 6)
+                                {
+                                    param = new object[] { layer, x, y, blockId, cur[5], Convert.ToInt32(cur[4]) };
+                                }
+                            }
+                            else if (blockId == 374)
+                            {
+                                if (cur.Length == 6)
+                                {
+                                    param = new object[] { layer, x, y, blockId, cur[4], Convert.ToInt32(cur[5]) };
+                                }
+                            }
+                            else if (bdata.isNPC(blockId))
+                            {
+                                if (cur.Length == 8)
+                                {
+                                    param = new object[] { layer, x, y, blockId, cur[4], cur[5], cur[6], cur[7] };
+                                }
+                            }
+                            else if (blockId == 77 || blockId == 83 || blockId == 1520)
+                            {
+                                if (cur.Length == 5)
+                                {
+                                    param = new object[] { layer, x, y, blockId, int.Parse(cur[4]) };
+                                }
+                            }
+                            else if (bdata.portals.Contains(blockId))
+                            {
+                                if (cur.Length == 7)
+                                {
+                                    param = new object[] { layer, x, y, blockId, Convert.ToInt32(cur[4]), Convert.ToInt32(cur[5]), Convert.ToInt32(cur[6]) };
+                                }
                             }
                             else
                             {
-                                sendParam(conn, new object[] { block.layer, block.x, block.y, block.bid, block.data[0], Convert.ToInt32(block.data[1]) });
+                                if (MainForm.userdata.level.StartsWith("OW") && MainForm.userdata.levelPass.Length > 0)
+                                {
+                                    param = new object[] { layer, x, y, blockId };
+                                }
+                                else if (MainForm.userdata.level.StartsWith("OW") && MainForm.userdata.levelPass.Length == 0)
+                                {
+                                    if (y > 4)
+                                    {
+                                        param = new object[] { layer, x, y, blockId };
+                                    }
+                                }
+                                else
+                                {
+                                    param = new object[] { layer, x, y, blockId };
+                                }
+                            }
+                            if (conn == null)
+                            {
+                                OnStatusChanged("Lost connection!", DateTime.MinValue, true, Gtotal, Gcurrent);
+                                return;
+                            }
+                            int progress = (int)Math.Round((double)(100 * Gcurrent) / Gtotal);
+                            if (progress == 50) goto stopit;
+                            else if (progress == 90) goto stopit;
+                            if (restart) { restart = false; goto stopit; }
+
+                            if (param != null)
+                            {
+                                sendParam(conn, param);
+                                Thread.Sleep(MainForm.userdata.uploadDelay);
                             }
                         }
-
-                        OnStatusChanged("Uploading blocks to level. (Total: " + placedBlocks.Count + "/" + totalblocks + ")", DateTime.MinValue, false, totalblocks, placedBlocks.Count);
-                        OnStatusChanged("", epochStartTime, false, totalblocks, placedBlocks.Count);
-                        if (Convert.ToDouble(placedBlocks.Count) <= pb.Maximum && Convert.ToDouble(placedBlocks.Count) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = placedBlocks.Count; }); TaskbarProgress.SetValue(afHandle, placedBlocks.Count, firstFrame.Count); }
-                        Thread.Sleep(MainForm.userdata.uploadDelay);
+                        else
+                        {
+                            if (Gcurrent1 >= firstFrame.Count)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                queue.Enqueue(cur);
+                            }
+                            OnStatusChanged("Uploading blocks to level. (Total: " + firstFrame.Count + "/" + Gcurrent + ")", epochStartTime, false, Gtotal, Gcurrent);
+                            if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Maximum = firstFrame.Count; });
+                            TaskbarProgress.SetValue(afHandle, Gcurrent, firstFrame.Count);
+                            break;
+                        }
                     }
                 }
-                OnStatusChanged("Level upload complete!", DateTime.MinValue, true, placeBlocks.Count, 0);
-                TaskbarProgress.SetValue(afHandle, 0, firstFrame.Count);
-                if (MainForm.userdata.saveWorldCrew)
+
+
+            }
+            OnStatusChanged("Level upload complete!", DateTime.MinValue, true, firstFrame.Count, Gcurrent1);
+            Gcurrent1 = 0;
+            TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count);
+            if (MainForm.userdata.saveWorldCrew)
+            {
+                if (AnimateForm.saveRights)
                 {
-                    if (AnimateForm.saveRights)
                     {
                         conn.Send("save");
                     }
                 }
-            }
-            else
-            {
-
-                OnStatusChanged("Nothing to upload!", DateTime.MinValue, true, 0, 0);
             }
         }
 
@@ -220,21 +432,58 @@ namespace EEditor
             {
                 if (botid == (int)e.GetInt(4))
                 {
-                    placedBlocks.Add(new blocks() { layer = e.GetInt(0), x = e.GetInt(1), y = e.GetInt(2), bid = e.GetInt(3), data = new object[] { null } });
+                    int layer = e.GetInt(0), x = e.GetInt(1), y = e.GetInt(2), id = e.GetInt(3);
+                    if (layer == 0) { remoteFrame.Foreground[y, x] = id; } else { remoteFrame.Background[y, x] = id; }
+                    ++Gcurrent;
+                    ++Gcurrent1;
+                    OnStatusChanged("Uploading blocks to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
+                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
+                    restart = true;
+                }
+            }
+            else if (e.Type == "br")
+            {
+                if (botid == (int)e.GetInt(5))
+                {
+                    int x = e.GetInt(0), y = e.GetInt(1);
+                    remoteFrame.Foreground[y, x] = e.GetInt(2);
+                    remoteFrame.BlockData[y, x] = (int)e.GetInt(3);
+                    ++Gcurrent;
+                    ++Gcurrent1;
+                    OnStatusChanged("Uploading rotation blocks to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
+                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
+                    restart = true;
                 }
             }
             else if (e.Type == "bc")
             {
                 if (botid == (int)e.GetInt(4))
                 {
-                    placedBlocks.Add(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetInt(3) } });
+                    int x = e.GetInt(0), y = e.GetInt(1);
+                    remoteFrame.Foreground[y, x] = e.GetInt(2);
+                    remoteFrame.BlockData[y, x] = e.GetInt(3);
+                    ++Gcurrent;
+                    ++Gcurrent1;
+                    OnStatusChanged("Uploading numbered action blocks to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
+                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
+                    restart = true;
+                    //placeBlocks.Remove(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetInt(3) } });
+
                 }
             }
             else if (e.Type == "wp")
             {
                 if (botid == (int)e.GetInt(5))
                 {
-                    placedBlocks.Add(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetString(3), e.GetInt(4) } });
+                    int x = e.GetInt(0), y = e.GetInt(1);
+                    remoteFrame.Foreground[y, x] = e.GetInt(2);
+                    remoteFrame.BlockData3[y, x] = e.GetString(3);
+                    ++Gcurrent;
+                    ++Gcurrent1;
+                    OnStatusChanged("Uploading world portals to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
+                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
+                    restart = true;
+                    //placeBlocks.Remove(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e[3], e.GetInt(4) } });
                 }
 
             }
@@ -242,28 +491,66 @@ namespace EEditor
             {
                 if (botid == (int)e.GetInt(5))
                 {
-                    placedBlocks.Add(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetString(3), e.GetInt(4), } });
+                    int x = e.GetInt(0), y = e.GetInt(1);
+                    remoteFrame.Foreground[y, x] = e.GetInt(2);
+                    remoteFrame.BlockData3[y, x] = e.GetString(3);
+                    remoteFrame.BlockData[y, x] = e.GetInt(4);
+                    ++Gcurrent;
+                    ++Gcurrent1;
+                    OnStatusChanged("Uploading signs to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
+                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
+                    restart = true;
+                    //placeBlocks.Remove(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e[3], e.GetInt(4)} });
                 }
             }
             else if (e.Type == "bn")
             {
                 if (botid == (int)e.GetInt(7))
                 {
-                    placedBlocks.Add(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetString(3), e.GetString(4), e.GetString(5), e.GetString(6) } });
+                    int x = e.GetInt(0), y = e.GetInt(1);
+                    remoteFrame.Foreground[y, x] = e.GetInt(2);
+                    remoteFrame.BlockData3[y, x] = e.GetString(3);
+                    remoteFrame.BlockData4[y, x] = e.GetString(4);
+                    remoteFrame.BlockData5[y, x] = e.GetString(5);
+                    remoteFrame.BlockData6[y, x] = e.GetString(6);
+                    ++Gcurrent;
+                    ++Gcurrent1;
+                    OnStatusChanged("Uploading NPC's to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
+                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
+                    restart = true;
+                    //placeBlocks.Remove(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e[3], e[4], e[5], e[6] } });
                 }
             }
             else if (e.Type == "pt")
             {
                 if (botid == (int)e.GetInt(6))
                 {
-                    placedBlocks.Add(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetInt(3), e.GetInt(4), e.GetInt(5) } });
+                    int x = e.GetInt(0), y = e.GetInt(1);
+                    remoteFrame.Foreground[y, x] = e.GetInt(2);
+                    remoteFrame.BlockData[y, x] = e.GetInt(3);
+                    remoteFrame.BlockData1[y, x] = e.GetInt(4);
+                    remoteFrame.BlockData2[y, x] = e.GetInt(5);
+                    ++Gcurrent;
+                    ++Gcurrent1;
+                    OnStatusChanged("Uploading portals to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
+                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
+                    restart = true;
+                    //placeBlocks.Remove(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetInt(3), e.GetInt(4), e.GetInt(5) } });
                 }
             }
             else if (e.Type == "bs")
             {
                 if (botid == (int)e.GetInt(4))
                 {
-                    placedBlocks.Add(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetInt(3) } });
+                    int x = e.GetInt(0), y = e.GetInt(1);
+                    remoteFrame.Foreground[y, x] = e.GetInt(2);
+                    remoteFrame.BlockData[y, x] = e.GetInt(3);
+                    ++Gcurrent;
+                    ++Gcurrent1;
+                    OnStatusChanged("Uploading noteblocks to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
+                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
+                    restart = true;
+                    //placeBlocks.Remove(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetInt(3) } });
                 }
             }
             else if (e.Type == "access")
@@ -446,22 +733,37 @@ namespace EEditor
     {
         public static object[] blockdata { get; set; }
     }
-    public class blocks : IEquatable<blocks>
+    public struct BlockCollection : IEquatable<BlockCollection>
     {
-        public int layer { get; set; }
-        public int x { get; set; }
-        public int y { get; set; }
-        public int bid { get; set; }
-        public object[] data { get; set; }
+        public int Layer { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int BlockId { get; set; }
+        public object[] BlockData { get; set; }
 
-        public bool Equals(blocks other)
+        public override bool Equals(object other)
+            => other is BlockCollection collection
+            && Equals(collection);
+
+        public bool Equals(BlockCollection other)
+            => Layer == other.Layer
+            && X == other.X
+            && Y == other.Y
+            && BlockId == other.BlockId
+            && BlockData.SequenceEqual(other.BlockData);
+
+        public override int GetHashCode()
         {
-            // Would still want to check for null etc. first.
-            return this.layer == other.layer &&
-                   this.x == other.x &&
-                   this.y == other.y &&
-                   this.bid == other.bid &&
-                   this.data == other.data;
+            var hashCode = -523089506;
+            hashCode = hashCode * -1521134295 + Layer.GetHashCode();
+            hashCode = hashCode * -1521134295 + X.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            hashCode = hashCode * -1521134295 + BlockId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<object[]>.Default.GetHashCode(BlockData);
+            return hashCode;
         }
+
+        public static bool operator ==(BlockCollection left, BlockCollection right) => left.Equals(right);
+        public static bool operator !=(BlockCollection left, BlockCollection right) => !(left == right);
     }
 }
