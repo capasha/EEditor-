@@ -34,12 +34,14 @@ namespace EEditor
             tp.SetToolTip(FasterShapeStyleCheckBox, "Showing red lines instead of blocks.");
             tp.SetToolTip(UpdateCheckCheckBox, "Check for new updates.");
             tp.SetToolTip(OldMarkCheckBox, "Using old selection tool.");
+            tp.SetToolTip(DarkThemeCheckBox, "Choose between light and dark theme.");
             usePenToolCheckBox.Checked = MainForm.userdata.usePenTool;
             selectAllBorderCheckBox.Checked = MainForm.userdata.selectAllBorder;
             confirmCloseCheckBox.Checked = MainForm.userdata.confirmClose;
             FasterShapeStyleCheckBox.Checked = MainForm.userdata.fastshape;
             UpdateCheckCheckBox.Checked = MainForm.userdata.checkUpdate;
             OldMarkCheckBox.Checked = MainForm.userdata.oldmark;
+            DarkThemeCheckBox.Checked = MainForm.userdata.darkTheme;
             #endregion
 
             clearComboBox.SelectedIndex = 0; //Show "Clear settings..." by default
@@ -67,7 +69,7 @@ namespace EEditor
         }
         private void updateMessage()
         {
-            StatusToolStripStatusLabel.ForeColor = MainForm.darktheme ? Color.LightBlue : Color.DarkBlue;
+            StatusToolStripStatusLabel.ForeColor = MainForm.userdata.darkTheme ? Color.LightBlue : Color.DarkBlue;
             StatusColorToolStripStatusLabel.BackColor = MainForm.themecolors.accent;
             StatusColorToolStripStatusLabel.ForeColor = MainForm.themecolors.foreground;
         }
@@ -205,7 +207,8 @@ namespace EEditor
                         fastshape = true,
                         replaceit = false,
                         oldmark = true,
-                        checkUpdate = true
+                        checkUpdate = true,
+                        darkTheme = false
 
                     };
                     MainForm.OpenWorld = false;
@@ -242,6 +245,19 @@ namespace EEditor
             this.DialogResult = DialogResult.OK;
         }
 
+        private void DarkThemeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!formload)
+            {
+                MainForm.userdata.darkTheme = DarkThemeCheckBox.Checked;
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\settings.json", JsonConvert.SerializeObject(MainForm.userdata, Newtonsoft.Json.Formatting.Indented));
+                MainForm.editArea.MainForm.updateTheme();
+                reset = true;
+                
+                this.Close();
+            }
 
+
+        }
     }
 }
