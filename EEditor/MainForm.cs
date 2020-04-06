@@ -30,7 +30,6 @@ namespace EEditor
         public static string pathSettings = $"{Directory.GetCurrentDirectory()}\\settings.json";
         private Dictionary<int, Bitmap> sblocks = new Dictionary<int, Bitmap>();
         private Dictionary<int, Bitmap> sblocks1 = new Dictionary<int, Bitmap>();
-        public static bool darktheme = false;
         private int[] greyColor = new int[] { 255, 77, 83, 157, 311, 312, 313, 314, 315, 316, 317, 318 };
         public static Dictionary<string, accounts> accs = new Dictionary<string, accounts>();
         public static Dictionary<string, ToolStrip> tps = new Dictionary<string, ToolStrip>();
@@ -93,7 +92,7 @@ namespace EEditor
             InitializeComponent();
             form1 = this;
             starting1 = true;
-            updateTheme();
+            
 
             if (File.Exists(pathSettings))
             {
@@ -123,8 +122,6 @@ namespace EEditor
                     if (userdata.firstRun.ToString() == null) userdata.firstRun = false;
                     if (userdata.fastshape.ToString() == null) userdata.fastshape = true;
                     if (userdata.replaceit.ToString() == null) userdata.replaceit = false;
-                    if (userdata.checkUpdate.ToString() == null) userdata.checkUpdate = true;
-                    if (userdata.oldmark.ToString() == null) userdata.oldmark = true;
                 }
                 else
                 {
@@ -163,7 +160,8 @@ namespace EEditor
                         fastshape = true,
                         replaceit = false,
                         checkUpdate = true,
-                        oldmark = true
+                        oldmark = true,
+                        darkTheme = false
 
 
                     };
@@ -202,10 +200,12 @@ namespace EEditor
                     ignoreplacing = false,
                     randomLines = false,
                     checkUpdate = true,
-                    oldmark = true
+                    oldmark = true,
+                    darkTheme = false
                 };
                 File.WriteAllText(pathSettings, JsonConvert.SerializeObject(userdata, Newtonsoft.Json.Formatting.Indented));
             }
+            updateTheme();
             OpenWorld = false;
             OpenWorldCode = false;
             userdata.useColor = false;
@@ -385,7 +385,10 @@ namespace EEditor
                 { 1588, 460 }, { 1155, 466 }, {1592, 470 },{1593, 474 }, {1594, 481 },{1595, 486 },{1597, 490 }, {1160, 478 }, { 1584, 497 },
                 { 1572, 500 }, { 1573, 501}, {1574, 502}, { 1575, 503 }, { 1596, 505 }, { 1605, 508 }, { 1606, 512 }, {1607, 514}, { 1608, 518},
                 {1609,519 }, { 1610, 523 }, { 1611, 527 },{ 1612, 529 }, { 1613, 533 }, { 1614, 534 }, {1615, 538 }, { 1616, 542 }, { 1617, 546 },
-                {1576, 551 }, {1577, 552 }, {1578, 553 }, {1618, 550}, { 1619, 554}, { 1620, 555}
+                {1576, 551 }, {1577, 552 }, {1578, 553 }, {1618, 550}, { 1619, 554}, { 1620, 555},
+                {1579, 556 }, { 1625, 558 }, { 1626, 561 }, { 1627, 563 }, { 1628, 566 }, 
+                {1629, 568 }, { 1630, 571 }, { 1631, 573 }, { 1632, 576 }, { 1633, 578 }, 
+                { 1634,581 }, { 1635, 583 }, {1636, 586 }
             };
             for (int i = 0; i < miscInit.Length / 2; i++)
             {
@@ -486,17 +489,7 @@ namespace EEditor
 
         public void updateTheme()
         {
-            object obj = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", 1);
-            if (obj != null)
-            {
-                if (obj.ToString() == "0") darktheme = true;
-                else darktheme = false;
-            }
-            else
-            {
-                darktheme = false;
-            }
-            if (darktheme)
+            if (userdata.darkTheme)
             {
                 themecolors = new theme()
                 {
@@ -541,8 +534,8 @@ namespace EEditor
                 var items = ((ToolStrip)control).Items;
                 control.BackColor = themecolors.background;
                 //ProfessionalColorTable colors = darktheme ? new DarkTable() : new WhiteTable();
-                if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
-                if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
+                if (userdata.darkTheme) ((ToolStrip)control).Renderer = new DarkTheme();
+                if (!userdata.darkTheme) ((ToolStrip)control).Renderer = new LightTheme();
 
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
@@ -660,8 +653,8 @@ namespace EEditor
                 var control = bottomFlowLayoutPanel.Controls[ii];
                 var items = ((ToolStrip)control).Items;
                 control.BackColor = themecolors.background;
-                if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
-                if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
+                if (userdata.darkTheme) ((ToolStrip)control).Renderer = new DarkTheme();
+                if (!userdata.darkTheme) ((ToolStrip)control).Renderer = new LightTheme();
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
@@ -736,8 +729,8 @@ namespace EEditor
                 var control = topFlowLayoutPanel.Controls[i];
                 var items = ((ToolStrip)control).Items;
                 control.BackColor = themecolors.background;
-                if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
-                if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
+                if (userdata.darkTheme) ((ToolStrip)control).Renderer = new DarkTheme();
+                if (!userdata.darkTheme) ((ToolStrip)control).Renderer = new LightTheme();
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
@@ -804,8 +797,8 @@ namespace EEditor
                 var control = bottomFlowLayoutPanel.Controls[ii];
                 var items = ((ToolStrip)control).Items;
                 control.BackColor = themecolors.background;
-                if (darktheme) ((ToolStrip)control).Renderer = new DarkTheme();
-                if (!darktheme) ((ToolStrip)control).Renderer = new LightTheme();
+                if (userdata.darkTheme) ((ToolStrip)control).Renderer = new DarkTheme();
+                if (!userdata.darkTheme) ((ToolStrip)control).Renderer = new LightTheme();
                 if (((ToolStrip)control).Name != "lastUsedToolStrip")
                 {
                     if (items.Count > 0)
@@ -1117,7 +1110,7 @@ namespace EEditor
             if (ihavethese.ContainsKey("bricksummer2011") || debug) { AddToolStrip(foregroundBMD, 0, new int[] { 59 }, new uint[] { 0xD9BB86 }, false, "Summer 2011", 0, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 59 }, new uint[] { 0xD9BB86 }, false, "Summer 2011", 0, 0, false); }
             if (ihavethese.ContainsKey("brickhw2011") || debug) { AddToolStrip(foregroundBMD, 0, new int[] { 68, 69 }, new uint[] { 0x685454, 0x5E6E74 }, false, "Halloween 2011", 0, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 68, 69 }, new uint[] { 0x685454, 0x5E6E74 }, false, "Halloween 2011", 0, 0, false); }
             
-            //FUCKME
+            
             if (ihavethese.ContainsKey("brickscifi") || debug) { AddToolStrip(foregroundBMD, 0, new int[] { 84, 85, 308, 309, 317, 318, 86, 87, 88, 89, 90, 91, 234, 319,320 }, new uint[] { 0x9F4340, 0x3B729D, 0x3C8E38, 0xA58337, 0x9237A4, 0x409191, 0x868686, 0xFFFFFF, 0x6C4F2C, 0xBA6971, 0x6977BA, 0x64B66E, 0xBD8453, 0xA966B8, 0x64B4A9 }, false, "Sci-Fi", 0, 1, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 84, 85, 308, 309, 317, 318, 86, 87, 88, 89, 90, 91, 234, 319, 320 }, new uint[] { 0x9F4340, 0x3B729D, 0x3C8E38, 0xA58337, 0x9237A4, 0x409191, 0x868686, 0xFFFFFF, 0x6C4F2C, 0xBA6971, 0x6977BA, 0x64B66E, 0xBD8453, 0xA966B8, 0x64B4A9 }, false, "Sci-Fi", 0, 1, false); }
 
 
@@ -1491,7 +1484,24 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickdrums") || debug) { AddToolStrip(foregroundBMD, 0, new int[] { 83 }, null, false, "Music", 1, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 83 }, null, false, "Music", 1, 2, false); }
             if (ihavethese.ContainsKey("bricknode") || debug) { AddToolStrip(foregroundBMD, 0, new int[] { 77 }, null, false, "Music", 1, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 77 }, null, false, "Music", 1, 2, false); }
             if (ihavethese.ContainsKey("brickguitar") || debug) { AddToolStrip(foregroundBMD, 0, new int[] { 286 }, null, false, "Music", 1, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 286 }, null, false, "Music", 1, 2, false); }
-            if (ihavethese.ContainsKey("brickspike") || debug) { AddToolStrip(miscBMD, 1, new int[] { 24, 446 }, null, false, "Hazards", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 24, 446 }, null, false, "Hazards", 1, 2, false); }
+
+            if (ihavethese.ContainsKey("brickspike") || debug) { AddToolStrip(miscBMD, 1, new int[] { 24, 446 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 24, 446 }, null, false, "Spikes", 1, 2, false); }
+            
+            
+            if (ihavethese.ContainsKey("brickspikesilver") || debug) { AddToolStrip(miscBMD, 1, new int[] { 558, 561 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 558, 561 }, null, false, "Spikes", 1, 2, false); }
+
+            if (ihavethese.ContainsKey("brickspikeblack") || debug) { AddToolStrip(miscBMD, 1, new int[] { 563, 566 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 563, 566 }, null, false, "Spikes", 1, 2, false); }
+
+            if (ihavethese.ContainsKey("brickspikered") || debug) { AddToolStrip(miscBMD, 1, new int[] { 568, 571 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 568, 571 }, null, false, "Spikes", 1, 2, false); }
+
+            if (ihavethese.ContainsKey("brickspikegold") || debug) { AddToolStrip(miscBMD, 1, new int[] { 573, 576 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 573, 576 }, null, false, "Spikes", 1, 2, false); }
+
+            if (ihavethese.ContainsKey("brickspikegreen") || debug) { AddToolStrip(miscBMD, 1, new int[] { 578, 581 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 578, 581 }, null, false, "Spikes", 1, 2, false); }
+
+            if (ihavethese.ContainsKey("brickspikeblue") || debug) { AddToolStrip(miscBMD, 1, new int[] { 583, 586 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 583, 586 }, null, false, "Spikes", 1, 2, false); }
+
+        
+
             if (ihavethese.ContainsKey("brickfire") || debug) { AddToolStrip(miscBMD, 1, new int[] { 28 }, null, false, "Hazards", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 28 }, null, false, "Hazards", 1, 2, false); }
             AddToolStrip(miscBMD, 1, new int[] { 0 }, null, false, "Liquids", 1, 2, true);
 
@@ -1539,6 +1549,7 @@ namespace EEditor
             if (ihavethese.ContainsKey("npcsanta") || debug) { AddToolStrip(miscBMD, 1, new int[] { 551 }, null, false, "NPC Santa", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 551 }, null, false, "NPC Santa", 1, 2, false); }
             if (ihavethese.ContainsKey("npcsnowman") || debug) { AddToolStrip(miscBMD, 1, new int[] { 552 }, null, false, "NPC Snowman", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 552 }, null, false, "NPC Snowman", 1, 2, false); }
             if (ihavethese.ContainsKey("npcwalrus") || debug) { AddToolStrip(miscBMD, 1, new int[] { 553 }, null, false, "NPC Walrus", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 553 }, null, false, "NPC Walrus", 1, 2, false); }
+            if (ihavethese.ContainsKey("npccrab") || debug) { AddToolStrip(miscBMD, 1, new int[] { 556 }, null, false, "NPC Crab", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 556 }, null, false, "NPC Crab", 1, 2, false); }
             #endregion Action
 
             #region Background
@@ -1846,8 +1857,8 @@ namespace EEditor
                             }
                             strip.AutoSize = true;
                             strip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-                            if (darktheme) strip.Renderer = new DarkTheme();
-                            if (!darktheme) strip.Renderer = new LightTheme();
+                            if (userdata.darkTheme) strip.Renderer = new DarkTheme();
+                            if (!userdata.darkTheme) strip.Renderer = new LightTheme();
 
                             strip.GripStyle = ToolStripGripStyle.Hidden;
                             strip.BackColor = themecolors.accent;
@@ -1900,8 +1911,8 @@ namespace EEditor
                         Margin = new System.Windows.Forms.Padding(4, 4, 4, 4),
                         BackColor = themecolors.accent,
                     };
-                    if (darktheme) strip1.Renderer = new DarkTheme();
-                    if (!darktheme) strip1.Renderer = new LightTheme();
+                    if (userdata.darkTheme) strip1.Renderer = new DarkTheme();
+                    if (!userdata.darkTheme) strip1.Renderer = new LightTheme();
                     strip1.BackColor = themecolors.accent;
                     foreach (int id in ids)
                     {
@@ -1988,8 +1999,8 @@ namespace EEditor
                     var bid = cur.ID;
                     loadBid = cur.ID;
                     ContextMenuStrip cm = new ContextMenuStrip();
-                    if (darktheme) cm.Renderer = new DarkTheme();
-                    if (!darktheme) cm.Renderer = new LightTheme();
+                    if (userdata.darkTheme) cm.Renderer = new DarkTheme();
+                    if (!userdata.darkTheme) cm.Renderer = new LightTheme();
                     cm.Name = cur.ID.ToString();
                     cm.Items.Add("Copy BlockID", Properties.Resources.copy);
                     cm.ForeColor = themecolors.foreground;
@@ -4987,6 +4998,7 @@ namespace EEditor
         public bool replaceit { get; set; }
         public bool oldmark { get; set; }
         public bool checkUpdate { get; set; }
+        public bool darkTheme { get; set; }
     }
     public class theme
     {
