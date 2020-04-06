@@ -203,7 +203,7 @@ namespace EEditor
                                 if (button)
                                 {
                                     editArea.CurFrame.BlockData[y, x] += 1;
-                                    if (editArea.CurFrame.BlockData[y, x] > 1) editArea.CurFrame.BlockData[y, x] = 0;
+                                    if (editArea.CurFrame.BlockData[y, x] > 1) editArea.CurFrame.BlockData[y, x] = 1;
                                     editArea.CurFrame.BlockData1[y, x] = 0;
                                     editArea.CurFrame.BlockData2[y, x] = 0;
                                     if (rotation.ContainsKey(bid)) { rotation[bid] = editArea.CurFrame.BlockData[y, x]; }
@@ -340,6 +340,10 @@ namespace EEditor
                                 if (rotation.ContainsKey(bid))
                                 {
                                     editArea.CurFrame.BlockData[y, x] = rotation[bid];
+                                }
+                                else
+                                {
+                                    editArea.CurFrame.BlockData[y, x] = 1;
                                 }
                             }
                         }
@@ -568,11 +572,11 @@ namespace EEditor
                             else
                             {
                                 if (rotation.ContainsKey(bid)) { editArea.CurFrame.BlockData[y, x] = rotation[bid]; }
-                                else { editArea.CurFrame.BlockData[y, x] = 0; }
+                                else { editArea.CurFrame.BlockData[y, x] = 1; }
                                 if (id.ContainsKey(bid)) { editArea.CurFrame.BlockData1[y, x] = id[bid]; }
-                                else { editArea.CurFrame.BlockData1[y, x] = 0; }
+                                else { editArea.CurFrame.BlockData1[y, x] = 1; }
                                 if (target.ContainsKey(bid)) { editArea.CurFrame.BlockData2[y, x] = target[bid]; }
-                                else { editArea.CurFrame.BlockData2[y, x] = 0; }
+                                else { editArea.CurFrame.BlockData2[y, x] = 1; }
                             }
                         }
                     }
