@@ -223,7 +223,7 @@ namespace EEditor
         {
 
             var acccs = $"{Directory.GetCurrentDirectory()}\\accounts.json";
-            if (File.Exists(acccs) && File.ReadAllLines(acccs).Length > 0)
+            if (File.Exists(acccs))
             {
 
                 var output = JObject.Parse(File.ReadAllText(acccs));
