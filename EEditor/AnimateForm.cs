@@ -69,7 +69,7 @@ namespace EEditor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (button1.Text == "Start")
+            if (button1.Text == "Start" && !string.IsNullOrEmpty(levelTextBox.Text))
             {
                 MainForm.userdata.level = levelTextBox.Text;
                 MainForm.userdata.levelPass = levelPassTextBox.Text;
@@ -183,18 +183,24 @@ namespace EEditor
             }
             else
             {
-                if (MainForm.userdata.saveWorldCrew && saveRights) {
-                    conn.Send("save");
-                }
-
-                label1.Text = "Level upload stopped.";
-                button1.Text = "Start";
-                try
+                if (!string.IsNullOrEmpty(levelTextBox.Text))
                 {
-                    thread?.Abort();
-                    conn?.Disconnect();
+                    if (MainForm.userdata.saveWorldCrew && saveRights)
+                    {
+                        conn.Send("save");
+                    }
+
+                    label1.Text = "Level upload stopped.";
+                    button1.Text = "Start";
+                    uploadProgressBar.Value = 0;
+                    TimeRunningTextBox.Clear();
+                    try
+                    {
+                        thread?.Abort();
+                        conn?.Disconnect();
+                    }
+                    catch { }
                 }
-                catch { }
             }
         }
 
@@ -205,10 +211,11 @@ namespace EEditor
         private void AnimateForm_Load(object sender, EventArgs e)
         {
             //this.Size = new Size(380, 184);
+
             DelayNumericUpDown.Value = MainForm.userdata.uploadDelay;
             levelTextBox.Text = MainForm.userdata.level;
             if (MainForm.userdata.uploadOption == 0) uploadOptionButton1.Checked = true;
-            
+            SaveEveryXBlocksNumericUpDown.Enabled = MainForm.userdata.saveWorldCrew;
             levelPassTextBox.Enabled = true;
             levelPassTextBox.Text = MainForm.userdata.levelPass;
 
@@ -303,6 +310,7 @@ namespace EEditor
         private void autoSaveCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             MainForm.userdata.saveWorldCrew = autoSaveCheckBox.Checked;
+            SaveEveryXBlocksNumericUpDown.Enabled = autoSaveCheckBox.Checked;
         }
 
         private void uploadOptionButton1_CheckedChanged(object sender, EventArgs e)
@@ -367,6 +375,16 @@ namespace EEditor
         private void DelayNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             MainForm.userdata.uploadDelay = Convert.ToInt32(DelayNumericUpDown.Value);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void SaveEveryXBlocksNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            MainForm.userdata.SaveXBlocks = Convert.ToInt32(SaveEveryXBlocksNumericUpDown.Value);
         }
     }
 
