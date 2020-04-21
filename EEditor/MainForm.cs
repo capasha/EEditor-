@@ -122,6 +122,7 @@ namespace EEditor
                     if (userdata.firstRun.ToString() == null) userdata.firstRun = false;
                     if (userdata.fastshape.ToString() == null) userdata.fastshape = true;
                     if (userdata.replaceit.ToString() == null) userdata.replaceit = false;
+                    if (userdata.SaveXBlocks.ToString() == null) userdata.SaveXBlocks = 500;
                 }
                 else
                 {
@@ -161,7 +162,8 @@ namespace EEditor
                         replaceit = false,
                         checkUpdate = true,
                         oldmark = true,
-                        darkTheme = false
+                        darkTheme = false,
+                        SaveXBlocks = 500,
 
 
                     };
@@ -201,7 +203,9 @@ namespace EEditor
                     randomLines = false,
                     checkUpdate = true,
                     oldmark = true,
-                    darkTheme = false
+                    darkTheme = false,
+                    SaveXBlocks = 500,
+                   
                 };
                 File.WriteAllText(pathSettings, JsonConvert.SerializeObject(userdata, Newtonsoft.Json.Formatting.Indented));
             }
@@ -4999,6 +5003,7 @@ namespace EEditor
         public bool oldmark { get; set; }
         public bool checkUpdate { get; set; }
         public bool darkTheme { get; set; }
+        public int SaveXBlocks { get; set; }
     }
     public class theme
     {
