@@ -47,10 +47,15 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.checkBoxReverse = new System.Windows.Forms.CheckBox();
             this.checkBoxRandom = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.SaveEveryXBlocksNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.SaveXBlocksLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DelayNumericUpDown)).BeginInit();
             this.groupBox5.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SaveEveryXBlocksNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -68,7 +73,7 @@
             this.groupBox1.Controls.Add(this.TimeRunningLabel);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.uploadProgressBar);
-            this.groupBox1.Location = new System.Drawing.Point(8, 221);
+            this.groupBox1.Location = new System.Drawing.Point(8, 282);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(318, 93);
             this.groupBox1.TabIndex = 1;
@@ -104,7 +109,7 @@
             // 
             this.button1.Location = new System.Drawing.Point(222, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 49);
+            this.button1.Size = new System.Drawing.Size(104, 49);
             this.button1.TabIndex = 2;
             this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
@@ -158,7 +163,7 @@
             // autoSaveCheckBox
             // 
             this.autoSaveCheckBox.AutoSize = true;
-            this.autoSaveCheckBox.Location = new System.Drawing.Point(78, 61);
+            this.autoSaveCheckBox.Location = new System.Drawing.Point(6, 25);
             this.autoSaveCheckBox.Name = "autoSaveCheckBox";
             this.autoSaveCheckBox.Size = new System.Drawing.Size(119, 17);
             this.autoSaveCheckBox.TabIndex = 26;
@@ -184,7 +189,7 @@
             this.groupBox2.Controls.Add(this.DelayNumericUpDown);
             this.groupBox2.Controls.Add(this.DelayLabel);
             this.groupBox2.Controls.Add(this.groupBox5);
-            this.groupBox2.Location = new System.Drawing.Point(8, 84);
+            this.groupBox2.Location = new System.Drawing.Point(8, 145);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(318, 131);
             this.groupBox2.TabIndex = 30;
@@ -258,13 +263,57 @@
             this.checkBoxRandom.UseVisualStyleBackColor = true;
             this.checkBoxRandom.CheckedChanged += new System.EventHandler(this.checkBoxRandom_CheckedChanged);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.SaveEveryXBlocksNumericUpDown);
+            this.groupBox3.Controls.Add(this.SaveXBlocksLabel);
+            this.groupBox3.Controls.Add(this.autoSaveCheckBox);
+            this.groupBox3.Location = new System.Drawing.Point(8, 62);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(234, 77);
+            this.groupBox3.TabIndex = 32;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Saving Options";
+            // 
+            // SaveEveryXBlocksNumericUpDown
+            // 
+            this.SaveEveryXBlocksNumericUpDown.Location = new System.Drawing.Point(116, 46);
+            this.SaveEveryXBlocksNumericUpDown.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.SaveEveryXBlocksNumericUpDown.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.SaveEveryXBlocksNumericUpDown.Name = "SaveEveryXBlocksNumericUpDown";
+            this.SaveEveryXBlocksNumericUpDown.Size = new System.Drawing.Size(101, 20);
+            this.SaveEveryXBlocksNumericUpDown.TabIndex = 1;
+            this.SaveEveryXBlocksNumericUpDown.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.SaveEveryXBlocksNumericUpDown.ValueChanged += new System.EventHandler(this.SaveEveryXBlocksNumericUpDown_ValueChanged);
+            // 
+            // SaveXBlocksLabel
+            // 
+            this.SaveXBlocksLabel.AutoSize = true;
+            this.SaveXBlocksLabel.Location = new System.Drawing.Point(6, 48);
+            this.SaveXBlocksLabel.Name = "SaveXBlocksLabel";
+            this.SaveXBlocksLabel.Size = new System.Drawing.Size(104, 13);
+            this.SaveXBlocksLabel.TabIndex = 0;
+            this.SaveXBlocksLabel.Text = "Save Every x blocks";
+            // 
             // AnimateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(339, 320);
+            this.ClientSize = new System.Drawing.Size(339, 405);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.autoSaveCheckBox);
             this.Controls.Add(this.levelPassTextBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -285,6 +334,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.DelayNumericUpDown)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SaveEveryXBlocksNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,5 +363,8 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.NumericUpDown DelayNumericUpDown;
         private System.Windows.Forms.Label DelayLabel;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.NumericUpDown SaveEveryXBlocksNumericUpDown;
+        private System.Windows.Forms.Label SaveXBlocksLabel;
     }
 }
