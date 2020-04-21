@@ -6,6 +6,7 @@ using PlayerIOClient;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace EEditor
 {
@@ -100,6 +101,7 @@ namespace EEditor
             if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Maximum = firstFrame.Count; });
             else pb.Maximum = firstFrame.Count;
             epochStartTime = dt;
+            int savexblocks = 0;
 
         stopit:
             if (frames.Count == 1)
@@ -140,7 +142,7 @@ namespace EEditor
                     else { drawblocks = true; }
                     if (drawblocks)
                     {
-                        OnStatusChanged("", epochStartTime, false, firstFrame.Count, Gcurrent1);
+                        
                         int blockId = Convert.ToInt32(cur[2]);
                         int layer = Convert.ToInt32(cur[3]);
 
@@ -376,6 +378,24 @@ namespace EEditor
                                 OnStatusChanged("Lost connection!", DateTime.MinValue, true, Gtotal, Gcurrent);
                                 return;
                             }
+                            if (MainForm.userdata.SaveXBlocks == savexblocks && MainForm.userdata.saveWorldCrew)
+                            {
+
+                                    if (AnimateForm.saveRights)
+                                    {
+                                        {
+                                            conn.Send("save");
+                                        }
+                                    }
+                                
+                                savexblocks = 0;
+                            }
+                            else if (savexblocks < MainForm.userdata.SaveXBlocks && MainForm.userdata.saveWorldCrew)
+                            {
+                                savexblocks += 1;
+                            }
+                            
+                            OnStatusChanged("", epochStartTime, false, firstFrame.Count, Gcurrent1);
                             int progress = (int)Math.Round((double)(100 * Gcurrent) / Gtotal);
                             if (progress == 50) goto stopit;
                             else if (progress == 90) goto stopit;
@@ -397,7 +417,7 @@ namespace EEditor
                             {
                                 queue.Enqueue(cur);
                             }
-                            OnStatusChanged("Uploading blocks to level. (Total: " + firstFrame.Count + "/" + Gcurrent + ")", epochStartTime, false, Gtotal, Gcurrent);
+                            OnStatusChanged("Uploading blocks to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", epochStartTime, false, Gtotal, Gcurrent);
                             if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Maximum = firstFrame.Count; });
                             TaskbarProgress.SetValue(afHandle, Gcurrent, firstFrame.Count);
                             break;
@@ -437,8 +457,12 @@ namespace EEditor
                     ++Gcurrent;
                     ++Gcurrent1;
                     OnStatusChanged("Uploading blocks to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
-                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
-                    restart = true;
+                    if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) 
+                    { 
+                        if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); 
+                        TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); 
+                    }
+                    
                 }
             }
             else if (e.Type == "br")
@@ -452,7 +476,6 @@ namespace EEditor
                     ++Gcurrent1;
                     OnStatusChanged("Uploading rotation blocks to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
                     if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
-                    restart = true;
                 }
             }
             else if (e.Type == "bc")
@@ -466,7 +489,6 @@ namespace EEditor
                     ++Gcurrent1;
                     OnStatusChanged("Uploading numbered action blocks to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
                     if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
-                    restart = true;
                     //placeBlocks.Remove(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetInt(3) } });
 
                 }
@@ -482,7 +504,6 @@ namespace EEditor
                     ++Gcurrent1;
                     OnStatusChanged("Uploading world portals to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
                     if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
-                    restart = true;
                     //placeBlocks.Remove(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e[3], e.GetInt(4) } });
                 }
 
@@ -499,7 +520,6 @@ namespace EEditor
                     ++Gcurrent1;
                     OnStatusChanged("Uploading signs to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
                     if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
-                    restart = true;
                     //placeBlocks.Remove(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e[3], e.GetInt(4)} });
                 }
             }
@@ -517,7 +537,6 @@ namespace EEditor
                     ++Gcurrent1;
                     OnStatusChanged("Uploading NPC's to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
                     if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
-                    restart = true;
                     //placeBlocks.Remove(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e[3], e[4], e[5], e[6] } });
                 }
             }
@@ -534,7 +553,6 @@ namespace EEditor
                     ++Gcurrent1;
                     OnStatusChanged("Uploading portals to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
                     if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
-                    restart = true;
                     //placeBlocks.Remove(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetInt(3), e.GetInt(4), e.GetInt(5) } });
                 }
             }
@@ -549,7 +567,6 @@ namespace EEditor
                     ++Gcurrent1;
                     OnStatusChanged("Uploading noteblocks to level. (Total: " + Gcurrent1 + "/" + firstFrame.Count + ")", DateTime.MinValue, false, Gtotal, Gcurrent);
                     if (Convert.ToDouble(Gcurrent1) <= pb.Maximum && Convert.ToDouble(Gcurrent1) >= pb.Minimum) { if (pb.InvokeRequired) pb.Invoke((MethodInvoker)delegate { pb.Value = Gcurrent1; }); TaskbarProgress.SetValue(afHandle, Gcurrent1, firstFrame.Count); }
-                    restart = true;
                     //placeBlocks.Remove(new blocks() { layer = 0, x = e.GetInt(0), y = e.GetInt(1), bid = e.GetInt(2), data = new object[] { e.GetInt(3) } });
                 }
             }
