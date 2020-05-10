@@ -55,7 +55,7 @@
             this.checkBoxBlocks.AutoSize = true;
             this.checkBoxBlocks.Checked = true;
             this.checkBoxBlocks.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxBlocks.Location = new System.Drawing.Point(6, 42);
+            this.checkBoxBlocks.Location = new System.Drawing.Point(28, 42);
             this.checkBoxBlocks.Name = "checkBoxBlocks";
             this.checkBoxBlocks.Size = new System.Drawing.Size(58, 17);
             this.checkBoxBlocks.TabIndex = 5;
@@ -68,7 +68,7 @@
             this.checkBoxBackground.AutoSize = true;
             this.checkBoxBackground.Checked = true;
             this.checkBoxBackground.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxBackground.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxBackground.Location = new System.Drawing.Point(28, 19);
             this.checkBoxBackground.Name = "checkBoxBackground";
             this.checkBoxBackground.Size = new System.Drawing.Size(84, 17);
             this.checkBoxBackground.TabIndex = 6;
@@ -85,7 +85,7 @@
             this.CreateImagegroupBox.Controls.Add(this.checkBoxBlocks);
             this.CreateImagegroupBox.Location = new System.Drawing.Point(12, 12);
             this.CreateImagegroupBox.Name = "CreateImagegroupBox";
-            this.CreateImagegroupBox.Size = new System.Drawing.Size(134, 141);
+            this.CreateImagegroupBox.Size = new System.Drawing.Size(157, 141);
             this.CreateImagegroupBox.TabIndex = 7;
             this.CreateImagegroupBox.TabStop = false;
             this.CreateImagegroupBox.Text = "Create image using";
@@ -93,7 +93,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 65);
+            this.label1.Location = new System.Drawing.Point(28, 65);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 11;
@@ -102,7 +102,7 @@
             // ActionBlockscheckBox
             // 
             this.ActionBlockscheckBox.AutoSize = true;
-            this.ActionBlockscheckBox.Location = new System.Drawing.Point(6, 111);
+            this.ActionBlockscheckBox.Location = new System.Drawing.Point(28, 111);
             this.ActionBlockscheckBox.Name = "ActionBlockscheckBox";
             this.ActionBlockscheckBox.Size = new System.Drawing.Size(91, 17);
             this.ActionBlockscheckBox.TabIndex = 10;
@@ -113,7 +113,7 @@
             // MorphablecheckBox
             // 
             this.MorphablecheckBox.AutoSize = true;
-            this.MorphablecheckBox.Location = new System.Drawing.Point(6, 88);
+            this.MorphablecheckBox.Location = new System.Drawing.Point(28, 88);
             this.MorphablecheckBox.Name = "MorphablecheckBox";
             this.MorphablecheckBox.Size = new System.Drawing.Size(76, 17);
             this.MorphablecheckBox.TabIndex = 9;
@@ -125,12 +125,12 @@
             // 
             this.progressBar1.Location = new System.Drawing.Point(12, 192);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(134, 23);
+            this.progressBar1.Size = new System.Drawing.Size(157, 23);
             this.progressBar1.TabIndex = 8;
             // 
             // GeneratorButton
             // 
-            this.GeneratorButton.Location = new System.Drawing.Point(71, 161);
+            this.GeneratorButton.Location = new System.Drawing.Point(94, 161);
             this.GeneratorButton.Name = "GeneratorButton";
             this.GeneratorButton.Size = new System.Drawing.Size(75, 23);
             this.GeneratorButton.TabIndex = 9;
@@ -142,7 +142,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(160, 226);
+            this.ClientSize = new System.Drawing.Size(181, 226);
             this.Controls.Add(this.GeneratorButton);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.CreateImagegroupBox);

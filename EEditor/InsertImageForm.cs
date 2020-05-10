@@ -5,6 +5,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
+using System.Diagnostics;
+
 namespace EEditor
 {
     public partial class InsertImageForm : Form
@@ -20,9 +22,6 @@ namespace EEditor
         private string[,] Text4;
         private bool exit = false;
         int n;
-        float[] H;
-        float[] S;
-        float[] B;
 
         private Thread thread;
         public static List<int> Blocks = new List<int>();
@@ -39,17 +38,6 @@ namespace EEditor
             MorphablecheckBox.Checked = MainForm.userdata.imageSpecialblocksMorph;
             ActionBlockscheckBox.Checked = MainForm.userdata.imageSpecialblocksAction;
             n = Minimap.ImageColor.Count();
-            H = new float[n];
-            S = new float[n];
-            B = new float[n];
-            for (int i = 0; i < n; ++i)
-                if (Minimap.ImageColor[i])
-                {
-                    Color c = Color.FromArgb((int)Minimap.Colors[i]);
-                    H[i] = c.GetHue();
-                    S[i] = c.GetSaturation();
-                    B[i] = c.GetBrightness();
-                }
         }
 
         public void loadImageButton_Click(object sender, EventArgs e)
@@ -77,33 +65,6 @@ namespace EEditor
             //this.Invalidate();
         }
         #region EEditor from image to ee
-        private double DistanceHSB(float H0, float S0, float B0, int k)
-        {
-            return Math.Pow(H0 - H[k], 2) + Math.Pow(S0 - S[k], 2) + Math.Pow(B0 - B[k], 2);
-        }
-
-        private int BestMatchHSB(Color c)
-        {
-            int j = 0;
-            float H = c.GetHue();
-            float S = c.GetSaturation();
-            float B = c.GetBrightness();
-            double d = DistanceHSB(H, S, B, 0);
-            for (int i = 1; i < n; i++)
-            {
-                if (Minimap.ImageColor[i])
-                {
-                    double dist = DistanceHSB(H, S, B, i);
-                    if (dist < d)
-                    {
-                        d = dist;
-                        j = i;
-                    }
-                }
-                if (exit) break;
-            }
-            return j;
-        }
 
         private double Distance(Color a, Color b)
         {
@@ -185,8 +146,9 @@ namespace EEditor
 
         private void Transform(Bitmap image)
         {
-            int width = image.Width;
-            int height = image.Height;
+            
+            int width = image.Width / 16;
+            int height = image.Height / 16;
             int incr = 0;
             Area = new string[height, width];
             Back = new string[height, width];
@@ -197,32 +159,32 @@ namespace EEditor
             Text2 = new string[height, width];
             Text3 = new string[height, width];
             Text4 = new string[height, width];
+            
             if (width > MainForm.editArea.BlockWidth || height > MainForm.editArea.BlockHeight)
             {
                 DialogResult rs = MessageBox.Show("The image is bigger than the world you have. Do you want to continue?", "Image bigger than world", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (rs == DialogResult.Yes)
                 {
-                    for (int x = 0; x < width; x++)
+                    for (int x = 0; x < image.Width; x++)
                     {
-                        for (int y = 0; y < height; y++)
+                        for (int y = 0; y < image.Height; y++)
                         {
                             int c;
-                            if (image.GetPixel(x, y).A == 255 && image.GetPixel(x, y).R == 0 && image.GetPixel(x, y).G == 0 && image.GetPixel(x, y).G == 0)
-                            {
-                                c = 0;
-                            }
-                            else if (image.GetPixel(x, y).A == 0 && image.GetPixel(x, y).R == 0 && image.GetPixel(x, y).G == 0 && image.GetPixel(x, y).G == 0)
+                            Color col = image.GetPixel(x, y);
+                            if (col.A == 0 && col.R == 0 && col.G == 0 && col.B == 0)
                             {
                                 c = 0;
                             }
                             else
                             {
-                                c = BestMatchRGB(image.GetPixel(x, y));
+                                c = BestMatchRGB(col);
                             }
+                            int xx = x / 16;
+                            int yy = y / 16;
                             if (c < 500 || c >= 1001 || c == -1)
-                                Area[y, x] = Convert.ToString(c);
+                                Area[yy, xx] = Convert.ToString(c);
                             else
-                                Back[y, x] = Convert.ToString(c);
+                                Back[yy, xx] = Convert.ToString(c);
                             if (exit) break;
                         }
                         if (exit) break;
@@ -231,7 +193,7 @@ namespace EEditor
                         {
                             progressBar1.Invoke((MethodInvoker)delegate
                             {
-                                double progress = ((double)incr / width) * 100;
+                                double progress = ((double)incr / image.Width) * 100;
                                 progressBar1.Value = (int)progress;
                             });
                         }
@@ -244,27 +206,26 @@ namespace EEditor
             }
             else
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < image.Width; x++)
                 {
-                    for (int y = 0; y < height; y++)
+                    for (int y = 0; y < image.Height; y++)
                     {
                         int c;
-                        if (image.GetPixel(x, y).A == 255 && image.GetPixel(x, y).R == 0 && image.GetPixel(x, y).G == 0 && image.GetPixel(x, y).G == 0)
-                        {
-                            c = 0;
-                        }
-                        else if (image.GetPixel(x, y).A == 0 && image.GetPixel(x, y).R == 0 && image.GetPixel(x, y).G == 0 && image.GetPixel(x, y).G == 0)
+                        Color col = image.GetPixel(x, y);
+                        if (col.A == 0 && col.R == 0 && col.G == 0 && col.B == 0)
                         {
                             c = 0;
                         }
                         else
                         {
-                            c = BestMatchRGB(image.GetPixel(x, y));
+                            c = BestMatchRGB(col);
                         }
+                        int xx = x / 16;
+                        int yy = y / 16;
                         if (c < 500 || c >= 1001 || c == -1)
-                            Area[y, x] = Convert.ToString(c);
+                            Area[yy, xx] = Convert.ToString(c);
                         else
-                            Back[y, x] = Convert.ToString(c);
+                            Back[yy, xx] = Convert.ToString(c);
                         if (exit) break;
                     }
                     if (exit) break;
@@ -273,7 +234,7 @@ namespace EEditor
                     {
                         progressBar1.Invoke((MethodInvoker)delegate
                         {
-                            double progress = ((double)incr / width) * 100;
+                            double progress = ((double)incr / image.Width) * 100;
                             progressBar1.Value = (int)progress;
                         });
                     }
@@ -330,10 +291,9 @@ namespace EEditor
         {
             if (path2file != null && File.Exists(path2file))
             {
-                Bitmap originalImage = new Bitmap(Bitmap.FromFile(path2file));
-                thread = new Thread(() => Transform(originalImage));
+                Image img = Bitmap.FromFile(path2file);
+                thread = new Thread(() => Transform((Bitmap)img));
                 thread.Start();
-                path2file = null;
             }
             else
             {
@@ -379,6 +339,6 @@ namespace EEditor
                 }
             }
         }
-    
+
     }
 }
