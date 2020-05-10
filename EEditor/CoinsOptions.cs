@@ -37,5 +37,26 @@ namespace EEditor
         private void button1_Click(object sender, EventArgs e)
         {
         }
+
+        private void numericUpDown_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.SuppressKeyPress = true;
+        }
+
+
+
+        private void numericUpDown1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.W)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+               ((NumericUpDown)sender).Value += 1;
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+                if (((NumericUpDown)sender).Value >= 1) ((NumericUpDown)sender).Value -= 1;
+            }
+        }
     }
 }
