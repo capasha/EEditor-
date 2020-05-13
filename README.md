@@ -1,3 +1,7 @@
+# EEditor detected as Virus?
+[Follow this link](https://github.com/capasha/EEditor-/wiki/Virus-Detection)
+
+
 ## EEditor - Everybody Edits offline editor  
    
 Welcome to the EEditor GitHub page! Here we host sourcecode and latest version of EEditor.
