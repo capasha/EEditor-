@@ -147,8 +147,8 @@ namespace EEditor
         private void Transform(Bitmap image)
         {
             
-            int width = image.Width / 16;
-            int height = image.Height / 16;
+            int width = image.Width;
+            int height = image.Height;
             int incr = 0;
             Area = new string[height, width];
             Back = new string[height, width];
@@ -179,8 +179,8 @@ namespace EEditor
                             {
                                 c = BestMatchRGB(col);
                             }
-                            int xx = x / 16;
-                            int yy = y / 16;
+                            int xx = x;
+                            int yy = y;
                             if (c < 500 || c >= 1001 || c == -1)
                                 Area[yy, xx] = Convert.ToString(c);
                             else
@@ -220,8 +220,8 @@ namespace EEditor
                         {
                             c = BestMatchRGB(col);
                         }
-                        int xx = x / 16;
-                        int yy = y / 16;
+                        int xx = x;
+                        int yy = y;
                         if (c < 500 || c >= 1001 || c == -1)
                             Area[yy, xx] = Convert.ToString(c);
                         else
