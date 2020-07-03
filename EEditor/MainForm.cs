@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using PlayerIOClient;
 
 namespace EEditor
 {
@@ -4919,6 +4920,115 @@ namespace EEditor
                 MessageBox.Show("An error has occured: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void TSONWorldFileMenu_Click(object sender, EventArgs e)
+        {
+            var tsonFileDialog = new OpenFileDialog();
+            tsonFileDialog.Filter = "TSON world (*.tson)|*.tson";
+
+            if (tsonFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var world = TsonBigDB.DatabaseObject.LoadFromString(File.ReadAllText(tsonFileDialog.FileName));
+                var temp = world.GetArray("worlddata");
+                var f = new Frame(world.GetInt("width", 200), world.GetInt("height", 200));
+                var height = f.Height;
+                var width = f.Width;
+
+                for (uint i = 0; i < temp.Count; i++)
+                {
+                        var obj = (TsonBigDB.DatabaseObject)temp[i];
+                        byte[] x = obj.GetBytes("x", new byte[0]), y = obj.GetBytes("y", new byte[0]);
+                        byte[] x1 = obj.GetBytes("x1", new byte[0]), y1 = obj.GetBytes("y1", new byte[0]);
+
+                        for (int j = 0; j < x1.Length; j++)
+                        {
+                            if (y1[j] < height && x1[j] < width)
+                            {
+                                try
+                                {
+                                    if (Convert.ToInt32(obj["type"]) < 500 || Convert.ToInt32(obj["type"]) >= 1001)
+                                    {
+                                        f.Foreground[y1[j], x1[j]] = Convert.ToInt32(obj["type"]);
+                                        object goal, signtype, text, rotation, id, target;
+                                        if (obj.TryGetValue("goal", out goal)) f.BlockData[y1[j], x1[j]] = Convert.ToInt32(goal);
+                                        if (obj.TryGetValue("signtype", out signtype)) f.BlockData[y1[j], x1[j]] = Convert.ToInt32(signtype);
+                                        if (obj.TryGetValue("text", out text)) f.BlockData3[y1[j], x1[j]] = text.ToString();
+                                        if (obj.TryGetValue("rotation", out rotation)) f.BlockData[y1[j], x1[j]] = Convert.ToInt32(rotation);
+                                        if (obj.TryGetValue("id", out id))
+                                        {
+                                            if (bdata.sound.Contains(Convert.ToInt32(obj["type"])))
+                                            {
+                                                f.BlockData[y1[j], x1[j]] = (int)Convert.ToUInt32(id);
+                                            }
+                                            else
+                                            {
+                                                f.BlockData[y1[j], x1[j]] = Convert.ToInt32(id);
+                                            }
+                                        }
+                                        if (obj.TryGetValue("target", out target) && !(target is string)) f.BlockData2[y1[j], x1[j]] = Convert.ToInt32(target);
+                                        if (obj.TryGetValue("target", out target) && (target is string)) f.BlockData3[y1[j], x1[j]] = target.ToString();
+                                    }
+                                    else if (Convert.ToInt32(obj["type"]) >= 500 && Convert.ToInt32(obj["type"]) <= 999)
+                                    {
+                                        f.Background[y1[j], x1[j]] = Convert.ToInt32(obj["type"]);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.ToString());
+                                }
+
+                            }
+                        }
+
+                        for (int k = 0; k < x.Length; k += 2)
+                        {
+
+                            int yy = (y[k] << 8) | y[k + 1];
+                            int xx = (x[k] << 8) | x[k + 1];
+
+                        if (yy < height && xx < width)
+                        {
+                            try
+                            {
+                                if (Convert.ToInt32(obj["type"]) < 500 || Convert.ToInt32(obj["type"]) >= 1001)
+                                {
+                                    object goal, signtype, text, rotation, id, target;
+                                    f.Foreground[yy, xx] = Convert.ToInt32(obj["type"]);
+                                    if (obj.TryGetValue("goal", out goal)) f.BlockData[yy, xx] = Convert.ToInt32(obj["goal"]);
+                                    if (obj.TryGetValue("signtype", out signtype)) f.BlockData[yy, xx] = Convert.ToInt32(obj["signtype"]);
+                                    if (obj.TryGetValue("text", out text)) f.BlockData3[yy, xx] = text.ToString();
+                                    if (obj.TryGetValue("rotation", out rotation)) f.BlockData[yy, xx] = Convert.ToInt32(obj["rotation"]);
+                                    if (obj.TryGetValue("id", out id))
+                                    {
+                                        if (bdata.sound.Contains(Convert.ToInt32(obj["type"])))
+                                        {
+                                            f.BlockData[yy, xx] = (int)Convert.ToUInt32(id);
+                                        }
+                                        else
+                                        {
+                                            f.BlockData[yy, xx] = Convert.ToInt32(id);
+                                        }
+                                    }
+                                    if (obj.TryGetValue("target", out target) && target.GetType().ToString() != "System.String") f.BlockData2[yy, xx] = Convert.ToInt32(target);
+                                    if (obj.TryGetValue("target", out target) && target.GetType().ToString() == "System.String") f.BlockData3[yy, xx] = target.ToString();
+                                }
+                                else if (Convert.ToInt32(obj["type"]) >= 500 && Convert.ToInt32(obj["type"]) <= 999)
+                                {
+                                    f.Background[yy, xx] = Convert.ToInt32(obj["type"]);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.ToString());
+                            }
+                        }
+                    }
+                }
+
+                MainForm.editArea.Init(f, false);
+            }
         }
     }
 
