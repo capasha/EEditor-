@@ -86,6 +86,7 @@
             this.insertDropButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.imageButton = new System.Windows.Forms.ToolStripMenuItem();
             this.textButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.bluePrintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.replaceButton = new System.Windows.Forms.ToolStripButton();
             this.unknownToolStrip = new System.Windows.Forms.ToolStrip();
@@ -703,7 +704,8 @@
             this.insertDropButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.insertDropButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.imageButton,
-            this.textButton});
+            this.textButton,
+            this.bluePrintToolStripMenuItem});
             this.insertDropButton.Image = global::EEditor.Properties.Resources.insert;
             this.insertDropButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.insertDropButton.Name = "insertDropButton";
@@ -716,7 +718,7 @@
             this.imageButton.Image = global::EEditor.Properties.Resources.image;
             this.imageButton.Name = "imageButton";
             this.imageButton.ShortcutKeyDisplayString = "CTRL + I";
-            this.imageButton.Size = new System.Drawing.Size(158, 22);
+            this.imageButton.Size = new System.Drawing.Size(184, 26);
             this.imageButton.Text = "Image";
             this.imageButton.Click += new System.EventHandler(this.imageButton_Click);
             // 
@@ -725,9 +727,17 @@
             this.textButton.Image = global::EEditor.Properties.Resources.text;
             this.textButton.Name = "textButton";
             this.textButton.ShortcutKeyDisplayString = "CTRL + T";
-            this.textButton.Size = new System.Drawing.Size(158, 22);
+            this.textButton.Size = new System.Drawing.Size(184, 26);
             this.textButton.Text = "Text";
             this.textButton.Click += new System.EventHandler(this.textButton_Click);
+            // 
+            // bluePrintToolStripMenuItem
+            // 
+            this.bluePrintToolStripMenuItem.Enabled = false;
+            this.bluePrintToolStripMenuItem.Name = "bluePrintToolStripMenuItem";
+            this.bluePrintToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.bluePrintToolStripMenuItem.Text = "Blue Print";
+            this.bluePrintToolStripMenuItem.Click += new System.EventHandler(this.bluePrintToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
@@ -1366,6 +1376,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripButton StatisticButton;
         private System.Windows.Forms.ToolStripMenuItem mazeGeneratorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bluePrintToolStripMenuItem;
     }
 }
 
