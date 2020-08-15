@@ -147,6 +147,12 @@
       <DependentUpon>BackgroundIgnore.cs</DependentUpon>
     </Compile>
     <Compile Include="bdata.cs" />
+    <Compile Include="BluePrints.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BluePrints.Designer.cs">
+      <DependentUpon>BluePrints.cs</DependentUpon>
+    </Compile>
     <Compile Include="Brush.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -338,6 +344,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BackgroundIgnore.resx">
       <DependentUpon>BackgroundIgnore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BluePrints.resx">
+      <DependentUpon>BluePrints.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Brush.resx">
       <DependentUpon>Brush.cs</DependentUpon>
