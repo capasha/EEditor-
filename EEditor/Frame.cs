@@ -1137,7 +1137,7 @@ namespace EEditor
                         {
                             f.Foreground[y, x] = lvl[0, x, y].BlockID;
                             int temp = ((Blocks.MusicBlock)lvl[0, x, y]).Note;
-                            f.BlockData[y, x] = (int)Convert.ToUInt32(temp);
+                            f.BlockData[y, x] = temp;
                         }
                         if (Blocks.IsType(lvl[1, x, y].BlockID, Blocks.BlockType.Normal))
                         {
