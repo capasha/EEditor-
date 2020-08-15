@@ -608,7 +608,7 @@ namespace EEditor
                             if (Clipboard.ContainsData("EEBrush"))
                             {
                                 string[][,] data = (string[][,])Clipboard.GetData("EEBrush");
-                                if (data?.Length == 6)
+                                if (data?.Length == 9)
                                 {
                                     for (int y = 0; y < data[0].GetLength(0); y++)
                                     {
