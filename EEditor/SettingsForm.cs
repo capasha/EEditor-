@@ -57,6 +57,8 @@ namespace EEditor
             clearComboBox.BackColor = MainForm.themecolors.background;
             clearComboBox.ForeColor = MainForm.themecolors.foreground;
             clearButton.ForeColor = MainForm.themecolors.foreground;
+            clearButton.BackColor = MainForm.themecolors.accent;
+            clearButton.FlatStyle = FlatStyle.Flat;
             var items = ((StatusStrip)statusStrip1).Items;
             for (int o = 0; o < items.Count; o++)
             {
