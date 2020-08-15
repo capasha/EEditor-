@@ -4920,6 +4920,12 @@ namespace EEditor
             }
 
         }
+
+        private void bluePrintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BluePrints bp = new BluePrints();
+            bp.ShowDialog();
+        }
     }
 
     public class ownedBlocks
