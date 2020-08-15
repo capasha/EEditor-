@@ -26,6 +26,7 @@ namespace EEditor
         private int dy;
         private Bitmap CutBitmap { get; set; }
         private Bitmap BackBitmap { get; set; }
+        
 
         public ToolMark(EditArea editArea)
             : base(editArea)
@@ -359,12 +360,15 @@ namespace EEditor
             else if (e.Control && e.KeyCode == Keys.G && progress == Progress.Selected)
             {
                 Clipboard.SetData("EEBrush", new string[][,] { Front, Back, Coins, Id1, Target1, Text1, Text2, Text3,Text4 });
-                RemoveBorder();
-                Clear();
-                progress = Progress.Select;
-                editArea.MainForm.SetTransFormToolStrip(false);
-                editArea.Invalidate();
+                CleanUp(true);
             }
+            /*else if (e.Control && e.KeyCode == Keys.Z && progress == Progress.Selected)
+            {
+                Clipboard.SetData("EEBlueprints", new string[][,] { Front, Back, Coins, Id1, Target1, Text1, Text2, Text3, Text4 });
+                CleanUp(true);
+                
+                
+            }*/
             else if (e.KeyCode == Keys.Delete)
             {
                 RemoveBorder();
@@ -530,6 +534,7 @@ namespace EEditor
                                 else
                                 {
                                     frame.Foreground[yy, xx] = Convert.ToInt32(Front[y, x]);
+                                    if (frame.Background[yy, xx] == 0) frame.Background[yy, xx] = Convert.ToInt32(Back[y, x]);
                                 }
                                 
                             }
