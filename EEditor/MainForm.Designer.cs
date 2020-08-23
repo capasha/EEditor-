@@ -733,7 +733,7 @@
             // 
             // bluePrintToolStripMenuItem
             // 
-            this.bluePrintToolStripMenuItem.Enabled = false;
+            this.bluePrintToolStripMenuItem.Image = global::EEditor.Properties.Resources.blueprint;
             this.bluePrintToolStripMenuItem.Name = "bluePrintToolStripMenuItem";
             this.bluePrintToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.bluePrintToolStripMenuItem.Text = "Blue Print";
