@@ -450,7 +450,6 @@ namespace EEditor
                         break;
                     case "getMySimplePlayerObject":
                         Dictionary<string, int> pv = new Dictionary<string, int>();
-                        string owner = "Unknown";
                         int total = bdata.extractPlayerObjectsMessage(m) + 1;
                         string nickname = m[(uint)total].ToString();
                         int goldmember = total + 9;
