@@ -42,6 +42,7 @@ namespace EEditor
                             ((LinkLabel)this.Controls[i].Controls[a]).LinkColor = MainForm.themecolors.link;
                             ((LinkLabel)this.Controls[i].Controls[a]).VisitedLinkColor = MainForm.themecolors.visitedlink;
                             ((LinkLabel)this.Controls[i].Controls[a]).ActiveLinkColor = MainForm.themecolors.activelink;
+                            
 
 
                         }
@@ -79,7 +80,7 @@ namespace EEditor
                         link1 = "https://github.com/capasha/EEditor-";
                     break;
             }
-            DialogResult dgresult = MessageBox.Show("Do you want to open this link in your webbrowser?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            DialogResult dgresult = MessageBox.Show($"Do you want to open {link1}\nin your webbrowser?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (dgresult == DialogResult.Yes)
             {
                 Process.Start(link1);
@@ -108,8 +109,8 @@ namespace EEditor
                 case "Fatcow Icons":
                     link = "https://www.fatcow.com/free-icons";
                     break;
-                case "Bresenham's Line Algorithm":
-                    link = "http://www.roguebasin.com/index.php?title=Bresenham%27s_Line_Algorithm";
+                case "Bresenham's Algorithm (Ellipse,Line)":
+                    link = "http://members.chello.at/~easyfilter/bresenham.html";
                     break;
                 case "Json.NET Newtonsoft":
                     link = "https://www.newtonsoft.com/json";
@@ -130,7 +131,7 @@ namespace EEditor
                     link = "https://gitlab.com/LukeM212/EELVL/tree/legacy";
                     break;
             }
-            DialogResult dr = MessageBox.Show("Do you want to open this link in your webbrowser?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            DialogResult dr = MessageBox.Show($"Do you want to open {link}\nin your webbrowser?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (dr == DialogResult.Yes)
             {
                 Process.Start(link);
@@ -144,6 +145,16 @@ namespace EEditor
             {
                 Process.Start(file);
             }
+        }
+
+        private void linkLabel_MouseHover(object sender, EventArgs e)
+        {
+            ((LinkLabel)sender).LinkColor = MainForm.themecolors.activelink;
+        }
+
+        private void linkLabel_MouseLeave(object sender, EventArgs e)
+        {
+            ((LinkLabel)sender).LinkColor = MainForm.themecolors.link;
         }
     }
 }
