@@ -34,6 +34,7 @@
             this.ForumButton = new System.Windows.Forms.Button();
             this.AboutLabel = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.DownloadButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -47,7 +48,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.FatcowLinkLabel = new System.Windows.Forms.LinkLabel();
             this.BresenLALinkLabel = new System.Windows.Forms.LinkLabel();
-            this.label9 = new System.Windows.Forms.Label();
             this.JSONLinkLabel = new System.Windows.Forms.LinkLabel();
             this.lPlayerIOLinkLabel = new System.Windows.Forms.LinkLabel();
             this.CosturaLinkLabel = new System.Windows.Forms.LinkLabel();
@@ -55,13 +55,14 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lukemLinkLabel = new System.Windows.Forms.LinkLabel();
             this.InitParserLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.DownloadButton = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // BugsOrFeatureButton
             // 
+            this.BugsOrFeatureButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BugsOrFeatureButton.Location = new System.Drawing.Point(113, 55);
             this.BugsOrFeatureButton.Name = "BugsOrFeatureButton";
             this.BugsOrFeatureButton.Size = new System.Drawing.Size(97, 23);
@@ -72,6 +73,7 @@
             // 
             // WikiButton
             // 
+            this.WikiButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.WikiButton.Location = new System.Drawing.Point(10, 89);
             this.WikiButton.Name = "WikiButton";
             this.WikiButton.Size = new System.Drawing.Size(97, 23);
@@ -82,6 +84,7 @@
             // 
             // HomepageButton
             // 
+            this.HomepageButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.HomepageButton.Location = new System.Drawing.Point(113, 89);
             this.HomepageButton.Name = "HomepageButton";
             this.HomepageButton.Size = new System.Drawing.Size(97, 23);
@@ -92,6 +95,7 @@
             // 
             // ForumButton
             // 
+            this.ForumButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ForumButton.Location = new System.Drawing.Point(10, 55);
             this.ForumButton.Name = "ForumButton";
             this.ForumButton.Size = new System.Drawing.Size(97, 23);
@@ -123,6 +127,17 @@
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "General info";
+            // 
+            // DownloadButton
+            // 
+            this.DownloadButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DownloadButton.Location = new System.Drawing.Point(215, 55);
+            this.DownloadButton.Name = "DownloadButton";
+            this.DownloadButton.Size = new System.Drawing.Size(97, 23);
+            this.DownloadButton.TabIndex = 4;
+            this.DownloadButton.Text = "Downloader";
+            this.DownloadButton.UseVisualStyleBackColor = true;
+            this.DownloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
             // 
             // label1
             // 
@@ -180,6 +195,8 @@
             this.FontAndTextInsertionLinkLabel.TabStop = true;
             this.FontAndTextInsertionLinkLabel.Text = "font and text insertion";
             this.FontAndTextInsertionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            this.FontAndTextInsertionLinkLabel.MouseEnter += new System.EventHandler(this.linkLabel_MouseHover);
+            this.FontAndTextInsertionLinkLabel.MouseLeave += new System.EventHandler(this.linkLabel_MouseLeave);
             // 
             // label6
             // 
@@ -193,18 +210,20 @@
             // GoogleLinkLabel
             // 
             this.GoogleLinkLabel.AutoSize = true;
-            this.GoogleLinkLabel.Location = new System.Drawing.Point(6, 174);
+            this.GoogleLinkLabel.Location = new System.Drawing.Point(6, 192);
             this.GoogleLinkLabel.Name = "GoogleLinkLabel";
             this.GoogleLinkLabel.Size = new System.Drawing.Size(41, 13);
             this.GoogleLinkLabel.TabIndex = 11;
             this.GoogleLinkLabel.TabStop = true;
             this.GoogleLinkLabel.Text = "Google";
             this.GoogleLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            this.GoogleLinkLabel.MouseEnter += new System.EventHandler(this.linkLabel_MouseHover);
+            this.GoogleLinkLabel.MouseLeave += new System.EventHandler(this.linkLabel_MouseLeave);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(44, 174);
+            this.label7.Location = new System.Drawing.Point(44, 192);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(25, 13);
             this.label7.TabIndex = 12;
@@ -213,18 +232,20 @@
             // MaterialDesignLinkLabel
             // 
             this.MaterialDesignLinkLabel.AutoSize = true;
-            this.MaterialDesignLinkLabel.Location = new System.Drawing.Point(67, 174);
+            this.MaterialDesignLinkLabel.Location = new System.Drawing.Point(67, 192);
             this.MaterialDesignLinkLabel.Name = "MaterialDesignLinkLabel";
             this.MaterialDesignLinkLabel.Size = new System.Drawing.Size(167, 13);
             this.MaterialDesignLinkLabel.TabIndex = 13;
             this.MaterialDesignLinkLabel.TabStop = true;
             this.MaterialDesignLinkLabel.Text = "Material Design Icons contributors";
             this.MaterialDesignLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            this.MaterialDesignLinkLabel.MouseEnter += new System.EventHandler(this.linkLabel_MouseHover);
+            this.MaterialDesignLinkLabel.MouseLeave += new System.EventHandler(this.linkLabel_MouseLeave);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 187);
+            this.label8.Location = new System.Drawing.Point(6, 205);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(156, 13);
             this.label8.TabIndex = 14;
@@ -233,80 +254,84 @@
             // FatcowLinkLabel
             // 
             this.FatcowLinkLabel.AutoSize = true;
-            this.FatcowLinkLabel.Location = new System.Drawing.Point(161, 187);
+            this.FatcowLinkLabel.Location = new System.Drawing.Point(161, 205);
             this.FatcowLinkLabel.Name = "FatcowLinkLabel";
             this.FatcowLinkLabel.Size = new System.Drawing.Size(71, 13);
             this.FatcowLinkLabel.TabIndex = 15;
             this.FatcowLinkLabel.TabStop = true;
             this.FatcowLinkLabel.Text = "Fatcow Icons";
             this.FatcowLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            this.FatcowLinkLabel.MouseEnter += new System.EventHandler(this.linkLabel_MouseHover);
+            this.FatcowLinkLabel.MouseLeave += new System.EventHandler(this.linkLabel_MouseLeave);
             // 
             // BresenLALinkLabel
             // 
             this.BresenLALinkLabel.AutoSize = true;
-            this.BresenLALinkLabel.Location = new System.Drawing.Point(6, 210);
+            this.BresenLALinkLabel.Location = new System.Drawing.Point(6, 228);
             this.BresenLALinkLabel.Name = "BresenLALinkLabel";
-            this.BresenLALinkLabel.Size = new System.Drawing.Size(136, 13);
+            this.BresenLALinkLabel.Size = new System.Drawing.Size(175, 13);
             this.BresenLALinkLabel.TabIndex = 16;
             this.BresenLALinkLabel.TabStop = true;
-            this.BresenLALinkLabel.Text = "Bresenham\'s Line Algorithm";
+            this.BresenLALinkLabel.Text = "Bresenham\'s Algorithm (Ellipse,Line)";
             this.BresenLALinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 233);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(146, 13);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Bresenham\'s Ellipse Algorithm";
+            this.BresenLALinkLabel.MouseEnter += new System.EventHandler(this.linkLabel_MouseHover);
+            this.BresenLALinkLabel.MouseLeave += new System.EventHandler(this.linkLabel_MouseLeave);
             // 
             // JSONLinkLabel
             // 
             this.JSONLinkLabel.AutoSize = true;
-            this.JSONLinkLabel.Location = new System.Drawing.Point(6, 255);
+            this.JSONLinkLabel.Location = new System.Drawing.Point(7, 252);
             this.JSONLinkLabel.Name = "JSONLinkLabel";
             this.JSONLinkLabel.Size = new System.Drawing.Size(111, 13);
             this.JSONLinkLabel.TabIndex = 18;
             this.JSONLinkLabel.TabStop = true;
             this.JSONLinkLabel.Text = "Json.NET Newtonsoft";
             this.JSONLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            this.JSONLinkLabel.MouseEnter += new System.EventHandler(this.linkLabel_MouseHover);
+            this.JSONLinkLabel.MouseLeave += new System.EventHandler(this.linkLabel_MouseLeave);
             // 
             // lPlayerIOLinkLabel
             // 
             this.lPlayerIOLinkLabel.AutoSize = true;
-            this.lPlayerIOLinkLabel.Location = new System.Drawing.Point(119, 255);
+            this.lPlayerIOLinkLabel.Location = new System.Drawing.Point(120, 252);
             this.lPlayerIOLinkLabel.Name = "lPlayerIOLinkLabel";
             this.lPlayerIOLinkLabel.Size = new System.Drawing.Size(72, 13);
             this.lPlayerIOLinkLabel.TabIndex = 19;
             this.lPlayerIOLinkLabel.TabStop = true;
             this.lPlayerIOLinkLabel.Text = "PlayerIO SDK";
             this.lPlayerIOLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            this.lPlayerIOLinkLabel.MouseEnter += new System.EventHandler(this.linkLabel_MouseHover);
+            this.lPlayerIOLinkLabel.MouseLeave += new System.EventHandler(this.linkLabel_MouseLeave);
             // 
             // CosturaLinkLabel
             // 
             this.CosturaLinkLabel.AutoSize = true;
-            this.CosturaLinkLabel.Location = new System.Drawing.Point(7, 278);
+            this.CosturaLinkLabel.Location = new System.Drawing.Point(8, 275);
             this.CosturaLinkLabel.Name = "CosturaLinkLabel";
             this.CosturaLinkLabel.Size = new System.Drawing.Size(135, 13);
             this.CosturaLinkLabel.TabIndex = 20;
             this.CosturaLinkLabel.TabStop = true;
             this.CosturaLinkLabel.Text = "Costura Fody - DLL Packer";
             this.CosturaLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            this.CosturaLinkLabel.MouseEnter += new System.EventHandler(this.linkLabel_MouseHover);
+            this.CosturaLinkLabel.MouseLeave += new System.EventHandler(this.linkLabel_MouseLeave);
             // 
             // ZIPLinkLabel
             // 
             this.ZIPLinkLabel.AutoSize = true;
-            this.ZIPLinkLabel.Location = new System.Drawing.Point(148, 278);
+            this.ZIPLinkLabel.Location = new System.Drawing.Point(149, 275);
             this.ZIPLinkLabel.Name = "ZIPLinkLabel";
             this.ZIPLinkLabel.Size = new System.Drawing.Size(127, 13);
             this.ZIPLinkLabel.TabIndex = 21;
             this.ZIPLinkLabel.TabStop = true;
             this.ZIPLinkLabel.Text = "SharpCompress - ZIP tool";
             this.ZIPLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            this.ZIPLinkLabel.MouseEnter += new System.EventHandler(this.linkLabel_MouseHover);
+            this.ZIPLinkLabel.MouseLeave += new System.EventHandler(this.linkLabel_MouseLeave);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.lukemLinkLabel);
             this.groupBox1.Controls.Add(this.InitParserLinkLabel);
             this.groupBox1.Controls.Add(this.label2);
@@ -319,7 +344,6 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.JSONLinkLabel);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.BresenLALinkLabel);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.FatcowLinkLabel);
@@ -329,7 +353,7 @@
             this.groupBox1.Controls.Add(this.MaterialDesignLinkLabel);
             this.groupBox1.Location = new System.Drawing.Point(12, 153);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(325, 330);
+            this.groupBox1.Size = new System.Drawing.Size(325, 328);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Credits / License";
@@ -337,40 +361,43 @@
             // lukemLinkLabel
             // 
             this.lukemLinkLabel.AutoSize = true;
-            this.lukemLinkLabel.Location = new System.Drawing.Point(155, 301);
+            this.lukemLinkLabel.Location = new System.Drawing.Point(156, 298);
             this.lukemLinkLabel.Name = "lukemLinkLabel";
             this.lukemLinkLabel.Size = new System.Drawing.Size(106, 13);
             this.lukemLinkLabel.TabIndex = 23;
             this.lukemLinkLabel.TabStop = true;
             this.lukemLinkLabel.Text = "Lukem\'s .eelvl parser";
             this.lukemLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            this.lukemLinkLabel.MouseEnter += new System.EventHandler(this.linkLabel_MouseHover);
+            this.lukemLinkLabel.MouseLeave += new System.EventHandler(this.linkLabel_MouseLeave);
             // 
             // InitParserLinkLabel
             // 
             this.InitParserLinkLabel.AutoSize = true;
-            this.InitParserLinkLabel.Location = new System.Drawing.Point(7, 301);
+            this.InitParserLinkLabel.Location = new System.Drawing.Point(8, 298);
             this.InitParserLinkLabel.Name = "InitParserLinkLabel";
             this.InitParserLinkLabel.Size = new System.Drawing.Size(146, 13);
             this.InitParserLinkLabel.TabIndex = 22;
             this.InitParserLinkLabel.TabStop = true;
             this.InitParserLinkLabel.Text = "Yonom/Processor\'s InitParser";
             this.InitParserLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            this.InitParserLinkLabel.MouseEnter += new System.EventHandler(this.linkLabel_MouseHover);
+            this.InitParserLinkLabel.MouseLeave += new System.EventHandler(this.linkLabel_MouseLeave);
             // 
-            // DownloadButton
+            // label10
             // 
-            this.DownloadButton.Location = new System.Drawing.Point(215, 55);
-            this.DownloadButton.Name = "DownloadButton";
-            this.DownloadButton.Size = new System.Drawing.Size(97, 23);
-            this.DownloadButton.TabIndex = 4;
-            this.DownloadButton.Text = "Downloader";
-            this.DownloadButton.UseVisualStyleBackColor = true;
-            this.DownloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(7, 170);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(200, 13);
+            this.label10.TabIndex = 24;
+            this.label10.Text = "Habbogame/HG added unknown blocks";
             // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(351, 492);
+            this.ClientSize = new System.Drawing.Size(351, 490);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox4);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -405,7 +432,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.LinkLabel FatcowLinkLabel;
         private System.Windows.Forms.LinkLabel BresenLALinkLabel;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.LinkLabel JSONLinkLabel;
         private System.Windows.Forms.LinkLabel lPlayerIOLinkLabel;
         private System.Windows.Forms.LinkLabel CosturaLinkLabel;
@@ -414,5 +440,6 @@
         private System.Windows.Forms.LinkLabel InitParserLinkLabel;
         private System.Windows.Forms.LinkLabel lukemLinkLabel;
         private System.Windows.Forms.Button DownloadButton;
+        private System.Windows.Forms.Label label10;
     }
 }
