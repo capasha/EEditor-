@@ -91,23 +91,33 @@ namespace EEditor
         private void GetMinimap(Client client, string worldid)
         {
             var world = new World(InputType.BigDB, worldid, client);
+            Bitmap fg = new Bitmap(world.Width, world.Height);
+            Bitmap bg = new Bitmap(world.Width, world.Height);
             Bitmap bmp = new Bitmap(world.Width, world.Height);
             var value = world.Blocks.ToArray();
-            using (Graphics gr = Graphics.FromImage(bmp))
-            {
-                gr.FillRectangle(new SolidBrush(Color.Black), 0, 0, bmp.Width, bmp.Height);
-            }
-            foreach (var val in value)
-            {
-                int block = Convert.ToInt32(val.Type);
-                foreach (var vale in val.Locations)
+            using (Graphics gr = Graphics.FromImage(bmp)) { gr.Clear(Color.Black); }
+                foreach (var val in value)
                 {
-                    if (Minimap.Colors[block] != 321)
+                    int block = Convert.ToInt32(val.Type);
+                    foreach (var vale in val.Locations)
                     {
-                        bmp.SetPixel(vale.X, vale.Y, Color.FromArgb((int)Minimap.Colors[block]));
+
+
+                        if (val.Layer == 1 && block != 0)
+                        {
+                            bg.SetPixel(vale.X, vale.Y, Color.FromArgb((int)Minimap.Colors[block]));
+                        }
+                        else
+                        {
+                            fg.SetPixel(vale.X, vale.Y, Color.FromArgb((int)Minimap.Colors[block]));
+
+
+                        }
                     }
                 }
-            }
+            Graphics g = Graphics.FromImage(bmp);
+            g.DrawImage(bg, new Point(0, 0));
+            g.DrawImage(fg, new Point(0, 0));
             pictureBox1.Image = bmp;
         }
         private void MyWorlds_FormClosing(object sender, FormClosingEventArgs e)
@@ -140,7 +150,7 @@ namespace EEditor
                     foreach (var property in output)
                     {
                         ListViewItem lvi = new ListViewItem();
-                        lvi.Text = property.Value["name"].ToString();
+                        lvi.Text = property.Value["name"].ToString() == "" ? "Untitled World": property.Value["name"].ToString();
                         lvi.SubItems.Add(property.Value["size"].ToString());
                         lvi.SubItems.Add(property.Key);
                         listView1.Items.Add(lvi);
@@ -239,7 +249,7 @@ namespace EEditor
                         }
                         else
                         {
-                            rooms.Add(m[(UInt32)total].ToString());
+                            if (m[(UInt32)total].ToString() != null) rooms.Add(m[(UInt32)total].ToString());
                         }
                         if (rooms.Count > 0)
                         {
