@@ -35,7 +35,6 @@ namespace EEditor
 
         public Frame(int width, int height)
         {
-            Console.WriteLine(width + " " + height);
             Width = width;
             Height = height;
             Foreground = new int[Height, Width];
