@@ -904,7 +904,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                 if (e.KeyCode == Keys.F6) MainForm.SetTool(6); // LevelTextbox
                 if (e.KeyCode == Keys.F7) MainForm.SetTool(8); // CodeTextbox
 
-                if (e.KeyCode == Keys.Z) MainForm.SetPenTool();
+                if (e.KeyCode == Keys.Z && e.KeyCode != Keys.Control) MainForm.SetPenTool();
                 if (e.KeyCode == Keys.X) MainForm.SetFillTool();
                 if (e.KeyCode == Keys.C) MainForm.SetSprayTool();
                 if (e.KeyCode == Keys.V) MainForm.SetMarkTool();
@@ -941,7 +941,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                 if (e.Control && e.KeyCode == Keys.O) MainForm.SetTool(1); // Open
                 if (e.Control && e.KeyCode == Keys.S) MainForm.SetTool(2); // Save
 
-                if (e.Control && e.KeyCode == Keys.Z) MainForm.SetTool(14); // Undo
+                
                 if (e.Control && e.KeyCode == Keys.Y) MainForm.SetTool(15); // Redo
                 if (e.Control && e.Shift && e.KeyCode == Keys.H) MainForm.SetTool(16); // History
 
