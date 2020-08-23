@@ -88,6 +88,7 @@
             // 
             // clearButton
             // 
+            this.clearButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.clearButton.ForeColor = System.Drawing.SystemColors.ControlText;
             this.clearButton.Location = new System.Drawing.Point(156, 206);
             this.clearButton.Name = "clearButton";
@@ -128,9 +129,9 @@
             this.StatusTextToolStripStatusLabel,
             this.StatusToolStripStatusLabel,
             this.StatusColorToolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 232);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 246);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(228, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(220, 22);
             this.statusStrip1.TabIndex = 31;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -195,7 +196,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(228, 254);
+            this.ClientSize = new System.Drawing.Size(220, 268);
             this.Controls.Add(this.DarkThemeCheckBox);
             this.Controls.Add(this.OldMarkCheckBox);
             this.Controls.Add(this.UpdateCheckCheckBox);
@@ -207,7 +208,6 @@
             this.Controls.Add(this.clearComboBox);
             this.Controls.Add(this.clearButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EEditor Settings";
