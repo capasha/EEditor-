@@ -92,7 +92,7 @@ namespace EEditor
             InitializeComponent();
             form1 = this;
             starting1 = true;
-            
+            if (!Directory.Exists($"{Directory.GetCurrentDirectory()}\\blueprints")) Directory.CreateDirectory($"{Directory.GetCurrentDirectory()}\\blueprints");
 
             if (File.Exists(pathSettings))
             {
@@ -502,7 +502,7 @@ namespace EEditor
                     accent = Color.FromArgb(100, 100, 100),
                     foreground = Color.White,
                     link = Color.Orange,
-                    activelink = Color.Orange,
+                    activelink = Color.Yellow,
                     visitedlink = Color.Orange,
 
                 };
@@ -1815,6 +1815,10 @@ namespace EEditor
                         if (colors != null)
                         {
                             Minimap.Colors[ids[j]] = (0xffu << 24) | colors[j];
+                            /*using (StreamWriter sw = new StreamWriter("output.txt",true))
+                            {
+                                sw.WriteLine($"{ids[j]},{(0xffu << 24) | colors[j]}");
+                            }*/
                             Minimap.ImageColor[ids[j]] = true;
                             if (doihave)
                             {
