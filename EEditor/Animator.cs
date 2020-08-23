@@ -16,7 +16,6 @@ namespace EEditor
         private List<BlockCollection> placedBlocks = new List<BlockCollection>();
         private List<BlockCollection> placeBlocks = new List<BlockCollection>();
         List<Frame> frames;
-        int uploaded = 0;
         System.Timers.Timer timer = new System.Timers.Timer();
         List<string[]> firstFrame = new List<string[]>();
         bool correctWay = false;
