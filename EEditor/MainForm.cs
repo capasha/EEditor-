@@ -3898,61 +3898,6 @@ namespace EEditor
             userdata.levelPass = codeTextbox.Text;
         }
 
-        //Load/reload
-        private void refreshButton_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                if (levelTextbox.Text.StartsWith("PW") || levelTextbox.Text.StartsWith("BW") || levelTextbox.Text.StartsWith("OW") || levelTextbox.Text == "tutorialWorld" || levelTextbox.Text.StartsWith("CW"))
-                {
-                    SetDummy();
-                    userdata.thisColor = Color.Transparent;
-                    userdata.useColor = false;
-                    if (levelTextbox.Text.StartsWith("OW"))
-                    {
-                        OpenWorld = true;
-                        InsertImageForm.Background.Clear();
-                        InsertImageForm.Blocks.Clear();
-                        rebuildGUI(false);
-                    }
-                    else
-                    {
-                        if (OpenWorld)
-                        {
-                            OpenWorld = false;
-                            rebuildGUI(false);
-                        }
-                    }
-                    userdata.level = levelTextbox.Text;
-                    loaddata(0);
-                }
-                else
-                {
-                    MessageBox.Show("You need to insert a world ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else if (e.Button == MouseButtons.Right)
-            {
-                if (levelTextbox.Text.StartsWith("PW") || levelTextbox.Text.StartsWith("BW") || levelTextbox.Text.StartsWith("CW"))
-                {
-                    SetDummy();
-                    userdata.thisColor = Color.Transparent;
-                    userdata.useColor = false;
-                    userdata.level = levelTextbox.Text;
-                    levelTextbox.Text = userdata.level;
-                    loaddata(1);
-                }
-                else if (levelTextbox.Text.StartsWith("OW"))
-                {
-                    MessageBox.Show("Can't load open worlds in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    MessageBox.Show("You need to insert a world ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
         private void loaddata(int frm)
         {
             NewDialogForm form = new NewDialogForm(this);
@@ -4929,6 +4874,60 @@ namespace EEditor
         {
             BluePrints bp = new BluePrints();
             bp.ShowDialog();
+        }
+
+        private void refreshButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (levelTextbox.Text.StartsWith("PW") || levelTextbox.Text.StartsWith("BW") || levelTextbox.Text.StartsWith("OW") || levelTextbox.Text == "tutorialWorld" || levelTextbox.Text.StartsWith("CW"))
+                {
+                    SetDummy();
+                    userdata.thisColor = Color.Transparent;
+                    userdata.useColor = false;
+                    if (levelTextbox.Text.StartsWith("OW"))
+                    {
+                        OpenWorld = true;
+                        InsertImageForm.Background.Clear();
+                        InsertImageForm.Blocks.Clear();
+                        rebuildGUI(false);
+                    }
+                    else
+                    {
+                        if (OpenWorld)
+                        {
+                            OpenWorld = false;
+                            rebuildGUI(false);
+                        }
+                    }
+                    userdata.level = levelTextbox.Text;
+                    loaddata(0);
+                }
+                else
+                {
+                    MessageBox.Show("You need to insert a world ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                if (levelTextbox.Text.StartsWith("PW") || levelTextbox.Text.StartsWith("BW") || levelTextbox.Text.StartsWith("CW"))
+                {
+                    SetDummy();
+                    userdata.thisColor = Color.Transparent;
+                    userdata.useColor = false;
+                    userdata.level = levelTextbox.Text;
+                    levelTextbox.Text = userdata.level;
+                    loaddata(1);
+                }
+                else if (levelTextbox.Text.StartsWith("OW"))
+                {
+                    MessageBox.Show("Can't load open worlds in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("You need to insert a world ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 
