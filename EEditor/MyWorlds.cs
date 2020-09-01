@@ -55,16 +55,15 @@ namespace EEditor
             if (((ListView)sender).SelectedIndices.Count == 1)
             {
                 selectedworld = ((ListView)sender).SelectedItems[0].SubItems[2].Text;
-                System.Threading.Thread runner = new System.Threading.Thread(delegate () { GetMinimap(PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, "guest", "guest", null), selectedworld); });
-                runner.Start();
-                /* switch (MainForm.accs[MainForm.userdata.username].loginMethod)
+
+                switch (MainForm.accs[MainForm.userdata.username].loginMethod)
                  {
                      default:
                      case 0:
-                         PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client client) => { GetMinimap(client, selectedworld); }, (PlayerIOError error) => { Errorhandler1(error); });
+                         PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client client) => { executeMinimap(client, selectedworld); }, (PlayerIOError error) => { Errorhandler1(error); });
                          break;
                      case 2:
-                         PlayerIO.QuickConnect.KongregateConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client client) => { GetMinimap(client, selectedworld); }, (PlayerIOError error) => { Errorhandler1(error); });
+                         PlayerIO.QuickConnect.KongregateConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client client) => { executeMinimap(client, selectedworld); }, (PlayerIOError error) => { Errorhandler1(error); });
                          break;
                      case 4:
                          PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client cli) =>
@@ -73,16 +72,22 @@ namespace EEditor
                              {
                                  con.OnMessage += (object sender1, PlayerIOClient.Message m) =>
                                  {
-                                     if (m.Type == "auth") PlayerIO.Authenticate(bdata.gameID, "connected", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null, (Client client) => { GetMinimap(client, selectedworld); }, (PlayerIOError error) => { Errorhandler1(error); });
+                                     if (m.Type == "auth") PlayerIO.Authenticate(bdata.gameID, "connected", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null, (Client client) => { executeMinimap(client, selectedworld); }, (PlayerIOError error) => { Errorhandler1(error); });
                                  };
                              },
                              (PlayerIOError error) => { Errorhandler1(error); });
                          }, (PlayerIOError error) => { Errorhandler1(error); });
                          break;
-                 }*/
+                 }
                 //if (worlds.Count() > 0) File.WriteAllText(Directory.GetCurrentDirectory() + "\\" + MainForm.userdata.username + ".myworlds.json", JsonConvert.SerializeObject(worlds, Newtonsoft.Json.Formatting.Indented));
                 //this.Close();
             }
+        }
+
+        private void executeMinimap(Client client,string world)
+        {
+            System.Threading.Thread runner = new System.Threading.Thread(delegate () { GetMinimap(client, world); });
+            runner.Start();
         }
         private void Errorhandler1(PlayerIOError error)
         {
