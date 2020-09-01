@@ -327,7 +327,7 @@
             this.accountsComboBox,
             this.settingsButton,
             this.aboutButton});
-            this.settingsToolStrip.Location = new System.Drawing.Point(612, 0);
+            this.settingsToolStrip.Location = new System.Drawing.Point(643, 0);
             this.settingsToolStrip.Name = "settingsToolStrip";
             this.settingsToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.settingsToolStrip.Size = new System.Drawing.Size(156, 27);
@@ -718,7 +718,7 @@
             this.imageButton.Image = global::EEditor.Properties.Resources.image;
             this.imageButton.Name = "imageButton";
             this.imageButton.ShortcutKeyDisplayString = "CTRL + I";
-            this.imageButton.Size = new System.Drawing.Size(184, 26);
+            this.imageButton.Size = new System.Drawing.Size(158, 22);
             this.imageButton.Text = "Image";
             this.imageButton.Click += new System.EventHandler(this.imageButton_Click);
             // 
@@ -727,7 +727,7 @@
             this.textButton.Image = global::EEditor.Properties.Resources.text;
             this.textButton.Name = "textButton";
             this.textButton.ShortcutKeyDisplayString = "CTRL + T";
-            this.textButton.Size = new System.Drawing.Size(184, 26);
+            this.textButton.Size = new System.Drawing.Size(158, 22);
             this.textButton.Text = "Text";
             this.textButton.Click += new System.EventHandler(this.textButton_Click);
             // 
@@ -735,7 +735,7 @@
             // 
             this.bluePrintToolStripMenuItem.Image = global::EEditor.Properties.Resources.blueprint;
             this.bluePrintToolStripMenuItem.Name = "bluePrintToolStripMenuItem";
-            this.bluePrintToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.bluePrintToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.bluePrintToolStripMenuItem.Text = "Blue Print";
             this.bluePrintToolStripMenuItem.Click += new System.EventHandler(this.bluePrintToolStripMenuItem_Click);
             // 
@@ -821,7 +821,7 @@
             this.uploadToolStrip.Location = new System.Drawing.Point(402, 0);
             this.uploadToolStrip.Name = "uploadToolStrip";
             this.uploadToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.uploadToolStrip.Size = new System.Drawing.Size(210, 27);
+            this.uploadToolStrip.Size = new System.Drawing.Size(241, 27);
             this.uploadToolStrip.TabIndex = 6;
             // 
             // levelTextbox
