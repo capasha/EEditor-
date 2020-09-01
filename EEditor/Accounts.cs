@@ -43,6 +43,11 @@ namespace EEditor
             this.BackColor = MainForm.themecolors.background;
             foreach (Control value0 in this.Controls)
             {
+                if (value0.GetType() == typeof(StatusStrip))
+                {
+                    value0.ForeColor = MainForm.themecolors.foreground;
+                    value0.BackColor = MainForm.themecolors.accent;
+                }
                 if (value0.GetType() == typeof(GroupBox))
                 {
                     value0.ForeColor = MainForm.themecolors.foreground;
@@ -50,7 +55,6 @@ namespace EEditor
                 foreach (Control value1 in value0.Controls)
                 {
                     Control ctrl = value1;
-
                     if (ctrl.GetType() == typeof(TextBox))
                     {
                         ((TextBox)ctrl).BorderStyle = BorderStyle.FixedSingle;
