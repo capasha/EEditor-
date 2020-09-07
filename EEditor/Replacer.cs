@@ -18,6 +18,8 @@ namespace EEditor
         private int[,] replaced;
         private int[,] replaced1;
         private int[,] lastBlock;
+        private int portalRotationFind = 0;
+        private int portalRotationRepl = 0;
         Bitmap bmp = new Bitmap(1, 1);
         Bitmap img1;
         public Replacer(MainForm mainForm)
@@ -37,6 +39,8 @@ namespace EEditor
             ReplaceUnknownCheckBox.Checked = MainForm.userdata.replaceit;
 
             PortalRadioButton.Image = MainForm.miscBMD.Clone(new Rectangle(108 * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
+            PortalRotFind.Image = MainForm.miscBMD.Clone(new Rectangle(108 * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
+            PortalRotRepl.Image = MainForm.miscBMD.Clone(new Rectangle(108 * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
             PortalINVRadioButton.Image = MainForm.miscBMD.Clone(new Rectangle(112 * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
             WorldPortalRadioButton.Image = MainForm.miscBMD.Clone(new Rectangle(33 * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
             SignRadioButton.Image = MainForm.miscBMD.Clone(new Rectangle(255 * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
@@ -635,25 +639,23 @@ namespace EEditor
                         if (MainForm.editArea.Frames[0].Background[yy, xx] == numericUpDown1.Value)
                         {
 
-                            if (MainForm.editArea.Tool.IsPaintable(xx, yy, (int)numericUpDown2.Value, true) && MainForm.editArea.Tool.IsPaintable(xx, yy, (int)numericUpDown2.Value, false))
+                            MainForm.editArea.Frames[0].Background[yy, xx] = (int)numericUpDown2.Value;
+                            //incfg += (int)rp.NU2.Value + ":" + editArea.CurFrame.Background[yy, xx] + ":" + xx + ":" + yy + ":";
+                            Point p = new Point(xx * 16 - Math.Abs(MainForm.editArea.AutoScrollPosition.X), yy * 16 - Math.Abs(MainForm.editArea.AutoScrollPosition.Y));
+                            if (MainForm.editArea.InvokeRequired)
                             {
-                                MainForm.editArea.Frames[0].Background[yy, xx] = (int)numericUpDown2.Value;
-                                //incfg += (int)rp.NU2.Value + ":" + editArea.CurFrame.Background[yy, xx] + ":" + xx + ":" + yy + ":";
-                                Point p = new Point(xx * 16 - Math.Abs(MainForm.editArea.AutoScrollPosition.X), yy * 16 - Math.Abs(MainForm.editArea.AutoScrollPosition.Y));
-                                if (MainForm.editArea.InvokeRequired)
-                                {
-                                    MainForm.editArea.Invoke((MethodInvoker)delegate
-                                    {
-                                        MainForm.editArea.Draw(xx, yy, Graphics.FromImage(MainForm.editArea.Back), MainForm.userdata.thisColor);
-                                    });
-                                }
-                                else
+                                MainForm.editArea.Invoke((MethodInvoker)delegate
                                 {
                                     MainForm.editArea.Draw(xx, yy, Graphics.FromImage(MainForm.editArea.Back), MainForm.userdata.thisColor);
-
-                                }
-                                MainForm.editArea.Invalidate(new Rectangle(p, new Size(16, 16)));
+                                });
                             }
+                            else
+                            {
+                                MainForm.editArea.Draw(xx, yy, Graphics.FromImage(MainForm.editArea.Back), MainForm.userdata.thisColor);
+
+                            }
+                            MainForm.editArea.Invalidate(new Rectangle(p, new Size(16, 16)));
+
 
 
                         }
@@ -687,79 +689,104 @@ namespace EEditor
                         if (MainForm.editArea.Frames[0].Foreground[yy, xx] == numericUpDown1.Value)
                         {
 
-                            if (MainForm.editArea.Tool.IsPaintable(xx, yy, (int)numericUpDown2.Value, true) && MainForm.editArea.Tool.IsPaintable(xx, yy, (int)numericUpDown2.Value, false))
+                            if (numericUpDown1.Value == numericUpDown2.Value)
                             {
-                                if (numericUpDown1.Value == numericUpDown2.Value)
-                                {
-                                    if (MainForm.editArea.Frames[0].BlockData[yy, xx] == findRotate.Value)
-                                    {
-                                        if (MainForm.editArea.Frames[0].Foreground[yy, xx] == 255)
-                                        {
-                                            //if (MainForm.editArea.Frames[0].BlockData[yy, xx] == )
-                                        }
-                                        else
-                                        {
-                                            if (MainForm.editArea.Frames[0].Foreground[yy, xx] == 385 || MainForm.editArea.Frames[0].Foreground[yy, xx] == 374)
-                                            {
-                                                if (SignRadioButton.Checked || WorldPortalRadioButton.Checked)
-                                                {
-                                                    MainForm.editArea.Frames[0].BlockData3[yy, xx] = ReplaceTextBox.Text;
-                                                    MainForm.editArea.Frames[0].BlockData[yy, xx] = Convert.ToInt32(replaceRotate.Value);
-                                                }
-                                            }
-                                            Console.WriteLine(NormalRadioButton.Checked);
-                                            if (NormalRadioButton.Checked)
-                                            {
-                                                Console.WriteLine(replaceRotate.Value);
-                                                MainForm.editArea.Frames[0].BlockData[yy, xx] = Convert.ToInt32(replaceRotate.Value);
-                                                //ToolPen.rotation[(int)numericUpDown2.Value] = Convert.ToInt32(replaceRotate.Value);
-                                            }
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    if (MainForm.editArea.Frames[0].BlockData[yy, xx] == findRotate.Value)
-                                    {
-                                        if (MainForm.editArea.Frames[0].Foreground[yy, xx] == 255)
-                                        {
-                                            //if (MainForm.editArea.Frames[0].BlockData[yy, xx] == )
-                                        }
-                                        else
-                                        {
-                                            if (MainForm.editArea.Frames[0].Foreground[yy, xx] == 385 || MainForm.editArea.Frames[0].Foreground[yy, xx] == 374)
-                                            {
-                                                if (SignRadioButton.Checked || WorldPortalRadioButton.Checked)
-                                                {
-                                                    MainForm.editArea.Frames[0].BlockData3[yy, xx] = ReplaceTextBox.Text;
-                                                    MainForm.editArea.Frames[0].BlockData[yy, xx] = Convert.ToInt32(replaceRotate.Value);
-                                                }
-                                            }
-                                            if (NormalRadioButton.Checked)
-                                            {
-                                                MainForm.editArea.Frames[0].BlockData[yy, xx] = Convert.ToInt32(replaceRotate.Value);
-                                                //ToolPen.rotation[(int)numericUpDown2.Value] = Convert.ToInt32(replaceRotate.Value);
-                                            }
-                                        }
-                                    }
-                                }
-                                //incfg += (int)rp.NU2.Value + ":" + editArea.CurFrame.Foreground[yy, xx] + ":" + xx + ":" + yy + ":";
-                                MainForm.editArea.Frames[0].Foreground[yy, xx] = (int)numericUpDown2.Value;
-                                Point p = new Point(xx * 16 - Math.Abs(MainForm.editArea.AutoScrollPosition.X), yy * 16 - Math.Abs(MainForm.editArea.AutoScrollPosition.Y));
-                                if (MainForm.editArea.InvokeRequired)
-                                {
-                                    MainForm.editArea.Invoke((MethodInvoker)delegate
-                                    {
-                                        MainForm.editArea.Draw(xx, yy, Graphics.FromImage(MainForm.editArea.Back), MainForm.userdata.thisColor);
-                                    });
-                                }
-                                else
-                                {
-                                    MainForm.editArea.Draw(xx, yy, Graphics.FromImage(MainForm.editArea.Back), MainForm.userdata.thisColor);
 
+                                if (SignRadioButton.Checked || WorldPortalRadioButton.Checked)
+                                {
+                                    if (MainForm.editArea.Frames[0].BlockData3[yy, xx] == FindTextBox.Text)
+                                    {
+                                        if (MainForm.editArea.Frames[0].Foreground[yy, xx] == 385 || MainForm.editArea.Frames[0].Foreground[yy, xx] == 374)
+                                        {
+
+                                            MainForm.editArea.Frames[0].BlockData3[yy, xx] = ReplaceTextBox.Text;
+                                            MainForm.editArea.Frames[0].BlockData[yy, xx] = Convert.ToInt32(replaceRotate.Value);
+                                            MainForm.editArea.Frames[0].Foreground[yy, xx] = (int)numericUpDown2.Value;
+
+                                        }
+                                    }
                                 }
+                                Console.WriteLine(NormalRadioButton.Checked);
+                                if (NormalRadioButton.Checked)
+                                {
+                                    if (MainForm.editArea.Frames[0].BlockData[yy, xx] == findRotate.Value)
+                                    {
+                                        Console.WriteLine(replaceRotate.Value);
+                                        MainForm.editArea.Frames[0].BlockData[yy, xx] = Convert.ToInt32(replaceRotate.Value);
+                                        MainForm.editArea.Frames[0].Foreground[yy, xx] = (int)numericUpDown2.Value;
+                                        //ToolPen.rotation[(int)numericUpDown2.Value] = Convert.ToInt32(replaceRotate.Value);
+                                    }
+                                    
+                                }
+                                if (PortalRadioButton.Checked || PortalINVRadioButton.Checked)
+                                {
+                                    if (MainForm.editArea.Frames[0].BlockData[yy, xx] == portalRotationFind &&  MainForm.editArea.Frames[0].BlockData1[yy,xx] == Convert.ToInt32(PortalFindFrom.Value) && MainForm.editArea.Frames[0].BlockData2[yy, xx] == Convert.ToInt32(PortalFindTo.Value))
+                                    {
+                                        MainForm.editArea.Frames[0].BlockData[yy, xx] = portalRotationRepl;
+                                        MainForm.editArea.Frames[0].BlockData1[yy, xx] = Convert.ToInt32(PortalReplaceFrom.Value);
+                                        MainForm.editArea.Frames[0].BlockData2[yy, xx] = Convert.ToInt32(PortalReplaceTo.Value);
+                                        if (PortalRadioButton.Checked) MainForm.editArea.Frames[0].Foreground[yy, xx] = 242;
+                                        else MainForm.editArea.Frames[0].Foreground[yy, xx] = 381;
+                                    }
+                                }
+
 
                             }
+                            else
+                            {
+
+
+                                    if (SignRadioButton.Checked || WorldPortalRadioButton.Checked)
+                                    {
+                                        if (MainForm.editArea.Frames[0].Foreground[yy, xx] == 385 || MainForm.editArea.Frames[0].Foreground[yy, xx] == 374)
+                                        {
+                                            MainForm.editArea.Frames[0].Foreground[yy, xx] = (int)numericUpDown2.Value;
+                                            MainForm.editArea.Frames[0].BlockData3[yy, xx] = ReplaceTextBox.Text;
+                                            MainForm.editArea.Frames[0].BlockData[yy, xx] = Convert.ToInt32(replaceRotate.Value);
+                                        }
+                                    }
+                                    if (NormalRadioButton.Checked)
+                                    {
+                                        MainForm.editArea.Frames[0].Foreground[yy, xx] = (int)numericUpDown2.Value;
+                                        MainForm.editArea.Frames[0].BlockData[yy, xx] = Convert.ToInt32(replaceRotate.Value);
+                                        //ToolPen.rotation[(int)numericUpDown2.Value] = Convert.ToInt32(replaceRotate.Value);
+                                    }
+                                    if (PortalRadioButton.Checked || PortalINVRadioButton.Checked)
+                                    {
+                                        if (MainForm.editArea.Frames[0].BlockData[yy, xx] == portalRotationFind && MainForm.editArea.Frames[0].BlockData1[yy, xx] == Convert.ToInt32(PortalFindFrom.Value) && MainForm.editArea.Frames[0].BlockData2[yy, xx] == Convert.ToInt32(PortalFindTo.Value))
+                                        {
+                                            MainForm.editArea.Frames[0].BlockData[yy, xx] = portalRotationRepl;
+                                            MainForm.editArea.Frames[0].BlockData1[yy, xx] = Convert.ToInt32(PortalReplaceFrom.Value);
+                                            MainForm.editArea.Frames[0].BlockData2[yy, xx] = Convert.ToInt32(PortalReplaceTo.Value);
+                                        MainForm.editArea.Frames[0].Foreground[yy, xx] = Convert.ToInt32(numericUpDown2.Value);
+                                        }
+                                    }
+                                
+
+                            }
+                            //incfg += (int)rp.NU2.Value + ":" + editArea.CurFrame.Foreground[yy, xx] + ":" + xx + ":" + yy + ":";
+                            if (NormalRadioButton.Checked)
+                            {
+                                if (findRotate.Value == 0 && replaceRotate.Value == 0)
+                                {
+                                    MainForm.editArea.Frames[0].Foreground[yy, xx] = (int)numericUpDown2.Value;
+                                }
+                            }
+                            Point p = new Point(xx * 16 - Math.Abs(MainForm.editArea.AutoScrollPosition.X), yy * 16 - Math.Abs(MainForm.editArea.AutoScrollPosition.Y));
+                            if (MainForm.editArea.InvokeRequired)
+                            {
+                                MainForm.editArea.Invoke((MethodInvoker)delegate
+                                {
+                                    MainForm.editArea.Draw(xx, yy, Graphics.FromImage(MainForm.editArea.Back), MainForm.userdata.thisColor);
+                                });
+                            }
+                            else
+                            {
+                                MainForm.editArea.Draw(xx, yy, Graphics.FromImage(MainForm.editArea.Back), MainForm.userdata.thisColor);
+
+                            }
+
+
 
                         }
 
@@ -1162,6 +1189,8 @@ namespace EEditor
         private void PortalRadioButton_Click(object sender, EventArgs e)
         {
             PortalRadioButton.Checked = true;
+            PortalRotFind.Image = MainForm.miscBMD.Clone(new Rectangle(108 * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
+            PortalRotRepl.Image = MainForm.miscBMD.Clone(new Rectangle(108 * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
             PortalINVRadioButton.Checked = false;
             SignRadioButton.Checked = false;
             WorldPortalRadioButton.Checked = false;
@@ -1171,6 +1200,8 @@ namespace EEditor
         private void PortalINVRadioButton_Click(object sender, EventArgs e)
         {
             PortalRadioButton.Checked = false;
+            PortalRotFind.Image = MainForm.miscBMD.Clone(new Rectangle(112 * 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
+            PortalRotRepl.Image = MainForm.miscBMD.Clone(new Rectangle(112* 16, 0, 16, 16), MainForm.miscBMD.PixelFormat);
             PortalINVRadioButton.Checked = true;
             SignRadioButton.Checked = false;
             WorldPortalRadioButton.Checked = false;
@@ -1224,6 +1255,44 @@ namespace EEditor
             protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
             {
                 //base.OnRenderToolStripBorder(e);
+            }
+        }
+
+        private void PortalRotFind_Click(object sender, EventArgs e)
+        {
+            
+            if (PortalRadioButton.Checked)
+            {
+                portalRotationFind += 1;
+                PortalRotFind.Image = bdata.getRotation(242, portalRotationFind);
+                if (portalRotationFind == 3) portalRotationFind = 0;
+                
+            }
+            if (PortalINVRadioButton.Checked)
+            {
+                portalRotationFind += 1;
+                PortalRotFind.Image = bdata.getRotation(381, portalRotationFind);
+               
+                if (portalRotationFind == 3) portalRotationFind = 0;
+            }
+        }
+
+        private void PortalRotRepl_Click(object sender, EventArgs e)
+        {
+            if (PortalRadioButton.Checked)
+            {
+                portalRotationRepl += 1;
+                PortalRotRepl.Image = bdata.getRotation(242, portalRotationRepl);
+                
+                if (portalRotationRepl == 3) portalRotationRepl = 0;
+
+            }
+            if (PortalINVRadioButton.Checked)
+            {
+                portalRotationRepl += 1;
+                PortalRotRepl.Image = bdata.getRotation(381, portalRotationRepl);
+                
+                if (portalRotationRepl == 3) portalRotationRepl = 0;
             }
         }
     }
