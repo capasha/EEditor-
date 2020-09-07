@@ -27,6 +27,7 @@ namespace EEditor
         public static Dictionary<int, Bitmap> ForegroundBlocks = new Dictionary<int, Bitmap>();
         public static Dictionary<int, Bitmap> DecorationBlocks = new Dictionary<int, Bitmap>();
         public static Dictionary<int, Bitmap> BackgroundBlocks = new Dictionary<int, Bitmap>();
+        private ToolStripButton lastBlockpicker;
         public static string pathSettings = $"{Directory.GetCurrentDirectory()}\\settings.json";
         private Dictionary<int, Bitmap> sblocks = new Dictionary<int, Bitmap>();
         private Dictionary<int, Bitmap> sblocks1 = new Dictionary<int, Bitmap>();
@@ -92,6 +93,7 @@ namespace EEditor
             InitializeComponent();
             form1 = this;
             starting1 = true;
+
             if (!Directory.Exists($"{Directory.GetCurrentDirectory()}\\blueprints")) Directory.CreateDirectory($"{Directory.GetCurrentDirectory()}\\blueprints");
 
             if (File.Exists(pathSettings))
@@ -209,11 +211,12 @@ namespace EEditor
                 };
                 File.WriteAllText(pathSettings, JsonConvert.SerializeObject(userdata, Newtonsoft.Json.Formatting.Indented));
             }
-            updateTheme();
+            
             OpenWorld = false;
             OpenWorldCode = false;
             userdata.useColor = false;
             userdata.thisColor = Color.Transparent;
+            updateTheme();
             //starting = true;
             //starting1 = true;
             levelTextbox.Text = userdata.level;
@@ -470,14 +473,15 @@ namespace EEditor
 
             // Extract topbar images to tile
             topbar2tile(false);
+            //updateTheme();
             Tool.PenSize = 1;
-
+            
             filterTextBox.KeyDown += filterTextBox_KeyDown;
             penButton.Checked = true;
             starting1 = false;
             hideBlocksButton.PerformClick();
             accountsComboBox.SelectedItem = userdata.username;
-
+           
             starting1 = false;
             /*if (userdata.updateChecker)
             {
@@ -490,7 +494,84 @@ namespace EEditor
             MainForm.editArea.Focus();
         }
 
+        #region Generate topbar images to tile
 
+        private void topbar2tile(bool convert)
+        {
+            if (convert)
+            {
+                var width = 0;
+                Bitmap img3 = new Bitmap(24, 24);
+                Bitmap img = new Bitmap(1024, 24);
+                Graphics g = Graphics.FromImage(img3);
+                for (int i = 0; i < topFlowLayoutPanel.Controls.Count; i++)
+                {
+                    var control = topFlowLayoutPanel.Controls[i];
+                    var items = ((ToolStrip)control).Items;
+                    if (items.Count > 0)
+                    {
+
+                        for (int o = 0; o < items.Count; o++)
+                        {
+                            if (items[o].Image != null && items[o].Name != "subButton" && items[o].Name != "addButton")
+                            {
+                                Bitmap bmp = new Bitmap(items[o].Image, new Size(24, 24));
+                                for (int xx = 0; xx < bmp.Width; xx++)
+                                {
+                                    for (int yy = 0; yy < bmp.Height; yy++)
+                                    {
+                                        if (bmp.GetPixel(xx, yy).A > 80)
+                                        {
+                                            bmp.SetPixel(xx, yy, Color.Tomato);
+                                        }
+                                        else
+                                        {
+                                            bmp.SetPixel(xx, yy, Color.Transparent);
+                                        }
+                                    }
+                                }
+                                bmp.Save($"{items[o].Name}.png");
+
+                            }
+                            if (items[o].GetType() == typeof(ToolStripDropDownButton))
+                            {
+                                var dropdownitems = ((ToolStripDropDownButton)items[o]).DropDownItems;
+                                for (int a = 0; a < dropdownitems.Count; a++)
+                                {
+                                    if (dropdownitems[a].GetType() == typeof(ToolStripMenuItem) || dropdownitems[a].Name.Contains("Button"))
+                                    {
+
+
+                                        if (dropdownitems[a].Image != null)
+                                        {
+                                            Bitmap bmp = new Bitmap(dropdownitems[a].Image, new Size(24, 24));
+                                            for (int xx = 0; xx < bmp.Width; xx++)
+                                            {
+                                                for (int yy = 0; yy < bmp.Height; yy++)
+                                                {
+                                                    if (bmp.GetPixel(xx, yy).A > 80)
+                                                    {
+                                                        bmp.SetPixel(xx, yy, Color.Tomato);
+                                                    }
+                                                    else
+                                                    {
+                                                        bmp.SetPixel(xx, yy, Color.Transparent);
+                                                    }
+                                                }
+                                            }
+                                            bmp.Save($"{dropdownitems[a].Name}.png");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //img3.Save("output.png");
+                }
+            }
+        }
+
+        #endregion Generate topbar images to tile
         public void updateTheme()
         {
             if (userdata.darkTheme)
@@ -865,47 +946,7 @@ namespace EEditor
         }
         #endregion image colors
 
-        #region Generate topbar images to tile
 
-        private void topbar2tile(bool convert)
-        {
-            if (convert)
-            {
-                var width = 0;
-                Bitmap img3 = new Bitmap(1024, 24);
-                Bitmap img = new Bitmap(1024, 24);
-                Graphics g = Graphics.FromImage(img3);
-                for (int i = 0; i < topFlowLayoutPanel.Controls.Count; i++)
-                {
-                    var control = topFlowLayoutPanel.Controls[i];
-                    var items = ((ToolStrip)control).Items;
-                    if (items.Count > 0)
-                    {
-                        for (int o = 0; o < items.Count; o++)
-                        {
-                            if (items[o].Image != null && items[o].Name != "subButton" && items[o].Name != "addButton")
-                            {
-                                if (items[o].Image.Width == 16 && items[o].Image.Height == 16)
-                                {
-                                    img = new Bitmap(items[o].Image, new Size(24, 24));
-                                    Graphics gg = Graphics.FromImage(img3);
-                                    gg.DrawImage(img, new Point(width, 0));
-                                    width += 24;
-                                }
-                                else
-                                {
-                                    g.DrawImage(items[o].Image, new Point(width, 0));
-                                    width += 24;
-                                }
-                            }
-                        }
-                    }
-                }
-                img3.Save("output.png");
-            }
-        }
-
-        #endregion Generate topbar images to tile
 
         #region Undo, redo, history updater
 
@@ -926,10 +967,15 @@ namespace EEditor
 
         #region Rebuild ToolStripContainers
 
+        public void brickbarBuild()
+        {
+
+        }
         public void rebuildGUI(bool loadunknown)
         {
             tps.Clear();
             ownedb.Clear();
+            resetBlockPicker();
             if (resethotkeys)
             {
                 userdata.brickHotkeys = null;
@@ -959,6 +1005,7 @@ namespace EEditor
             flowLayoutPanel6.BackColor = themecolors.background;
             //toolStripContainer1.TopToolStripPanel.Controls.Clear();
             resetLastBlocks();
+            
             if (flowLayoutPanel2.InvokeRequired) { this.Invoke((MethodInvoker)delegate { flowLayoutPanel2.Controls.Clear(); }); }
             if (flowLayoutPanel3.InvokeRequired) { this.Invoke((MethodInvoker)delegate { flowLayoutPanel3.Controls.Clear(); }); }
             if (flowLayoutPanel4.InvokeRequired) { this.Invoke((MethodInvoker)delegate { flowLayoutPanel4.Controls.Clear(); }); }
@@ -1090,7 +1137,32 @@ namespace EEditor
             lastUsedBlockButton4.Name = "0";
             lastUsedBlockButton4.Image = img3;
         }
-
+        private void resetBlockPicker()
+        {
+            Bitmap img3 = foregroundBMD.Clone(new Rectangle(0 * 16, 0, 16, 16), foregroundBMD.PixelFormat);
+            BlockPicker0.Image = img3;
+            BlockPicker0.Name = "0";
+            BlockPicker1.Image = img3;
+            BlockPicker1.Name = "0";
+            BlockPicker2.Image = img3;
+            BlockPicker2.Name = "0";
+            BlockPicker3.Image = img3;
+            BlockPicker3.Name = "0";
+            BlockPicker4.Image = img3;
+            BlockPicker4.Name = "0";
+            BlockPicker5.Image = img3;
+            BlockPicker5.Name = "0";
+            BlockPicker6.Image = img3;
+            BlockPicker6.Name = "0";
+            BlockPicker7.Image = img3;
+            BlockPicker7.Name = "0";
+            BlockPicker8.Image = img3;
+            BlockPicker8.Name = "0";
+            BlockPicker9.Image = img3;
+            BlockPicker9.Name = "0";
+            BlockPicker10.Image = img3;
+            BlockPicker10.Name = "0";
+        }
         #region Block stuff
 
         protected void SetupBricks(bool fromclient)
@@ -1992,6 +2064,7 @@ namespace EEditor
                         {
                             ShortCutID = i;
                             MainForm.SetBrickShortCut(ShortCutID, this);
+                            blockPickerUpdate(ShortCutID, this);
                         }
                 }
             }
@@ -2652,6 +2725,8 @@ namespace EEditor
 
             #endregion Popup from blocks in blockbar
 
+
+
             public static void lastSelectedBlocksUpdate(BrickButton bb)
             {
                 BrickButton cur = bb;
@@ -2814,10 +2889,92 @@ namespace EEditor
                     {
                         ShortCutID = key - (int)Keys.D0;
                         MainForm.SetBrickShortCut(ShortCutID, this);
+                        blockPickerUpdate(ShortCutID,this);
                         return;
                     }
                 }
             }
+            protected override void OnMouseDown(MouseEventArgs e)
+            {
+                base.OnMouseDown(e);
+
+            }
+        }
+        public static void blockPickerUpdate(int key,BrickButton bb)
+        {
+            BrickButton cur = bb;
+            var bid = cur.ID;
+            var derp = cur.Name;
+            Bitmap img4 = new Bitmap(16, 16);
+            if (cur.ID < 500 || cur.ID >= 1001)
+            {
+                if (cur.mode == 0 && foregroundBMI[bid] != 0)
+                {
+                    img4 = foregroundBMD.Clone(new Rectangle(foregroundBMI[cur.ID] * 16, 0, 16, 16), foregroundBMD.PixelFormat);
+                }
+                else if (cur.mode == 2 && decosBMI[bid] != 0)
+                {
+                    img4 = decosBMD.Clone(new Rectangle(decosBMI[cur.ID] * 16, 0, 16, 16), decosBMD.PixelFormat);
+                }
+                else if (cur.mode == 1 && miscBMI[bid] != 0 || bid == 119)
+                {
+                    img4 = miscBMD.Clone(new Rectangle(miscBMI[cur.ID] * 16, 0, 16, 16), miscBMD.PixelFormat);
+                }
+            }
+            else if (cur.ID >= 500 && cur.ID <= 999 && cur.mode == 3)
+            {
+                img4 = backgroundBMD.Clone(new Rectangle(backgroundBMI[cur.ID] * 16, 0, 16, 16), backgroundBMD.PixelFormat);
+            }
+            Graphics g = Graphics.FromImage(img4);
+            g.FillRectangle(new SolidBrush(Color.White), new Rectangle(8, 6, 6, 8));
+            g.DrawString(key.ToString(), new Font("Courier", 6), Brushes.Black, new PointF(8, 6));
+            switch (key)
+            {
+                case 0:
+                    MainForm.editArea.MainForm.BlockPicker1.Image = img4;
+                    MainForm.editArea.MainForm.BlockPicker1.Name = cur.ID.ToString();
+                    break;
+                case 1:
+                    MainForm.editArea.MainForm.BlockPicker2.Image = img4;
+                    MainForm.editArea.MainForm.BlockPicker2.Name = cur.ID.ToString();
+                    break;
+                case 2:
+                    MainForm.editArea.MainForm.BlockPicker3.Image = img4;
+                    MainForm.editArea.MainForm.BlockPicker3.Name = cur.ID.ToString();
+                    break;
+                case 3:
+                    MainForm.editArea.MainForm.BlockPicker4.Image = img4;
+                    MainForm.editArea.MainForm.BlockPicker4.Name = cur.ID.ToString();
+                    break;
+                case 4:
+                    MainForm.editArea.MainForm.BlockPicker5.Image = img4;
+                    MainForm.editArea.MainForm.BlockPicker5.Name = cur.ID.ToString();
+                    break;
+                case 5:
+                    MainForm.editArea.MainForm.BlockPicker6.Image = img4;
+                    MainForm.editArea.MainForm.BlockPicker6.Name = cur.ID.ToString();
+                    break;
+                case 6:
+                    MainForm.editArea.MainForm.BlockPicker7.Image = img4;
+                    MainForm.editArea.MainForm.BlockPicker7.Name = cur.ID.ToString();
+                    break;
+                case 7:
+                    MainForm.editArea.MainForm.BlockPicker8.Image = img4;
+                    MainForm.editArea.MainForm.BlockPicker8.Name = cur.ID.ToString();
+                    break;
+                case 8:
+                    MainForm.editArea.MainForm.BlockPicker9.Image = img4;
+                    MainForm.editArea.MainForm.BlockPicker9.Name = cur.ID.ToString();
+                    break;
+                case 9:
+                    MainForm.editArea.MainForm.BlockPicker10.Image = img4;
+                    MainForm.editArea.MainForm.BlockPicker10.Name = cur.ID.ToString();
+                    break;
+            }
+                
+            
+
+
         }
 
         private BrickButton[] shortCutButtons = new BrickButton[10];
@@ -4681,22 +4838,6 @@ namespace EEditor
 
         private void toolStripButton1_Click_1(object sender, EventArgs e)
         {
-            if (userdata.lightChanger) userdata.lightChanger = false;
-            else userdata.lightChanger = true;
-
-            if (userdata.lightChanger)
-            {
-                userdata.useColor = true;
-                userdata.thisColor = Color.LightGray;
-                LightToolStripButton.Image = Properties.Resources.lightOn;
-
-            }
-            else
-            {
-                userdata.useColor = false;
-                userdata.thisColor = Color.Transparent;
-                LightToolStripButton.Image = Properties.Resources.lightOff;
-            }
             Graphics g = Graphics.FromImage(MainForm.editArea.Back);
             for (int y = 0; y < MainForm.editArea.Frames[0].Height; y++)
             {
@@ -4928,6 +5069,23 @@ namespace EEditor
                     MessageBox.Show("You need to insert a world ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void BlockPicker_Click(object sender, EventArgs e)
+        {
+            setBrick(Convert.ToInt32(((ToolStripButton)sender).Name), false);
+        }
+
+        private void BlockPickerToolStrip_DragDrop(object sender, DragEventArgs e)
+        {
+            ToolStripButton button = e.Data.GetData(typeof(ToolStripButton))
+                           as ToolStripButton;
+            Console.WriteLine(button.Name);
+        }
+
+        private void BlockPickerToolStrip_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
         }
     }
 
