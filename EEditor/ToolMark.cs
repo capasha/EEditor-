@@ -362,7 +362,7 @@ namespace EEditor
                 Clipboard.SetData("EEBrush", new string[][,] { Front, Back, Coins, Id1, Target1, Text1, Text2, Text3,Text4 });
                 CleanUp(true);
             }
-            else if (e.Control && e.KeyCode == Keys.Z && progress == Progress.Selected)
+            else if (e.Control && e.KeyCode == Keys.M && progress == Progress.Selected)
             {
                     Clipboard.SetData("EEBlueprints", new string[][,] { Front, Back, Coins, Id1, Target1, Text1, Text2, Text3, Text4 });
                 CleanUp(true);
