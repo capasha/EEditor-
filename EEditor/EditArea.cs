@@ -915,7 +915,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                 if (e.KeyCode == Keys.L) MainForm.SetTool(20); // Rotate selection right
 
                 if (e.KeyCode == Keys.N) MainForm.SetTool(10); //Hide blocks
-                if (e.KeyCode == Keys.M) MainForm.SetTool(11); // Minimap
+                if (e.KeyCode == Keys.M && e.KeyCode != Keys.Control) MainForm.SetTool(11); // Minimap
 
                 if (e.KeyCode == Keys.Oemcomma) MainForm.SetRectTool();
                 if (e.KeyCode == Keys.OemPeriod) MainForm.SetCircleTool();
@@ -941,7 +941,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                 if (e.Control && e.KeyCode == Keys.O) MainForm.SetTool(1); // Open
                 if (e.Control && e.KeyCode == Keys.S) MainForm.SetTool(2); // Save
 
-                
+                if (e.Control && e.KeyCode == Keys.Z) MainForm.SetTool(14); // Undo
                 if (e.Control && e.KeyCode == Keys.Y) MainForm.SetTool(15); // Redo
                 if (e.Control && e.Shift && e.KeyCode == Keys.H) MainForm.SetTool(16); // History
 
