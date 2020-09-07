@@ -73,7 +73,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.PortalINVRadioButton = new System.Windows.Forms.RadioButton();
             this.PortalRadioButton = new System.Windows.Forms.RadioButton();
-            this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -81,11 +80,11 @@
             this.label9 = new System.Windows.Forms.Label();
             this.PortalReplaceTo = new System.Windows.Forms.NumericUpDown();
             this.PortalFindFrom = new System.Windows.Forms.NumericUpDown();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.PortalRotFind = new System.Windows.Forms.PictureBox();
             this.PortalFindTo = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.PortalReplaceFrom = new System.Windows.Forms.NumericUpDown();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.PortalRotRepl = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -114,10 +113,10 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PortalReplaceTo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PortalFindFrom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PortalRotFind)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PortalFindTo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PortalReplaceFrom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PortalRotRepl)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -573,7 +572,6 @@
             this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Controls.Add(this.PortalINVRadioButton);
             this.tabPage2.Controls.Add(this.PortalRadioButton);
-            this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.label12);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.label7);
@@ -581,11 +579,11 @@
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.PortalReplaceTo);
             this.tabPage2.Controls.Add(this.PortalFindFrom);
-            this.tabPage2.Controls.Add(this.pictureBox5);
+            this.tabPage2.Controls.Add(this.PortalRotFind);
             this.tabPage2.Controls.Add(this.PortalFindTo);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.PortalReplaceFrom);
-            this.tabPage2.Controls.Add(this.pictureBox6);
+            this.tabPage2.Controls.Add(this.PortalRotRepl);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -611,7 +609,7 @@
             this.PortalINVRadioButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Window;
             this.PortalINVRadioButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.PortalINVRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PortalINVRadioButton.Location = new System.Drawing.Point(172, 101);
+            this.PortalINVRadioButton.Location = new System.Drawing.Point(172, 106);
             this.PortalINVRadioButton.Name = "PortalINVRadioButton";
             this.PortalINVRadioButton.Size = new System.Drawing.Size(29, 23);
             this.PortalINVRadioButton.TabIndex = 40;
@@ -629,7 +627,7 @@
             this.PortalRadioButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Window;
             this.PortalRadioButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.PortalRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PortalRadioButton.Location = new System.Drawing.Point(88, 101);
+            this.PortalRadioButton.Location = new System.Drawing.Point(88, 106);
             this.PortalRadioButton.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.PortalRadioButton.Name = "PortalRadioButton";
             this.PortalRadioButton.Size = new System.Drawing.Size(29, 23);
@@ -638,19 +636,10 @@
             this.PortalRadioButton.UseVisualStyleBackColor = true;
             this.PortalRadioButton.Click += new System.EventHandler(this.PortalRadioButton_Click);
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(9, 80);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(207, 13);
-            this.label13.TabIndex = 38;
-            this.label13.Text = "Click on the portal icon to change rotation.";
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(132, 53);
+            this.label12.Location = new System.Drawing.Point(128, 62);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(20, 13);
             this.label12.TabIndex = 37;
@@ -659,7 +648,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 53);
+            this.label11.Location = new System.Drawing.Point(7, 61);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(20, 13);
             this.label11.TabIndex = 36;
@@ -668,7 +657,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(132, 30);
+            this.label7.Location = new System.Drawing.Point(128, 39);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(30, 13);
             this.label7.TabIndex = 35;
@@ -677,7 +666,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 29);
+            this.label8.Location = new System.Drawing.Point(7, 37);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(30, 13);
             this.label8.TabIndex = 34;
@@ -695,7 +684,7 @@
             // 
             // PortalReplaceTo
             // 
-            this.PortalReplaceTo.Location = new System.Drawing.Point(167, 51);
+            this.PortalReplaceTo.Location = new System.Drawing.Point(163, 60);
             this.PortalReplaceTo.Margin = new System.Windows.Forms.Padding(2);
             this.PortalReplaceTo.Maximum = new decimal(new int[] {
             999,
@@ -708,7 +697,7 @@
             // 
             // PortalFindFrom
             // 
-            this.PortalFindFrom.Location = new System.Drawing.Point(44, 29);
+            this.PortalFindFrom.Location = new System.Drawing.Point(42, 37);
             this.PortalFindFrom.Margin = new System.Windows.Forms.Padding(2);
             this.PortalFindFrom.Maximum = new decimal(new int[] {
             3000,
@@ -719,17 +708,18 @@
             this.PortalFindFrom.Size = new System.Drawing.Size(52, 20);
             this.PortalFindFrom.TabIndex = 26;
             // 
-            // pictureBox5
+            // PortalRotFind
             // 
-            this.pictureBox5.Location = new System.Drawing.Point(101, 29);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox5.TabIndex = 29;
-            this.pictureBox5.TabStop = false;
+            this.PortalRotFind.Location = new System.Drawing.Point(100, 37);
+            this.PortalRotFind.Name = "PortalRotFind";
+            this.PortalRotFind.Size = new System.Drawing.Size(16, 16);
+            this.PortalRotFind.TabIndex = 29;
+            this.PortalRotFind.TabStop = false;
+            this.PortalRotFind.Click += new System.EventHandler(this.PortalRotFind_Click);
             // 
             // PortalFindTo
             // 
-            this.PortalFindTo.Location = new System.Drawing.Point(44, 53);
+            this.PortalFindTo.Location = new System.Drawing.Point(42, 61);
             this.PortalFindTo.Margin = new System.Windows.Forms.Padding(2);
             this.PortalFindTo.Maximum = new decimal(new int[] {
             999,
@@ -752,7 +742,7 @@
             // 
             // PortalReplaceFrom
             // 
-            this.PortalReplaceFrom.Location = new System.Drawing.Point(167, 28);
+            this.PortalReplaceFrom.Location = new System.Drawing.Point(163, 37);
             this.PortalReplaceFrom.Margin = new System.Windows.Forms.Padding(2);
             this.PortalReplaceFrom.Maximum = new decimal(new int[] {
             3000,
@@ -763,13 +753,14 @@
             this.PortalReplaceFrom.Size = new System.Drawing.Size(55, 20);
             this.PortalReplaceFrom.TabIndex = 27;
             // 
-            // pictureBox6
+            // PortalRotRepl
             // 
-            this.pictureBox6.Location = new System.Drawing.Point(227, 29);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox6.TabIndex = 28;
-            this.pictureBox6.TabStop = false;
+            this.PortalRotRepl.Location = new System.Drawing.Point(223, 39);
+            this.PortalRotRepl.Name = "PortalRotRepl";
+            this.PortalRotRepl.Size = new System.Drawing.Size(16, 16);
+            this.PortalRotRepl.TabIndex = 28;
+            this.PortalRotRepl.TabStop = false;
+            this.PortalRotRepl.Click += new System.EventHandler(this.PortalRotRepl_Click);
             // 
             // tabPage3
             // 
@@ -907,10 +898,10 @@
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PortalReplaceTo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PortalFindFrom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PortalRotFind)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PortalFindTo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PortalReplaceFrom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PortalRotRepl)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
@@ -957,7 +948,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.RadioButton PortalINVRadioButton;
         private System.Windows.Forms.RadioButton PortalRadioButton;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label7;
@@ -965,11 +955,11 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown PortalReplaceTo;
         private System.Windows.Forms.NumericUpDown PortalFindFrom;
-        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox PortalRotFind;
         private System.Windows.Forms.NumericUpDown PortalFindTo;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown PortalReplaceFrom;
-        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.PictureBox PortalRotRepl;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
