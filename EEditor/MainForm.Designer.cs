@@ -125,15 +125,26 @@
             this.findToolStrip = new System.Windows.Forms.ToolStrip();
             this.filterTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.pickerButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.BlockPickerToolStrip = new System.Windows.Forms.ToolStrip();
+            this.BlockPicker0 = new System.Windows.Forms.ToolStripButton();
+            this.BlockPicker1 = new System.Windows.Forms.ToolStripButton();
+            this.BlockPicker2 = new System.Windows.Forms.ToolStripButton();
+            this.BlockPicker3 = new System.Windows.Forms.ToolStripButton();
+            this.BlockPicker4 = new System.Windows.Forms.ToolStripButton();
+            this.BlockPicker5 = new System.Windows.Forms.ToolStripButton();
+            this.BlockPicker6 = new System.Windows.Forms.ToolStripButton();
+            this.BlockPicker7 = new System.Windows.Forms.ToolStripButton();
+            this.BlockPicker8 = new System.Windows.Forms.ToolStripButton();
+            this.BlockPicker9 = new System.Windows.Forms.ToolStripButton();
+            this.BlockPicker10 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.lastUsedToolStrip = new System.Windows.Forms.ToolStrip();
             this.lastUsedBlockButton0 = new System.Windows.Forms.ToolStripButton();
             this.lastUsedBlockButton1 = new System.Windows.Forms.ToolStripButton();
             this.lastUsedBlockButton2 = new System.Windows.Forms.ToolStripButton();
             this.lastUsedBlockButton3 = new System.Windows.Forms.ToolStripButton();
             this.lastUsedBlockButton4 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
-            this.LightToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.morphToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
             this.settingsToolStrip.SuspendLayout();
@@ -146,6 +157,7 @@
             this.bottomFlowLayoutPanel.SuspendLayout();
             this.statusToolStrip.SuspendLayout();
             this.findToolStrip.SuspendLayout();
+            this.BlockPickerToolStrip.SuspendLayout();
             this.lastUsedToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -222,7 +234,7 @@
             this.toolStripSeparator1,
             this.hideBlocksButton,
             this.minimapButton});
-            this.viewToolStrip.Location = new System.Drawing.Point(350, 0);
+            this.viewToolStrip.Location = new System.Drawing.Point(649, 0);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.viewToolStrip.Size = new System.Drawing.Size(180, 27);
@@ -327,7 +339,7 @@
             this.accountsComboBox,
             this.settingsButton,
             this.aboutButton});
-            this.settingsToolStrip.Location = new System.Drawing.Point(643, 0);
+            this.settingsToolStrip.Location = new System.Drawing.Point(612, 0);
             this.settingsToolStrip.Name = "settingsToolStrip";
             this.settingsToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.settingsToolStrip.Size = new System.Drawing.Size(156, 27);
@@ -621,7 +633,7 @@
             this.markButton.Name = "markButton";
             this.markButton.Size = new System.Drawing.Size(24, 24);
             this.markButton.Text = "Select";
-            this.markButton.ToolTipText = "Select blocks to move, copy, morph etc. (B)";
+            this.markButton.ToolTipText = "Select blocks to move, copy, morph etc. (V)";
             this.markButton.Click += new System.EventHandler(this.markButton_Click);
             // 
             // toolStripSeparator2
@@ -821,7 +833,7 @@
             this.uploadToolStrip.Location = new System.Drawing.Point(402, 0);
             this.uploadToolStrip.Name = "uploadToolStrip";
             this.uploadToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.uploadToolStrip.Size = new System.Drawing.Size(241, 27);
+            this.uploadToolStrip.Size = new System.Drawing.Size(210, 27);
             this.uploadToolStrip.TabIndex = 6;
             // 
             // levelTextbox
@@ -880,7 +892,7 @@
             this.topFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topFlowLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.topFlowLayoutPanel.Name = "topFlowLayoutPanel";
-            this.topFlowLayoutPanel.Size = new System.Drawing.Size(869, 27);
+            this.topFlowLayoutPanel.Size = new System.Drawing.Size(1005, 27);
             this.topFlowLayoutPanel.TabIndex = 0;
             // 
             // historyToolStrip
@@ -957,10 +969,10 @@
             this.flowLayoutPanel6.AutoSize = true;
             this.flowLayoutPanel6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel6.Location = new System.Drawing.Point(0, 514);
+            this.flowLayoutPanel6.Location = new System.Drawing.Point(0, 523);
             this.flowLayoutPanel6.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel6.Name = "flowLayoutPanel6";
-            this.flowLayoutPanel6.Size = new System.Drawing.Size(869, 0);
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(1005, 0);
             this.flowLayoutPanel6.TabIndex = 3;
             // 
             // flowLayoutPanel5
@@ -968,10 +980,10 @@
             this.flowLayoutPanel5.AutoSize = true;
             this.flowLayoutPanel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(0, 514);
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(0, 523);
             this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(869, 0);
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(1005, 0);
             this.flowLayoutPanel5.TabIndex = 1;
             // 
             // flowLayoutPanel4
@@ -979,10 +991,10 @@
             this.flowLayoutPanel4.AutoSize = true;
             this.flowLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(0, 514);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(0, 523);
             this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(869, 0);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(1005, 0);
             this.flowLayoutPanel4.TabIndex = 0;
             // 
             // flowLayoutPanel2
@@ -990,10 +1002,10 @@
             this.flowLayoutPanel2.AutoSize = true;
             this.flowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 514);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 523);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(869, 0);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1005, 0);
             this.flowLayoutPanel2.TabIndex = 0;
             // 
             // flowLayoutPanel3
@@ -1001,10 +1013,10 @@
             this.flowLayoutPanel3.AutoSize = true;
             this.flowLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 514);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 523);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(869, 0);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(1005, 0);
             this.flowLayoutPanel3.TabIndex = 0;
             // 
             // bottomFlowLayoutPanel
@@ -1013,12 +1025,13 @@
             this.bottomFlowLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.bottomFlowLayoutPanel.Controls.Add(this.statusToolStrip);
             this.bottomFlowLayoutPanel.Controls.Add(this.findToolStrip);
+            this.bottomFlowLayoutPanel.Controls.Add(this.BlockPickerToolStrip);
             this.bottomFlowLayoutPanel.Controls.Add(this.viewToolStrip);
             this.bottomFlowLayoutPanel.Controls.Add(this.lastUsedToolStrip);
             this.bottomFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomFlowLayoutPanel.Location = new System.Drawing.Point(0, 514);
+            this.bottomFlowLayoutPanel.Location = new System.Drawing.Point(0, 523);
             this.bottomFlowLayoutPanel.Name = "bottomFlowLayoutPanel";
-            this.bottomFlowLayoutPanel.Size = new System.Drawing.Size(869, 27);
+            this.bottomFlowLayoutPanel.Size = new System.Drawing.Size(1005, 27);
             this.bottomFlowLayoutPanel.TabIndex = 4;
             // 
             // statusToolStrip
@@ -1102,11 +1115,12 @@
             this.findToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.findToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filterTextBox,
-            this.pickerButton});
+            this.pickerButton,
+            this.toolStripSeparator10});
             this.findToolStrip.Location = new System.Drawing.Point(218, 0);
             this.findToolStrip.Name = "findToolStrip";
             this.findToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.findToolStrip.Size = new System.Drawing.Size(132, 27);
+            this.findToolStrip.Size = new System.Drawing.Size(138, 27);
             this.findToolStrip.TabIndex = 1;
             this.findToolStrip.Text = "toolStrip1";
             // 
@@ -1129,6 +1143,139 @@
             this.pickerButton.ToolTipText = "Use a block that matches chosen color (Ctrl + P)";
             this.pickerButton.Click += new System.EventHandler(this.pickerButton_Click);
             // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 27);
+            // 
+            // BlockPickerToolStrip
+            // 
+            this.BlockPickerToolStrip.AllowDrop = true;
+            this.BlockPickerToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.BlockPickerToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.BlockPicker0,
+            this.BlockPicker1,
+            this.BlockPicker2,
+            this.BlockPicker3,
+            this.BlockPicker4,
+            this.BlockPicker5,
+            this.BlockPicker6,
+            this.BlockPicker7,
+            this.BlockPicker8,
+            this.BlockPicker9,
+            this.BlockPicker10,
+            this.toolStripSeparator9});
+            this.BlockPickerToolStrip.Location = new System.Drawing.Point(356, 0);
+            this.BlockPickerToolStrip.Name = "BlockPickerToolStrip";
+            this.BlockPickerToolStrip.Size = new System.Drawing.Size(293, 25);
+            this.BlockPickerToolStrip.TabIndex = 4;
+            this.BlockPickerToolStrip.Text = "BlockPicker";
+            this.BlockPickerToolStrip.DragDrop += new System.Windows.Forms.DragEventHandler(this.BlockPickerToolStrip_DragDrop);
+            this.BlockPickerToolStrip.DragEnter += new System.Windows.Forms.DragEventHandler(this.BlockPickerToolStrip_DragEnter);
+            // 
+            // BlockPicker0
+            // 
+            this.BlockPicker0.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BlockPicker0.Image = ((System.Drawing.Image)(resources.GetObject("BlockPicker0.Image")));
+            this.BlockPicker0.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BlockPicker0.Name = "BlockPicker0";
+            this.BlockPicker0.Size = new System.Drawing.Size(23, 22);
+            this.BlockPicker0.Click += new System.EventHandler(this.BlockPicker_Click);
+            // 
+            // BlockPicker1
+            // 
+            this.BlockPicker1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BlockPicker1.Image = ((System.Drawing.Image)(resources.GetObject("BlockPicker1.Image")));
+            this.BlockPicker1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BlockPicker1.Name = "BlockPicker1";
+            this.BlockPicker1.Size = new System.Drawing.Size(23, 22);
+            this.BlockPicker1.Click += new System.EventHandler(this.BlockPicker_Click);
+            // 
+            // BlockPicker2
+            // 
+            this.BlockPicker2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BlockPicker2.Image = ((System.Drawing.Image)(resources.GetObject("BlockPicker2.Image")));
+            this.BlockPicker2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BlockPicker2.Name = "BlockPicker2";
+            this.BlockPicker2.Size = new System.Drawing.Size(23, 22);
+            this.BlockPicker2.Click += new System.EventHandler(this.BlockPicker_Click);
+            // 
+            // BlockPicker3
+            // 
+            this.BlockPicker3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BlockPicker3.Image = ((System.Drawing.Image)(resources.GetObject("BlockPicker3.Image")));
+            this.BlockPicker3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BlockPicker3.Name = "BlockPicker3";
+            this.BlockPicker3.Size = new System.Drawing.Size(23, 22);
+            this.BlockPicker3.Click += new System.EventHandler(this.BlockPicker_Click);
+            // 
+            // BlockPicker4
+            // 
+            this.BlockPicker4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BlockPicker4.Image = ((System.Drawing.Image)(resources.GetObject("BlockPicker4.Image")));
+            this.BlockPicker4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BlockPicker4.Name = "BlockPicker4";
+            this.BlockPicker4.Size = new System.Drawing.Size(23, 22);
+            this.BlockPicker4.Click += new System.EventHandler(this.BlockPicker_Click);
+            // 
+            // BlockPicker5
+            // 
+            this.BlockPicker5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BlockPicker5.Image = ((System.Drawing.Image)(resources.GetObject("BlockPicker5.Image")));
+            this.BlockPicker5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BlockPicker5.Name = "BlockPicker5";
+            this.BlockPicker5.Size = new System.Drawing.Size(23, 22);
+            this.BlockPicker5.Click += new System.EventHandler(this.BlockPicker_Click);
+            // 
+            // BlockPicker6
+            // 
+            this.BlockPicker6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BlockPicker6.Image = ((System.Drawing.Image)(resources.GetObject("BlockPicker6.Image")));
+            this.BlockPicker6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BlockPicker6.Name = "BlockPicker6";
+            this.BlockPicker6.Size = new System.Drawing.Size(23, 22);
+            this.BlockPicker6.Click += new System.EventHandler(this.BlockPicker_Click);
+            // 
+            // BlockPicker7
+            // 
+            this.BlockPicker7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BlockPicker7.Image = ((System.Drawing.Image)(resources.GetObject("BlockPicker7.Image")));
+            this.BlockPicker7.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BlockPicker7.Name = "BlockPicker7";
+            this.BlockPicker7.Size = new System.Drawing.Size(23, 22);
+            this.BlockPicker7.Click += new System.EventHandler(this.BlockPicker_Click);
+            // 
+            // BlockPicker8
+            // 
+            this.BlockPicker8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BlockPicker8.Image = ((System.Drawing.Image)(resources.GetObject("BlockPicker8.Image")));
+            this.BlockPicker8.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BlockPicker8.Name = "BlockPicker8";
+            this.BlockPicker8.Size = new System.Drawing.Size(23, 22);
+            this.BlockPicker8.Click += new System.EventHandler(this.BlockPicker_Click);
+            // 
+            // BlockPicker9
+            // 
+            this.BlockPicker9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BlockPicker9.Image = ((System.Drawing.Image)(resources.GetObject("BlockPicker9.Image")));
+            this.BlockPicker9.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BlockPicker9.Name = "BlockPicker9";
+            this.BlockPicker9.Size = new System.Drawing.Size(23, 22);
+            // 
+            // BlockPicker10
+            // 
+            this.BlockPicker10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BlockPicker10.Image = ((System.Drawing.Image)(resources.GetObject("BlockPicker10.Image")));
+            this.BlockPicker10.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BlockPicker10.Name = "BlockPicker10";
+            this.BlockPicker10.Size = new System.Drawing.Size(23, 22);
+            this.BlockPicker10.Click += new System.EventHandler(this.BlockPicker_Click);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 25);
+            // 
             // lastUsedToolStrip
             // 
             this.lastUsedToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -1138,13 +1285,10 @@
             this.lastUsedBlockButton1,
             this.lastUsedBlockButton2,
             this.lastUsedBlockButton3,
-            this.lastUsedBlockButton4,
-            this.toolStripSeparator9,
-            this.LightToolStripButton,
-            this.toolStripSeparator10});
-            this.lastUsedToolStrip.Location = new System.Drawing.Point(530, 0);
+            this.lastUsedBlockButton4});
+            this.lastUsedToolStrip.Location = new System.Drawing.Point(829, 0);
             this.lastUsedToolStrip.Name = "lastUsedToolStrip";
-            this.lastUsedToolStrip.Size = new System.Drawing.Size(154, 27);
+            this.lastUsedToolStrip.Size = new System.Drawing.Size(118, 25);
             this.lastUsedToolStrip.TabIndex = 3;
             this.lastUsedToolStrip.Text = "toolStrip1";
             // 
@@ -1155,7 +1299,7 @@
             this.lastUsedBlockButton0.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.lastUsedBlockButton0.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lastUsedBlockButton0.Name = "lastUsedBlockButton0";
-            this.lastUsedBlockButton0.Size = new System.Drawing.Size(23, 24);
+            this.lastUsedBlockButton0.Size = new System.Drawing.Size(23, 22);
             this.lastUsedBlockButton0.Click += new System.EventHandler(this.lastUsedBlockButton);
             // 
             // lastUsedBlockButton1
@@ -1165,7 +1309,7 @@
             this.lastUsedBlockButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.lastUsedBlockButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lastUsedBlockButton1.Name = "lastUsedBlockButton1";
-            this.lastUsedBlockButton1.Size = new System.Drawing.Size(23, 24);
+            this.lastUsedBlockButton1.Size = new System.Drawing.Size(23, 22);
             this.lastUsedBlockButton1.Click += new System.EventHandler(this.lastUsedBlockButton);
             // 
             // lastUsedBlockButton2
@@ -1175,7 +1319,7 @@
             this.lastUsedBlockButton2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.lastUsedBlockButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lastUsedBlockButton2.Name = "lastUsedBlockButton2";
-            this.lastUsedBlockButton2.Size = new System.Drawing.Size(23, 24);
+            this.lastUsedBlockButton2.Size = new System.Drawing.Size(23, 22);
             this.lastUsedBlockButton2.Click += new System.EventHandler(this.lastUsedBlockButton);
             // 
             // lastUsedBlockButton3
@@ -1185,7 +1329,7 @@
             this.lastUsedBlockButton3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.lastUsedBlockButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lastUsedBlockButton3.Name = "lastUsedBlockButton3";
-            this.lastUsedBlockButton3.Size = new System.Drawing.Size(23, 24);
+            this.lastUsedBlockButton3.Size = new System.Drawing.Size(23, 22);
             this.lastUsedBlockButton3.Click += new System.EventHandler(this.lastUsedBlockButton);
             // 
             // lastUsedBlockButton4
@@ -1195,35 +1339,14 @@
             this.lastUsedBlockButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.lastUsedBlockButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lastUsedBlockButton4.Name = "lastUsedBlockButton4";
-            this.lastUsedBlockButton4.Size = new System.Drawing.Size(23, 24);
+            this.lastUsedBlockButton4.Size = new System.Drawing.Size(23, 22);
             this.lastUsedBlockButton4.Click += new System.EventHandler(this.lastUsedBlockButton);
-            // 
-            // toolStripSeparator9
-            // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 27);
-            // 
-            // LightToolStripButton
-            // 
-            this.LightToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.LightToolStripButton.Enabled = false;
-            this.LightToolStripButton.Image = global::EEditor.Properties.Resources.lightOff;
-            this.LightToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.LightToolStripButton.Name = "LightToolStripButton";
-            this.LightToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.LightToolStripButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LightToolStripButton.Click += new System.EventHandler(this.toolStripButton1_Click_1);
-            // 
-            // toolStripSeparator10
-            // 
-            this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 27);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(869, 541);
+            this.ClientSize = new System.Drawing.Size(1005, 550);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.topFlowLayoutPanel);
             this.Controls.Add(this.flowLayoutPanel2);
@@ -1233,7 +1356,7 @@
             this.Controls.Add(this.flowLayoutPanel6);
             this.Controls.Add(this.bottomFlowLayoutPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(790, 516);
+            this.MinimumSize = new System.Drawing.Size(1021, 589);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EEditor";
@@ -1264,6 +1387,8 @@
             this.statusToolStrip.PerformLayout();
             this.findToolStrip.ResumeLayout(false);
             this.findToolStrip.PerformLayout();
+            this.BlockPickerToolStrip.ResumeLayout(false);
+            this.BlockPickerToolStrip.PerformLayout();
             this.lastUsedToolStrip.ResumeLayout(false);
             this.lastUsedToolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -1368,15 +1493,26 @@
         private System.Windows.Forms.ToolStripMenuItem eEditor37ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem myOwnWorldsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eEditor38ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton LightToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem eELVLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eelvlToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripButton StatisticButton;
         private System.Windows.Forms.ToolStripMenuItem mazeGeneratorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bluePrintToolStripMenuItem;
+        private System.Windows.Forms.ToolStrip BlockPickerToolStrip;
+        private System.Windows.Forms.ToolStripButton BlockPicker0;
+        private System.Windows.Forms.ToolStripButton BlockPicker1;
+        private System.Windows.Forms.ToolStripButton BlockPicker2;
+        private System.Windows.Forms.ToolStripButton BlockPicker3;
+        private System.Windows.Forms.ToolStripButton BlockPicker4;
+        private System.Windows.Forms.ToolStripButton BlockPicker5;
+        private System.Windows.Forms.ToolStripButton BlockPicker6;
+        private System.Windows.Forms.ToolStripButton BlockPicker7;
+        private System.Windows.Forms.ToolStripButton BlockPicker8;
+        private System.Windows.Forms.ToolStripButton BlockPicker9;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripButton BlockPicker10;
     }
 }
 
