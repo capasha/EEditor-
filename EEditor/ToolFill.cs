@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading;
+using System.Linq;
 
 namespace EEditor
 {
@@ -144,7 +145,7 @@ namespace EEditor
                             if (dataf[y, x] == oldID0) {
                                 incfg += pen + ":" + dataf[y, x] + ":" + x + ":" + y + ":";
                                 dataf[y, x] = pen;
-                                if (pen == 242) {
+                                if (bdata.portals.Contains(pen)) {
                                     if (ToolPen.rotation.ContainsKey(pen)) editArea.CurFrame.BlockData[y, x] = ToolPen.rotation[pen];
                                     else editArea.CurFrame.BlockData[y, x] = 0;
                                     if (ToolPen.id.ContainsKey(pen)) editArea.CurFrame.BlockData1[y, x] = ToolPen.id[pen];

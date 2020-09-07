@@ -117,7 +117,7 @@ namespace EEditor
                         {
                             if (!rotation.ContainsKey(PenID) && bdata.increase1.Contains(PenID) || bdata.increase2.Contains(PenID) || bdata.increase3.Contains(PenID) || bdata.increase4.Contains(PenID) || bdata.increase5.Contains(PenID) || bdata.increase11.Contains(PenID))
                             {
-                                if (!rotation.ContainsKey(PenID)) rotation[PenID] = 1;
+                                if (!rotation.ContainsKey(PenID) && !bdata.portals.Contains(PenID)) rotation[PenID] = 1;
                             }
                             if (PenID != editArea.CurFrame.Foreground[y, x])
                             {
@@ -572,11 +572,11 @@ namespace EEditor
                             else
                             {
                                 if (rotation.ContainsKey(bid)) { editArea.CurFrame.BlockData[y, x] = rotation[bid]; }
-                                else { editArea.CurFrame.BlockData[y, x] = 1; }
+                                else { editArea.CurFrame.BlockData[y, x] = 0; }
                                 if (id.ContainsKey(bid)) { editArea.CurFrame.BlockData1[y, x] = id[bid]; }
-                                else { editArea.CurFrame.BlockData1[y, x] = 1; }
+                                else { editArea.CurFrame.BlockData1[y, x] = 0; }
                                 if (target.ContainsKey(bid)) { editArea.CurFrame.BlockData2[y, x] = target[bid]; }
-                                else { editArea.CurFrame.BlockData2[y, x] = 1; }
+                                else { editArea.CurFrame.BlockData2[y, x] = 0; }
                             }
                         }
                     }

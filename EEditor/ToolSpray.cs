@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace EEditor
@@ -64,7 +65,7 @@ namespace EEditor
                     {
                         if (ToolPen.rotation.ContainsKey(PenID) && PenID != 374 && PenID != 385)
                         {
-                            if (PenID == 242)
+                            if (bdata.portals.Contains(PenID))
                             {
                                 editArea.CurFrame.BlockData[(int)yy, (int)xx] = ToolPen.rotation[PenID];
                                 editArea.CurFrame.BlockData1[(int)yy, (int)xx] = ToolPen.id[PenID];
