@@ -125,6 +125,8 @@ namespace EEditor
                     if (userdata.fastshape.ToString() == null) userdata.fastshape = true;
                     if (userdata.replaceit.ToString() == null) userdata.replaceit = false;
                     if (userdata.SaveXBlocks.ToString() == null) userdata.SaveXBlocks = 500;
+                    if (userdata.HotkeyBar.ToString() == null) userdata.HotkeyBar = false;
+                    if (userdata.oldmark.ToString() == null) userdata.oldmark = true;
                 }
                 else
                 {
@@ -166,6 +168,8 @@ namespace EEditor
                         oldmark = true,
                         darkTheme = false,
                         SaveXBlocks = 500,
+                        HotkeyBar = false,
+                        
 
 
                     };
@@ -207,6 +211,7 @@ namespace EEditor
                     oldmark = true,
                     darkTheme = false,
                     SaveXBlocks = 500,
+                    HotkeyBar = false,
                    
                 };
                 File.WriteAllText(pathSettings, JsonConvert.SerializeObject(userdata, Newtonsoft.Json.Formatting.Indented));
@@ -491,6 +496,7 @@ namespace EEditor
             }*/
             SetPenTool();
             checkUpdate();
+            loadBlockPicker();
             MainForm.editArea.Focus();
         }
 
@@ -854,20 +860,20 @@ namespace EEditor
                             }
                             else
                             {
-                                if (items[o].Name.Contains("Text"))
+                                if (items[o].GetType() == typeof(ToolStripTextBox))
                                 {
                                     ((ToolStripTextBox)items[o]).BorderStyle = BorderStyle.FixedSingle;
                                     items[o].BackColor = themecolors.background;
                                     items[o].ForeColor = themecolors.foreground;
                                 }
-                                else if (items[o].Name.Contains("Combo"))
+                                else if (items[o].GetType() == typeof(ToolStripComboBox))
                                 {
                                     items[o].BackColor = themecolors.background;
                                     items[o].ForeColor = themecolors.foreground;
 
                                     //((ToolStripComboBox)items[o]) = new removeBadRenderer();
                                 }
-                                else if (items[o].Name.Contains("Label"))
+                                else if (items[o].GetType() == typeof(ToolStripLabel))
                                 {
                                     items[o].ForeColor = themecolors.foreground;
                                 }
@@ -922,18 +928,20 @@ namespace EEditor
                             }
                             else
                             {
-                                if (items[oo].Name.Contains("Text"))
+                                if (items[oo].GetType() == typeof(ToolStripTextBox))
                                 {
                                     ((ToolStripTextBox)items[oo]).BorderStyle = BorderStyle.FixedSingle;
                                     items[oo].BackColor = themecolors.background;
                                     items[oo].ForeColor = themecolors.foreground;
                                 }
-                                else if (items[oo].Name.Contains("Combo"))
+                                else if (items[oo].GetType() == typeof(ToolStripComboBox))
                                 {
                                     items[oo].BackColor = themecolors.background;
                                     items[oo].ForeColor = themecolors.foreground;
+
+                                    //((ToolStripComboBox)items[o]) = new removeBadRenderer();
                                 }
-                                else if (items[oo].Name.Contains("Label"))
+                                else if (items[oo].GetType() == typeof(ToolStripLabel))
                                 {
                                     items[oo].ForeColor = themecolors.foreground;
                                 }
@@ -971,11 +979,45 @@ namespace EEditor
         {
 
         }
+        public void loadBlockPicker()
+        {
+            if (userdata.HotkeyBar)
+            {
+                resetBlockPicker();
+                BlockPickerToolStrip.Visible = true;
+                this.Size = new Size(1021, 589);
+                this.MinimumSize = new Size(1021, 589);
+            }
+            else
+            {
+                resetBlockPicker();
+                BlockPickerToolStrip.Visible = false;
+                this.Size = new Size(800, 589);
+                this.MinimumSize = new Size(800, 589);
+
+            }
+        }
         public void rebuildGUI(bool loadunknown)
         {
             tps.Clear();
             ownedb.Clear();
-            resetBlockPicker();
+            if (userdata.HotkeyBar)
+            {
+                resetBlockPicker();
+                BlockPickerToolStrip.Visible = true;
+                this.MinimumSize = new Size(1021, 589);
+                this.Size = new Size(1021, 589);
+                
+            }
+            else
+            {
+                resetBlockPicker();
+                BlockPickerToolStrip.Visible = false;
+                this.MinimumSize = new Size(800, 589);
+                this.Size = new Size(800, 589);
+                
+
+            }
             if (resethotkeys)
             {
                 userdata.brickHotkeys = null;
@@ -5171,6 +5213,7 @@ namespace EEditor
         public bool checkUpdate { get; set; }
         public bool darkTheme { get; set; }
         public int SaveXBlocks { get; set; }
+        public bool HotkeyBar { get; set; }
     }
     public class theme
     {
