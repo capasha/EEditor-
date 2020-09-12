@@ -33,15 +33,17 @@ namespace EEditor
             tp.SetToolTip(confirmCloseCheckBox, "Prompts when you attempt to close EEditor.");
             tp.SetToolTip(FasterShapeStyleCheckBox, "Showing red lines instead of blocks.");
             tp.SetToolTip(UpdateCheckCheckBox, "Check for new updates.");
-            tp.SetToolTip(OldMarkCheckBox, "Using old selection tool.");
             tp.SetToolTip(DarkThemeCheckBox, "Choose between light and dark theme.");
+            tp.SetToolTip(cBHotkeyBar, "Show or hide HotkeyBar.");
+            tp.SetToolTip(cBOldSel, "Use the new selection tool way");
             usePenToolCheckBox.Checked = MainForm.userdata.usePenTool;
             selectAllBorderCheckBox.Checked = MainForm.userdata.selectAllBorder;
             confirmCloseCheckBox.Checked = MainForm.userdata.confirmClose;
             FasterShapeStyleCheckBox.Checked = MainForm.userdata.fastshape;
             UpdateCheckCheckBox.Checked = MainForm.userdata.checkUpdate;
-            OldMarkCheckBox.Checked = MainForm.userdata.oldmark;
             DarkThemeCheckBox.Checked = MainForm.userdata.darkTheme;
+            cBHotkeyBar.Checked = MainForm.userdata.HotkeyBar;
+            cBOldSel.Checked = MainForm.userdata.oldmark;
             #endregion
 
             clearComboBox.SelectedIndex = 0; //Show "Clear settings..." by default
@@ -62,7 +64,7 @@ namespace EEditor
             var items = ((StatusStrip)statusStrip1).Items;
             for (int o = 0; o < items.Count; o++)
             {
-                if (items[o].Name.Contains("Label"))
+                if (items[o].GetType() == typeof(ToolStripStatusLabel))
                 {
                     items[o].BackColor = MainForm.themecolors.accent;
                     items[o].ForeColor = MainForm.themecolors.foreground;
@@ -105,11 +107,6 @@ namespace EEditor
         private void UpdateCheckCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             MainForm.userdata.checkUpdate = UpdateCheckCheckBox.Checked;
-        }
-
-        private void OldMarkCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            MainForm.userdata.oldmark = OldMarkCheckBox.Checked;
         }
         #endregion
 
@@ -210,7 +207,8 @@ namespace EEditor
                         replaceit = false,
                         oldmark = true,
                         checkUpdate = true,
-                        darkTheme = false
+                        darkTheme = false,
+                        HotkeyBar = false,
 
                     };
                     MainForm.OpenWorld = false;
@@ -260,6 +258,22 @@ namespace EEditor
             }
 
 
+        }
+
+        private void cBHotkeyBar_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!formload)
+            {
+                MainForm.userdata.HotkeyBar = cBHotkeyBar.Checked;
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\settings.json", JsonConvert.SerializeObject(MainForm.userdata, Newtonsoft.Json.Formatting.Indented));
+                reset = true;
+                this.Close();
+            }
+        }
+
+        private void cBOldSel_CheckedChanged(object sender, EventArgs e)
+        {
+            MainForm.userdata.oldmark = cBOldSel.Checked;
         }
     }
 }
