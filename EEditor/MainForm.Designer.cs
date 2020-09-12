@@ -234,7 +234,7 @@
             this.toolStripSeparator1,
             this.hideBlocksButton,
             this.minimapButton});
-            this.viewToolStrip.Location = new System.Drawing.Point(649, 0);
+            this.viewToolStrip.Location = new System.Drawing.Point(618, 0);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.viewToolStrip.Size = new System.Drawing.Size(180, 27);
@@ -1167,7 +1167,7 @@
             this.toolStripSeparator9});
             this.BlockPickerToolStrip.Location = new System.Drawing.Point(356, 0);
             this.BlockPickerToolStrip.Name = "BlockPickerToolStrip";
-            this.BlockPickerToolStrip.Size = new System.Drawing.Size(293, 25);
+            this.BlockPickerToolStrip.Size = new System.Drawing.Size(262, 25);
             this.BlockPickerToolStrip.TabIndex = 4;
             this.BlockPickerToolStrip.Text = "BlockPicker";
             this.BlockPickerToolStrip.DragDrop += new System.Windows.Forms.DragEventHandler(this.BlockPickerToolStrip_DragDrop);
@@ -1286,7 +1286,7 @@
             this.lastUsedBlockButton2,
             this.lastUsedBlockButton3,
             this.lastUsedBlockButton4});
-            this.lastUsedToolStrip.Location = new System.Drawing.Point(829, 0);
+            this.lastUsedToolStrip.Location = new System.Drawing.Point(798, 0);
             this.lastUsedToolStrip.Name = "lastUsedToolStrip";
             this.lastUsedToolStrip.Size = new System.Drawing.Size(118, 25);
             this.lastUsedToolStrip.TabIndex = 3;
