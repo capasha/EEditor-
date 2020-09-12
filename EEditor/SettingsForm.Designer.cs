@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.usePenToolCheckBox = new System.Windows.Forms.CheckBox();
             this.selectAllBorderCheckBox = new System.Windows.Forms.CheckBox();
             this.clearComboBox = new System.Windows.Forms.ComboBox();
@@ -40,8 +39,9 @@
             this.StatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusColorToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.UpdateCheckCheckBox = new System.Windows.Forms.CheckBox();
-            this.OldMarkCheckBox = new System.Windows.Forms.CheckBox();
             this.DarkThemeCheckBox = new System.Windows.Forms.CheckBox();
+            this.cBHotkeyBar = new System.Windows.Forms.CheckBox();
+            this.cBOldSel = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,7 +131,7 @@
             this.StatusColorToolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 246);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(220, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(231, 22);
             this.statusStrip1.TabIndex = 31;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -168,23 +168,10 @@
             this.UpdateCheckCheckBox.UseVisualStyleBackColor = true;
             this.UpdateCheckCheckBox.CheckedChanged += new System.EventHandler(this.UpdateCheckCheckBox_CheckedChanged);
             // 
-            // OldMarkCheckBox
-            // 
-            this.OldMarkCheckBox.AutoSize = true;
-            this.OldMarkCheckBox.Checked = true;
-            this.OldMarkCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.OldMarkCheckBox.Location = new System.Drawing.Point(11, 102);
-            this.OldMarkCheckBox.Name = "OldMarkCheckBox";
-            this.OldMarkCheckBox.Size = new System.Drawing.Size(109, 17);
-            this.OldMarkCheckBox.TabIndex = 33;
-            this.OldMarkCheckBox.Text = "Old selection way";
-            this.OldMarkCheckBox.UseVisualStyleBackColor = true;
-            this.OldMarkCheckBox.CheckedChanged += new System.EventHandler(this.OldMarkCheckBox_CheckedChanged);
-            // 
             // DarkThemeCheckBox
             // 
             this.DarkThemeCheckBox.AutoSize = true;
-            this.DarkThemeCheckBox.Location = new System.Drawing.Point(11, 125);
+            this.DarkThemeCheckBox.Location = new System.Drawing.Point(11, 102);
             this.DarkThemeCheckBox.Name = "DarkThemeCheckBox";
             this.DarkThemeCheckBox.Size = new System.Drawing.Size(85, 17);
             this.DarkThemeCheckBox.TabIndex = 34;
@@ -192,13 +179,38 @@
             this.DarkThemeCheckBox.UseVisualStyleBackColor = true;
             this.DarkThemeCheckBox.CheckedChanged += new System.EventHandler(this.DarkThemeCheckBox_CheckedChanged);
             // 
+            // cBHotkeyBar
+            // 
+            this.cBHotkeyBar.AutoSize = true;
+            this.cBHotkeyBar.Location = new System.Drawing.Point(11, 125);
+            this.cBHotkeyBar.Name = "cBHotkeyBar";
+            this.cBHotkeyBar.Size = new System.Drawing.Size(106, 17);
+            this.cBHotkeyBar.TabIndex = 35;
+            this.cBHotkeyBar.Text = "Show HotkeyBar";
+            this.cBHotkeyBar.UseVisualStyleBackColor = true;
+            this.cBHotkeyBar.CheckedChanged += new System.EventHandler(this.cBHotkeyBar_CheckedChanged);
+            // 
+            // cBOldSel
+            // 
+            this.cBOldSel.AutoSize = true;
+            this.cBOldSel.Checked = true;
+            this.cBOldSel.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cBOldSel.Location = new System.Drawing.Point(11, 148);
+            this.cBOldSel.Name = "cBOldSel";
+            this.cBOldSel.Size = new System.Drawing.Size(120, 17);
+            this.cBOldSel.TabIndex = 36;
+            this.cBOldSel.Text = "New Selection Way";
+            this.cBOldSel.UseVisualStyleBackColor = true;
+            this.cBOldSel.CheckedChanged += new System.EventHandler(this.cBOldSel_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(220, 268);
+            this.ClientSize = new System.Drawing.Size(231, 268);
+            this.Controls.Add(this.cBOldSel);
+            this.Controls.Add(this.cBHotkeyBar);
             this.Controls.Add(this.DarkThemeCheckBox);
-            this.Controls.Add(this.OldMarkCheckBox);
             this.Controls.Add(this.UpdateCheckCheckBox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.FasterShapeStyleCheckBox);
@@ -232,7 +244,8 @@
         private System.Windows.Forms.ToolStripStatusLabel StatusColorToolStripStatusLabel;
         private System.Windows.Forms.CheckBox FasterShapeStyleCheckBox;
         private System.Windows.Forms.CheckBox UpdateCheckCheckBox;
-        private System.Windows.Forms.CheckBox OldMarkCheckBox;
         private System.Windows.Forms.CheckBox DarkThemeCheckBox;
+        private System.Windows.Forms.CheckBox cBHotkeyBar;
+        private System.Windows.Forms.CheckBox cBOldSel;
     }
 }
