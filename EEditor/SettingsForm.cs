@@ -222,6 +222,9 @@ namespace EEditor
                     ToolPen.undolist.Clear();
                     ToolPen.text.Clear();
                     ToolPen.target.Clear();
+                    MainForm.resethotkeys = true;
+                    MainForm.userdata.HotkeyBar = false;
+                    MainForm.resetLastBlockz = true;
                     File.WriteAllText(Directory.GetCurrentDirectory() + "\\settings.json", JsonConvert.SerializeObject(MainForm.userdata, Newtonsoft.Json.Formatting.Indented));
                     reset = true;
                     this.Close();
