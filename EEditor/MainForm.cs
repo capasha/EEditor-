@@ -85,6 +85,7 @@ namespace EEditor
         private bool decrease = false;
         private string searched = null;
         public static bool resethotkeys = false;
+        public static bool resetLastBlockz = false;
         private Minimap minimap;
         private WorldArchiveMenu worldArchiveMenu;
         public static MainForm form1;
@@ -983,14 +984,12 @@ namespace EEditor
         {
             if (userdata.HotkeyBar)
             {
-                resetBlockPicker();
                 BlockPickerToolStrip.Visible = true;
                 this.Size = new Size(1021, 589);
                 this.MinimumSize = new Size(1021, 589);
             }
             else
             {
-                resetBlockPicker();
                 BlockPickerToolStrip.Visible = false;
                 this.Size = new Size(800, 589);
                 this.MinimumSize = new Size(800, 589);
@@ -1001,23 +1000,7 @@ namespace EEditor
         {
             tps.Clear();
             ownedb.Clear();
-            if (userdata.HotkeyBar)
-            {
-                resetBlockPicker();
-                BlockPickerToolStrip.Visible = true;
-                this.MinimumSize = new Size(1021, 589);
-                this.Size = new Size(1021, 589);
-                
-            }
-            else
-            {
-                resetBlockPicker();
-                BlockPickerToolStrip.Visible = false;
-                this.MinimumSize = new Size(800, 589);
-                this.Size = new Size(800, 589);
-                
 
-            }
             if (resethotkeys)
             {
                 userdata.brickHotkeys = null;
@@ -1029,6 +1012,7 @@ namespace EEditor
                     }
                 }
                 resethotkeys = false;
+                resetBlockPicker();
             }
             else
             {
@@ -1040,13 +1024,34 @@ namespace EEditor
                 }
                 userdata.brickHotkeys = s;
             }
+            if (userdata.HotkeyBar)
+            {
+                resetBlockPicker();
+                BlockPickerToolStrip.Visible = true;
+                this.MinimumSize = new Size(1021, 589);
+                this.Size = new Size(1021, 589);
+
+            }
+            else if (!userdata.HotkeyBar)
+            {
+                resetBlockPicker();
+                BlockPickerToolStrip.Visible = false;
+                this.MinimumSize = new Size(800, 589);
+                this.Size = new Size(800, 589);
+
+
+            }
             flowLayoutPanel2.BackColor = themecolors.background;
             flowLayoutPanel3.BackColor = themecolors.background;
             flowLayoutPanel4.BackColor = themecolors.background;
             flowLayoutPanel5.BackColor = themecolors.background;
             flowLayoutPanel6.BackColor = themecolors.background;
             //toolStripContainer1.TopToolStripPanel.Controls.Clear();
-            resetLastBlocks();
+            if (resetLastBlockz)
+            {
+                resetLastBlocks();
+                resetLastBlockz = false;
+            }
             
             if (flowLayoutPanel2.InvokeRequired) { this.Invoke((MethodInvoker)delegate { flowLayoutPanel2.Controls.Clear(); }); }
             if (flowLayoutPanel3.InvokeRequired) { this.Invoke((MethodInvoker)delegate { flowLayoutPanel3.Controls.Clear(); }); }
