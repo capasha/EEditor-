@@ -1,3 +1,5 @@
+# I have stopped with the coding on EEditor, but bug reports or problems is still supported.
+
 ## EEditor - Everybody Edits offline editor  
    
 Welcome to the EEditor GitHub page! Here we host sourcecode and latest version of EEditor.
