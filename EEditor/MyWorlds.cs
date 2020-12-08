@@ -47,6 +47,7 @@ namespace EEditor
             ResetButton.BackColor = MainForm.themecolors.accent;
             ResetButton.FlatStyle = FlatStyle.Flat;
             listView1.Items.Clear();
+            rooms.Clear();
             loadWorlds(false);
         }
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -133,6 +134,7 @@ namespace EEditor
         private void ResetButton_Click(object sender, EventArgs e)
         {
             listView1.Items.Clear();
+            rooms.Clear();
             loadWorlds(true);
         }
         private void loadWorlds(bool reset)
@@ -172,10 +174,10 @@ namespace EEditor
                     {
                         default:
                         case 0:
-                            PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client client) => { loginToWorlds(client); }, (PlayerIOError error) => { Errorhandler(error); });
+                            PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, loginToWorlds, Errorhandler);
                             break;
                         case 2:
-                            PlayerIO.QuickConnect.KongregateConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client client) => { loginToWorlds(client); }, (PlayerIOError error) => { Errorhandler(error); });
+                            PlayerIO.QuickConnect.KongregateConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, loginToWorlds,Errorhandler);
                             break;
                         case 4:
                             PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.userdata.username].login, MainForm.accs[MainForm.userdata.username].password, null, (Client cli) =>
@@ -184,7 +186,7 @@ namespace EEditor
                                 {
                                     con.OnMessage += (object sender1, PlayerIOClient.Message m) =>
                                     {
-                                        if (m.Type == "auth") PlayerIO.Authenticate(bdata.gameID, "connected", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null, (Client client) => { loginToWorlds(client); }, (PlayerIOError error) => { Errorhandler(error); });
+                                        if (m.Type == "auth") PlayerIO.Authenticate(bdata.gameID, "connected", new Dictionary<string, string>() { { "userId", m.GetString(0) }, { "auth", m.GetString(1) } }, null, loginToWorlds, Errorhandler);
                                     };
                                 },
                                 (PlayerIOError error) => { Errorhandler(error); });
@@ -240,11 +242,11 @@ namespace EEditor
                         int total = bdata.extractPlayerObjectsMessage(m) + 1;
                         owner = m[(UInt32)total].ToString();
                         total += 14;
-                        rooms.Add(m[(UInt32)total].ToString());
+                        if (!string.IsNullOrEmpty(m[(UInt32)total].ToString())) rooms.Add(m[(UInt32)total].ToString());
                         total++;
-                        rooms.Add(m[(UInt32)total].ToString());
+                        if (!string.IsNullOrEmpty(m[(UInt32)total].ToString())) rooms.Add(m[(UInt32)total].ToString());
                         total++;
-                        rooms.Add(m[(UInt32)total].ToString());
+                        if (!string.IsNullOrEmpty(m[(UInt32)total].ToString())) rooms.Add(m[(UInt32)total].ToString());
                         total++;
                         total++;
                         if (m[(UInt32)total].ToString().Contains((char)0x1399))
