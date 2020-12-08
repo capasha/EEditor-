@@ -469,7 +469,7 @@ namespace EEditor
                                 {
                                     incr += 1;
                                     var brick = client.PayVault.Items[a].ItemKey;
-                                    if (brick.StartsWith("brick") || brick.StartsWith("npc") || brick.StartsWith("block"))
+                                    if (brick.StartsWith("brick") || brick.StartsWith("npc") || brick.StartsWith("block") || brick == "mixednewyear2010")
                                     {
                                         if (!pv.ContainsKey(brick))
                                         {
